@@ -12,7 +12,7 @@ cache:
 
 deploy:
   provider: script
-  script: "mvn heroku:deploy"
+  script: "mvn heroku:deploy -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true"
   skip_cleanup: true
   on:
     branch: master
