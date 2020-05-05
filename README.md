@@ -2,6 +2,7 @@
 
 ## Project description
 **Project**:Monitoring of the existing forest zone in the Frankivsk region
+
 **Goal**: identify and display (on the graph) the historical change in green space.
 
 **Tasks**
@@ -29,9 +30,11 @@
  
 ## Running App
 
+Terminal:
  * `sh target/bin/webapp`
- or
- * launch `ua.if.itcluster.Launcher` (entry point)
+
+ IDEA:
+ * launch `forest.detector.Launcher` (entry point)
  * add `mvn package` | `mvn clean package` command into launcher
  * add to VM options `-Djava.util.logging.manager=org.apache.logging.log4j.jul.LogManager` for logging tomcat server
 

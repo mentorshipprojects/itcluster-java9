@@ -69,14 +69,18 @@ public class Launcher {
         resources.addPreResources(resourceSet);
         ctx.setResources(resources);
 
-        serverConfiguration(ctx);
+        serverConfiguration(ctx, tomcat);
 
         tomcat.start();
         tomcat.getServer().await();
     }
 
     /** YOUR CHANGES HERE **/
-    private static void serverConfiguration(StandardContext ctx){
+    private static void serverConfiguration(StandardContext ctx, Tomcat tomcat) {
+        // server configs
+//        tomcat.getConnector().setAttribute("maxThreads", 2);
+
+        // context configs
         ctx.setSessionTimeout(30);
     }
 
