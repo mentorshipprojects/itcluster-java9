@@ -98,7 +98,7 @@
             </activation>
             <properties>
                 <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
-                <sonar.organization>serhiikartashov</sonar.organization>
+                <sonar.organization>Mentoring</sonar.organization>
                 <sonar.login>${env.SONAR_TOKEN}</sonar.login>
             </properties>
         </profile>
