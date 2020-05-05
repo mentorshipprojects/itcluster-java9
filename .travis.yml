@@ -1,0 +1,12 @@
+sudo: required
+dist: trusty
+jdk:
+- openjdk11
+script:
+- mvn clean install
+- mvn sonar:sonar
+- mvn heroku:deploy
+cache:
+  directories:
+  - "$HOME/.m2/repository"
+  - "$HOME/.sonar/cache"
