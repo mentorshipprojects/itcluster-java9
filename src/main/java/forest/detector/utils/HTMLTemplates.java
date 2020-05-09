@@ -29,7 +29,7 @@ public class HTMLTemplates {
             link()
                     .withRel("stylesheet")
                     .withHref("/css/style.css"),
-            script().withSrc("http://code.jquery.com/jquery-3.5.0.min.js")
+            script().withSrc("https://code.jquery.com/jquery-3.5.0.min.js")
                     .attr("integrity", "sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=")
                     .attr("crossorigin", "anonymous"),
             script().withSrc("https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js")

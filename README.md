@@ -12,8 +12,8 @@
 * Fixture data generator (refresh data on daily basis)
 * telegram chat channel/bot for subscribers (latest changes - i.e. warning: missed 10ha in Tysmenytsia Raion)
 
-[![Build Status]()]()
-[![Sonar Gate]()]()
+[![Build Status](https://travis-ci.com/mentorshipprojects/itcluster-java9.svg?branch=master)](https://travis-ci.com/mentorshipprojects/itcluster-java9)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.heroku.sample%3Aitcluster-java9&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.heroku.sample%3Aitcluster-java9)
 
 ## Requirements
 
