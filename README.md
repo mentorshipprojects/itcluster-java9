@@ -43,5 +43,5 @@ Terminal:
 * `mvn heroku:deploy` -- deploy to your app (host)
 
 ## Token generation
- * copy token from sonar web site -> manual configuration for maven
+ * copy token from sonar website -> manual configuration for maven
  * `heroku auth:token` and set it in env variable `HEROKU_API_KEY`

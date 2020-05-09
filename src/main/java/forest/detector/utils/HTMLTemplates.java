@@ -8,7 +8,8 @@ public class HTMLTemplates {
 
     public static final ContainerTag HEAD = head(
             title("Welcome Java 9 Group"),
-            script("async").withSrc("https://www.googletagmanager.com/gtag/js?id=UA-166033147-1"),
+            // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
+            script().withSrc("https://www.googletagmanager.com/gtag/js?id=UA-166033147-1").attr("async"),
             script("        window.dataLayer = window.dataLayer || [];\n" +
                     "        function gtag(){dataLayer.push(arguments);}\n" +
                     "        gtag('js', new Date());\n" +
