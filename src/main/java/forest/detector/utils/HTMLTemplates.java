@@ -8,6 +8,12 @@ public class HTMLTemplates {
 
     public static final ContainerTag HEAD = head(
             title("Welcome Java 9 Group"),
+            script("async").withSrc("https://www.googletagmanager.com/gtag/js?id=UA-166033147-1"),
+            script("        window.dataLayer = window.dataLayer || [];\n" +
+                    "        function gtag(){dataLayer.push(arguments);}\n" +
+                    "        gtag('js', new Date());\n" +
+                    "\n" +
+                    "        gtag('config', 'UA-166033147-1');"),
             meta().attr("charset", "UTF-8"),
             meta().attr("name", "UTF-8").attr("content", "width=device-width, initial-scale=1.0"),
             meta().attr("http-equiv", "X-UA-Compatible").attr("content", "ie=edge"),
