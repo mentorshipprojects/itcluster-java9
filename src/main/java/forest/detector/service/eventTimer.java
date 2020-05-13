@@ -14,14 +14,15 @@ public class eventTimer {
                 System.out.println("Task performed on " + new Date());
 
                 // here must be code for update data base and telegram bot alert
-                // if we have new info
+                // if we have new info.
+                // bot.groupAlert("Warning!!! \n Stealing a forest in zahvizdya"); -> in controller method
 
             }
         };
         Timer timer = new Timer("Timer");
 
         long delay = 1000L;
-        long period = 1000L;// *  60L *  60L *  24L;  set delay for timer (24 hours like this set)
+        long period = 1000L *  60L *  60L *  24L; //  set delay for timer (24 hours like this set)
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
 

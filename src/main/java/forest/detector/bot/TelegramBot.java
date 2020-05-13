@@ -13,20 +13,30 @@ public class TelegramBot extends TelegramLongPollingBot {
         if(message != null && message.hasText()){
             String text = message.getText();
             if ("/help".equals(text)) {
+                ScanChatID(message);
                 answerMsg(message, "What can i help?");
             } else if("/test".equals(text)) {
-                sendMsg("941295905", "it`s work");
+                groupAlert("Warning!!!");
             } else {
                 answerMsg(message, " hello ");
             }
         }
     }
 
+    // Scan Chat data
+    public void ScanChatID(Message message){
+        System.out.println("getChatData - " + message.getChat());
+        System.out.println("getChatID - " + message.getChatId());
+    }
 
-    // here will be functional mass mailing
 
+    // Send msg to Forester group
+    public void groupAlert(String text){
+        sendMsg("-1001342864735", "New Info:\n" + text);
+    }
 
-    public void sendMsg(String id, String text){       // send message to chat ID
+    // send message to chat ID
+    public void sendMsg(String id, String text){
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(id);
         sendMessage.setText(text);
@@ -36,8 +46,8 @@ public class TelegramBot extends TelegramLongPollingBot {
             exception.printStackTrace();
         }
     }
-
-    private void answerMsg(Message message, String text) {  // answer to msg for bot in chat
+    // answer to msg for bot in chat
+    private void answerMsg(Message message, String text) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId().toString());
