@@ -16,11 +16,11 @@ import java.util.Date;
 
 public class HtmlParser {
 
-    public static void main(String[] args) throws IOException, ParseException {
-        ticketParser();
-    }
+//    public static void main(String[] args) throws IOException, ParseException {
+//        ticketParser();
+//    }
 
-    public static void ticketParser() throws IOException, ParseException {
+    public void ticketParser() throws IOException, ParseException {
         TicketRepository ticketRepository = new TicketRepository();
         Ticket ticket = new Ticket();
         int pageNumber = 1;
@@ -62,7 +62,7 @@ public class HtmlParser {
         }
     }
 
-    public static void tractParser(String tractLink, String ticketNumber) throws IOException {
+    public void tractParser(String tractLink, String ticketNumber) throws IOException {
         TractRepository tractRepository = new TractRepository();
         Tract tract = new Tract();
         String url = "https://lk.ukrforest.com" + tractLink;
