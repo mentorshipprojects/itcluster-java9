@@ -88,7 +88,7 @@ public class Launcher {
         tomcat.getConnector().setAttribute("maxThreads", 200);
         tomcat.enableNaming();
 
-        URI dbUri = new URI("postgres://fepmwlwrizhqqr:6f65b0109f7ec9ea7640167425a632598aae4aa0f326b4bc44071a76962ba52a@ec2-52-71-85-210.compute-1.amazonaws.com:5432/d7k83ecbfcmo7d");
+        URI dbUri = new URI(System.getenv("DATABASE_URL"));
         log.debug(dbUri.toString());
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
