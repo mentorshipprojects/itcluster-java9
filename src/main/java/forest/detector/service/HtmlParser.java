@@ -25,7 +25,6 @@ public class HtmlParser {
         Ticket ticket = new Ticket();
         int pageNumber = 1;
         boolean isLastPage = false;
-        int k = 1;
         while (!isLastPage) {
             String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=" + pageNumber;
             Document document = Jsoup.connect(url).get();
@@ -45,19 +44,15 @@ public class HtmlParser {
                 ticket.setCuttingType(table[6][i]);
                 ticket.setTicketStatus(table[7][i]);
                 ticket.setCuttingStatus(table[8][i]);
-                System.out.print(k + " ");
-                //System.out.println("ticket");
-                ticketRepository.addTicket(ticket);
-                tractParser(table[9][i], table[2][i]);
-                k++;
+                if (ticketRepository.addTicket(ticket)) {
+                    tractParser(table[9][i], table[2][i]);
+                }
             }
             if (isLastPage(nextButtonClass)) {
                 isLastPage = true;
             } else {
                 pageNumber++;
-                System.out.println();
-                System.out.println("NEW PAGE " + pageNumber);
-                System.out.println();
+                System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
     }
@@ -70,7 +65,6 @@ public class HtmlParser {
         Element tbody = document.select("tbody").get(1); // table
         Elements row = tbody.select("tr"); // List of rows
         String[][] table = elementsToArray(row);
-        int k = 1;
         for (int i = 0; i < table[0].length; i++) {
             tract.setTicketNumber(ticketNumber);
             tract.setQuarter(table[0][i]);
@@ -83,10 +77,7 @@ public class HtmlParser {
             tract.setCuttingStatus(table[7][i]);
             tract.setContributor(table[8][i]);
             tract.setMapId(table[9][i]);
-            System.out.print("   " + k);
-            //System.out.println(" tract");
             tractRepository.addTract(tract);
-            k++;
         }
     }
 
