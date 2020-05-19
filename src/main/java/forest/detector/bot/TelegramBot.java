@@ -34,7 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     ScanChatID(message);
                     answerMsg(message, "What can i help?");
                     } else if ("/test".equals(text)) {
-                    groupAlert("Warning!!!");
+                    //groupAlert("Warning!!!");
                     }
                     else if ("/bot".equals(text)) {
                         answerMsg(message, "All my command:\n1.\"/help\" - in process\n2.\"/test\" - in process\n3.\"bot\" or \"бот\" - keyboard\n4.\"/bot\" - Show all commands\n");
