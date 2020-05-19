@@ -26,7 +26,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     if (text.equalsIgnoreCase("/key") || text.equalsIgnoreCase("бот")) { // need fix group private settings
                         try {
                             execute(sendInlineKeyBoardMessage(chatID));
-                            System.out.println("keyboard end");
+                            System.out.println("keyboard");
                         } catch (TelegramApiException e) {
                             e.printStackTrace();
                         }
