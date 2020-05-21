@@ -1,5 +1,7 @@
 package forest.detector;
 
+import forest.detector.bot.TelegramBot;
+import forest.detector.service.eventTimer;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.WebResourceSet;
 import org.apache.catalina.core.StandardContext;
@@ -17,6 +19,9 @@ import org.apache.tomcat.util.scan.StandardJarScanFilter;
 import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
 import java.net.URI;
@@ -29,6 +34,21 @@ public class Launcher {
     private static Logger log = LoggerFactory.getLogger(Launcher.class);
 
     public static void main(String[] args) throws Exception {
+
+        // telegram bot init
+        ApiContextInitializer.init();
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
+        try{
+            telegramBotsApi.registerBot(new TelegramBot());
+
+        }catch (TelegramApiException exception){
+            exception.printStackTrace();
+        }
+
+        // Timer init
+        eventTimer timer = new eventTimer();
+        timer.UpdateTimer();
+
 
         File root = getRootFolder();
         System.setProperty("org.apache.catalina.startup.EXIT_ON_INIT_FAILURE", "true");
