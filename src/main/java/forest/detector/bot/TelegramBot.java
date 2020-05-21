@@ -1,5 +1,8 @@
 package forest.detector.bot;
 
+import forest.detector.Launcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -12,55 +15,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TelegramBot extends TelegramLongPollingBot {
-    String chatID = "";
+    private PropertyBot property = new PropertyBot();
+
+    private static Logger log = LoggerFactory.getLogger(Launcher.class);
 
     // bot answer logic
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage()) {
-            chatID = update.getMessage().getChatId().toString();
-            System.out.println(chatID);
-            Message message = update.getMessage();
-            if(message != null && message.hasText()) {
-                String text = message.getText();
-                System.out.println(text);
-                    if (text.equalsIgnoreCase("/key") || text.equalsIgnoreCase("бот")) { // need fix group private settings
-                        try {
-                            execute(sendInlineKeyBoardMessage(chatID));
-                            System.out.println("keyboard");
-                        } catch (TelegramApiException e) {
-                            e.printStackTrace();
-                        }
-                    } else if ("/help".equals(text)) {
-                    ScanChatID(message);
-                    answerMsg(message, "What can i help?");
-                    } else if ("/test".equals(text)) {
-                    //groupAlert("Warning!!!");
+        try {
+            if (update.hasMessage()) {
+                Message message = update.getMessage();
+
+                if (message != null && message.hasText()) {
+                    switch (message.getText()) {
+                        case "/bot":
+                            answerMsg(message, "All my command:\n1. \"/bot\" - Show all commands\n2.\"/key\" - Show keyboard");
+                            break;
+                        case "/key":
+                            execute(sendInlineKeyBoardMessage(update.getMessage().getChatId().toString()));
+                            break;
                     }
-                    else if ("/bot".equals(text)) {
-                        answerMsg(message, "All my command:\n1.\"/help\" - in process\n2.\"/test\" - in process\n3.\"bot\" or \"бот\" - keyboard\n4.\"/bot\" - Show all commands\n");
-                    }
-            }
-        } else if (update.hasCallbackQuery()) {
-            try {
+                }
+            } else if (update.hasCallbackQuery()) { // keyboard answer
                 execute(new SendMessage().setText(
                         update.getCallbackQuery().getData())
                         .setChatId(update.getCallbackQuery().getMessage().getChatId()));
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
             }
+        } catch (TelegramApiException exception) {
+            log.error(exception.getMessage(), exception);
         }
     }
 
-    // Scan Chat data
-    public void ScanChatID(Message message){
-        System.out.println("getChatData - " + message.getChat());
-        System.out.println("getChatID - " + message.getChatId());
-    }
-
-
-    // Send msg to Forester group
+    // Send msg to Forester channel
     public void groupAlert(String text){
-        sendMsg("-1001342864735", "New Info:\n" + text);
+        sendMsg(property.getForestChannelID(), text);
     }
 
     // send message to chat ID
@@ -71,7 +58,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try{
             execute(sendMessage);
         } catch (TelegramApiException exception){
-            exception.printStackTrace();
+            log.error(exception.getMessage(), exception);
         }
     }
     // answer to msg for bot in chat
@@ -84,7 +71,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try{
             execute(sendMessage);
         } catch (TelegramApiException exception){
-            exception.printStackTrace();
+            log.error(exception.getMessage(), exception);
         }
     }
     // Inline clickable keyboard
@@ -106,10 +93,10 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     public String getBotUsername() {
-        return "IT-Cluster-Java9-project";
+        return property.getBotName();
     }
 
     public String getBotToken() {
-        return "1262037289:AAHOtiJ2cHchTai7ZITRWQQDN0qY6PxVj6g";
+        return property.getToken();
     }
 }

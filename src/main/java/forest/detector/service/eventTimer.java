@@ -15,8 +15,7 @@ public class eventTimer {
 
                 // here must be code for update data base and telegram bot alert
                 // if we have new info.
-                // bot.groupAlert("Warning!!! \n Stealing a forest in zahvizdya"); -> in controller method
-
+                //bot.groupAlert("test");
             }
         };
         Timer timer = new Timer("Timer");
