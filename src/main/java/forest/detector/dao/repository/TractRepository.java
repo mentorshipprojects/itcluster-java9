@@ -21,7 +21,7 @@ public class TractRepository {
     public void save(Tract tract) {
         String query = "INSERT INTO tracts(ticket_number, quarter, division, range, area, " +
                 "forest_type, general_allowed_extent, allowed_extent, cutting_status, contributor, map_id)" +
-                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                "VALUES('?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?');";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -40,8 +40,9 @@ public class TractRepository {
 //            preparedStatement.executeBatch();
             preparedStatement.execute();
             log.info(" added tract");
-        } catch (SQLException e) {
-            log.error("FAILED adding tract: ", e);
+        } catch (SQLException ex) {
+            log.error("FAILED adding tract: ");
+        } finally {
         }
     }
 }
