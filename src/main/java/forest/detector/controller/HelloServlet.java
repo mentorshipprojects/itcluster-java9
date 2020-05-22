@@ -1,6 +1,8 @@
 package forest.detector.controller;
 
 import forest.detector.service.HelloService;
+import forest.detector.utils.HTMLTemplates;
+import j2html.tags.ContainerTag;
 
 import java.io.IOException;
 
@@ -15,13 +17,16 @@ public class HelloServlet extends HttpServlet {
 
     private final HelloService helloService = new HelloService();
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
+
         ServletOutputStream out = resp.getOutputStream();
         out.write(helloService.getGreetingMessage().getBytes());
         out.flush();
         out.close();
+
     }
     
 }
