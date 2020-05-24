@@ -27,14 +27,14 @@ public class AdminTemplates {
     public static final ContainerTag MENU = nav(
             div(
                     div(
-                            div("Core").withClass("sb-sidenav-menu-heading"),
+                            div("Main").withClass("sb-sidenav-menu-heading"),
                             a(
                                     div(i().withClass("fas fa-tachometer-alt"))
                                             .withClass("sb-nav-link-icon"),text("Dashboard")).withClass("nav-link").withHref("/admin"),
 
                             a(
-                                    div(i().withClass("fas fa-tachometer-alt"))
-                                            .withClass("sb-nav-link-icon"),text("Users")).withClass("nav-link").withHref("/admin/user-management")
+                                    div(i().withClass("fas fa-user"))
+                                            .withClass("sb-nav-link-icon"),text("User Management")).withClass("nav-link").withHref("/admin/user-management")
 
                     ).withClass("nav")
             ).withClass("sb-sidenav-menu"),
@@ -57,8 +57,7 @@ public class AdminTemplates {
 
                     div(a("Settings").withClass("dropdown-item")
                         .withHref("#"),
-                            a("Activity Log").withClass("dropdown-item")
-                                    .withHref("#"),
+
                             div().withClass("dropdown-divider"),
                             a("Logout").withClass("dropdown-item").withHref("/logout")
                     ).withClass("dropdown-menu dropdown-menu-right")

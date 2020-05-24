@@ -10212,4 +10212,6 @@ body {
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
-}
+}.btn-primary {
+   color: #fff !important;}
+  .center-a{justify-content: center !important;}
