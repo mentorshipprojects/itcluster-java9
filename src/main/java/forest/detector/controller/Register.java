@@ -1,19 +1,14 @@
 package forest.detector.controller;
 
-import forest.detector.service.UserService;
-import forest.detector.utils.PasswordHashing;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import static forest.detector.utils.AdminTemplates.HEAD;
 import static j2html.TagCreator.*;
@@ -21,9 +16,7 @@ import static j2html.TagCreator.script;
 @WebServlet(name = "register", urlPatterns = {"/register"})
 public class Register extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(Register.class);
-    private UserService userService;
-    private PasswordHashing hashing = new PasswordHashing();
+    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
 
 
     @Override
@@ -48,26 +41,15 @@ public class Register extends HttpServlet {
                                                                                         h3("Create Account").withClass("text-center font-weight-light my-4")
                                                                                 ).withClass("card-header"),
                                                                                 div(
-                                                                                        form().withMethod("post").with(
+                                                                                        form(
                                                                                                 div(
-                                                                                                        label("First name").withClass("small mb-1")
-                                                                                                                .attr("for","firstName"),
+                                                                                                        label("Nickname").withClass("small mb-1")
+                                                                                                                .attr("for","inputNickname"),
                                                                                                         input().withClass("form-control py-4")
-                                                                                                                .withId("firstName")
-                                                                                                                .withName("firstName")
+                                                                                                                .withId("inputNickname")
+                                                                                                                .withName("nickname")
 
-                                                                                                                .withPlaceholder("Enter frist name")
-                                                                                                                .withType("text")
-                                                                                                ).withClass("form-group"),
-
-                                                                                                div(
-                                                                                                        label("Last name").withClass("small mb-1")
-                                                                                                                .attr("for","lastName"),
-                                                                                                        input().withClass("form-control py-4")
-                                                                                                                .withId("lastName")
-                                                                                                                .withName("lastName")
-
-                                                                                                                .withPlaceholder("Enter last name")
+                                                                                                                .withPlaceholder("Enter nickname")
                                                                                                                 .withType("text")
                                                                                                 ).withClass("form-group"),
 
@@ -83,7 +65,7 @@ public class Register extends HttpServlet {
                                                                                                 ).withClass("form-group"),
 
 
-                                                                                                div(  div( div(
+                                                                                              div(  div( div(
                                                                                                         label("Password").withClass("small mb-1")
                                                                                                                 .attr("for","inputPassword"),
                                                                                                         input().withClass("form-control py-4")
@@ -92,27 +74,28 @@ public class Register extends HttpServlet {
 
                                                                                                                 .withPlaceholder("Enter password")
                                                                                                                 .withType("password")
-                                                                                                        ).withClass("form-group")).withClass("col-md-6"),
+                                                                                                ).withClass("form-group")).withClass("col-md-6"),
 
-                                                                                                        div( div(
-                                                                                                                label("Confirm Password").withClass("small mb-1")
-                                                                                                                        .attr("for","inputConfirmPassword"),
-                                                                                                                input().withClass("form-control py-4")
-                                                                                                                        .withId("inputConfirmPassword")
+                                                                                                      div( div(
+                                                                                                              label("Confirm Password").withClass("small mb-1")
+                                                                                                                      .attr("for","inputConfirmPassword"),
+                                                                                                              input().withClass("form-control py-4")
+                                                                                                                      .withId("inputConfirmPassword")
 
-                                                                                                                        .withPlaceholder("Confirm password")
-                                                                                                                        .withType("password")
-                                                                                                        ).withClass("form-group")).withClass("col-md-6")
+                                                                                                                      .withPlaceholder("Confirm password")
+                                                                                                                      .withType("password")
+                                                                                                      ).withClass("form-group")).withClass("col-md-6")
 
 
-                                                                                                ).withClass("form-row"),
+                                                                                              ).withClass("form-row"),
 
 
                                                                                                 div(
 //                                                                             a("Forgot Password?").withClass("small")
 //                                                                                .withHref("")
-                                                                                                        button("Create Account").withClass("btn btn-primary btn-block").withType("submit")
-                                                                                                        //.attr("disabled","disabled")
+                                                                                                      button("Create Account").withClass("btn btn-primary btn-block").withType("submit")
+                                                                                                        .attr("disabled","disabled")
+                                                                                                              .withId("create-btn")
                                                                                                 ).withClass("form-group d-flex align-items-center justify-content-between mt-4 mb-0 center-a")
                                                                                         )
                                                                                 ).withClass("card-body"),
@@ -136,36 +119,5 @@ public class Register extends HttpServlet {
                 ).withClass("bg-primary")
         );
         response.getWriter().println(homeHtml.render());
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        PrintWriter writer = response.getWriter();
-
-        String html = "<html><body>";
-
-        String email = request.getParameter("email");
-        String password = hashing.getHash(request.getParameter("password"));
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-
-        if (userService == null) {
-            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-
-        if(email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9+])*(\\.[A-Za-z]{2,})$")){
-
-            userService.setUserInDB(email,password,firstName,lastName);
-            response.sendRedirect(request.getContextPath()+ "/login");
-
-        }else{
-            html += "<center>"+
-                    "<h3 style=\"color:#FF0000\";>Wrong email</h3>" +
-                    "<h3 style=\"color:#FF0000\";>please try again</h3>" +
-                    "<center>";
-            html += "</body></html>";
-            writer.println(html);
-        }
     }
 }
