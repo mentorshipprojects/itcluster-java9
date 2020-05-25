@@ -30,7 +30,7 @@ public class HtmlParser {
         int pageNumber = 1;
         boolean isLastPage = false;
         while (!isLastPage) {
-            String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=11&page=" + pageNumber;
+            String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=" + pageNumber;
             Document document = Jsoup.connect(url).get();
             Element tbody = document.select("tbody").get(0); // table
             Elements row = tbody.select("tr"); // List of rows
@@ -123,10 +123,10 @@ public class HtmlParser {
         return array;
     }
 
-    public static String sqlDate(String date) throws ParseException {
-        Date sqlDate = new SimpleDateFormat("dd.MM.yyyy").parse(date);
+    public static java.sql.Date sqlDate(String date) throws ParseException {
+        Date oldDate = new SimpleDateFormat("dd.MM.yyyy").parse(date);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(sqlDate);
+        return new java.sql.Date(oldDate.getTime());
     }
 }
 

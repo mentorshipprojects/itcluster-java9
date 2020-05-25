@@ -4,7 +4,7 @@
 
 create table tickets
 (
-	id serial
+	id serial not null
 		constraint tickets_pk
 			primary key,
 	number varchar(20) not null,
@@ -19,25 +19,28 @@ create table tickets
 );
 
 create unique index tickets_number_uindex
-	on table_name (number);
+	on tickets (number);
+
+
 
 
 
 create table tracts
 (
-	id serial
+	id serial not null
 		constraint tracts_pk
-		primary key,
+			primary key,
 	ticket_number varchar(20) not null,
-	quarter varchar(20) null,
-	division varchar(20) null,
-	range varchar(20) null,
-	area float null,
-	forest_type varchar(20) null,
-	general_allowed_extent float null,
-	allowed_extent float null,
-	cutting_status varchar(20) null,
-	contributor varchar(100) null,
-	map_id varchar(20) null
+	quarter varchar(20),
+	division varchar(20),
+	range varchar(20),
+	area real,
+	forest_type varchar(20),
+	general_allowed_extent double precision,
+	allowed_extent double precision,
+	cutting_status varchar(20),
+	contributor varchar(100),
+	map_id varchar(20)
 );
+
 
