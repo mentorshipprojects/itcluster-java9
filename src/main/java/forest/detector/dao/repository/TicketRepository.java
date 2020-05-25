@@ -5,14 +5,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class TicketRepository {
     private final DataSource dataSource;
     private static Logger log = LoggerFactory.getLogger(TicketRepository.class);
+    private Date date = new Date(System.currentTimeMillis());
 
     public TicketRepository(javax.sql.DataSource dataSource) {
         this.dataSource = dataSource;
@@ -29,22 +27,21 @@ public class TicketRepository {
             preparedStatement.setString(1, ticket.getNumber());
             preparedStatement.setString(2, ticket.getRegion());
             preparedStatement.setString(3, ticket.getForestUser());
-            preparedStatement.setString(4, ticket.getStartDate());
-            preparedStatement.setString(5, ticket.getFinishDate());
+            preparedStatement.setDate(4, ticket.getStartDate());
+            preparedStatement.setDate(5, ticket.getFinishDate());
             preparedStatement.setString(6, ticket.getForestry());
             preparedStatement.setString(7, ticket.getCuttingType());
             preparedStatement.setString(8, ticket.getTicketStatus());
             preparedStatement.setString(9, ticket.getCuttingStatus());
 //            preparedStatement.addBatch();
 //            preparedStatement.executeBatch();
+            preparedStatement.execute();
             log.info("added ticket " + ticket.getNumber());
-            //System.out.println(preparedStatement.toString());
-            return preparedStatement.execute();
+            return true;
 
         } catch (SQLException e) {
             log.error("FAILED adding ticket " + ticket.getNumber(), e);
             return false;
-        } finally {
         }
     }
 }
