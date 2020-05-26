@@ -13,7 +13,7 @@ import java.io.IOException;
 import static j2html.TagCreator.*;
 import static forest.detector.utils.HTMLTemplates.*;
 
-@WebServlet(name = "home", urlPatterns = "/template", loadOnStartup = 1)
+@WebServlet(name = "template", urlPatterns = "/template", loadOnStartup = 1)
 public class TemplateController extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(TemplateController.class);

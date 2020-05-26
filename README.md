@@ -12,8 +12,8 @@
 * Fixture data generator (refresh data on daily basis)
 * telegram chat channel/bot for subscribers (latest changes - i.e. warning: missed 10ha in Tysmenytsia Raion)
 
-[![Build Status]()]()
-[![Sonar Gate]()]()
+[![Build Status](https://travis-ci.com/mentorshipprojects/itcluster-java9.svg?branch=master)](https://travis-ci.com/mentorshipprojects/itcluster-java9)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=com.heroku.sample%3Aitcluster-java9&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.heroku.sample%3Aitcluster-java9)
 
 ## Requirements
 
@@ -43,5 +43,5 @@ Terminal:
 * `mvn heroku:deploy` -- deploy to your app (host)
 
 ## Token generation
- * copy token from sonar web site -> manual configuration for maven
+ * copy token from sonar website -> manual configuration for maven
  * `heroku auth:token` and set it in env variable `HEROKU_API_KEY`

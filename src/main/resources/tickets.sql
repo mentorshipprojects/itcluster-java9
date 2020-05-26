@@ -1,30 +1,37 @@
     create schema forest collate utf8_general_ci;
 
+--postgreSQL
+
 create table tickets
 (
-	id int auto_increment
-		primary key,
+	id serial
+		constraint tickets_pk
+			primary key,
 	number varchar(20) not null,
 	region varchar(100) not null,
 	forest_user varchar(100) not null,
 	start_date date not null,
 	finish_date date not null,
-	forestry varchar(100) null,
-	cutting_type varchar(100) null,
-	ticket_status varchar(20) null,
-	cutting_status varchar(20) null,
-	constraint tickets_number_uindex
-		unique (number)
+	forestry varchar(100),
+	cutting_type varchar(100),
+	ticket_status varchar(20),
+	cutting_status varchar(20)
 );
+
+create unique index tickets_number_uindex
+	on table_name (number);
+
+
 
 create table tracts
 (
-	id int auto_increment
+	id serial
+		constraint tracts_pk
 		primary key,
 	ticket_number varchar(20) not null,
 	quarter varchar(20) null,
 	division varchar(20) null,
-	`range` varchar(20) null,
+	range varchar(20) null,
 	area float null,
 	forest_type varchar(20) null,
 	general_allowed_extent float null,
