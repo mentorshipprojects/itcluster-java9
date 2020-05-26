@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,14 +17,23 @@ import java.util.Date;
 
 public class HtmlParser {
 
-//    public static void main(String[] args) throws IOException, ParseException {
-//        ticketParser();
-//    }
+    private TicketRepository ticketRepository;
+    private TractRepository tractRepository;
 
-    public void ticketParser() throws IOException, ParseException {
-        TicketRepository ticketRepository = new TicketRepository();
+    public HtmlParser(DataSource dataSource) {
+        ticketRepository = new TicketRepository(dataSource);
+        tractRepository = new TractRepository(dataSource);
+    }
+
+    /*
+     * method ticketParser() returns a counter of changes:
+     * [0] – counter of newly added ticket
+     * [1] – counter of all checked tickets
+     * */
+    public int[] ticketParser() throws IOException, ParseException {
         Ticket ticket = new Ticket();
-        int pageNumber = 1;
+        int[] counter = {0, 0};
+        int pageNumber = 45;
         boolean isLastPage = false;
         while (!isLastPage) {
             String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=" + pageNumber;
@@ -44,9 +54,12 @@ public class HtmlParser {
                 ticket.setCuttingType(table[6][i]);
                 ticket.setTicketStatus(table[7][i]);
                 ticket.setCuttingStatus(table[8][i]);
-                if (ticketRepository.addTicket(ticket)) {
+                if (!ticketRepository.isInDataBase(ticket)) {
+                    ticketRepository.save(ticket);
+                    counter[0]++; //adding counter
                     tractParser(table[9][i], table[2][i]);
                 }
+                counter[1]++; //checking counter
             }
             if (isLastPage(nextButtonClass)) {
                 isLastPage = true;
@@ -55,10 +68,10 @@ public class HtmlParser {
                 System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
+        return counter;
     }
 
     public void tractParser(String tractLink, String ticketNumber) throws IOException {
-        TractRepository tractRepository = new TractRepository();
         Tract tract = new Tract();
         String url = "https://lk.ukrforest.com" + tractLink;
         Document document = Jsoup.connect(url).get();
@@ -77,7 +90,7 @@ public class HtmlParser {
             tract.setCuttingStatus(table[7][i]);
             tract.setContributor(table[8][i]);
             tract.setMapId(table[9][i]);
-            tractRepository.addTract(tract);
+            tractRepository.save(tract);
         }
     }
 
@@ -120,9 +133,10 @@ public class HtmlParser {
         return array;
     }
 
-    public static String sqlDate(String date) throws ParseException {
-        Date sqlDate = new SimpleDateFormat("dd.MM.yyyy").parse(date);
+    public static java.sql.Date sqlDate(String date) throws ParseException {
+        Date oldDate = new SimpleDateFormat("dd.MM.yyyy").parse(date);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        return format.format(sqlDate);
+        return new java.sql.Date(oldDate.getTime());
     }
 }
+
