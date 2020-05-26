@@ -1,5 +1,6 @@
 package forest.detector.service;
 
+import forest.detector.dao.entity.Ticket;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+
+import static forest.detector.service.HtmlParser.sqlDate;
 
 public class HTMLParserServiceTest {
 
@@ -48,8 +51,19 @@ public class HTMLParserServiceTest {
     @Disabled
     @Test
     void ticketParserTest() throws ParseException, IOException {
+//        Ticket ticket = new Ticket();
+//        ticket.setNumber("005036.6");
+//        ticket.setStartDate(sqlDate("20.05.2020"));
+//        ticket.setFinishDate(sqlDate("31.12.2020"));
+
+//        isInDataBase (ticket, dataSource);
+
         HtmlParser parser = new HtmlParser(dataSource);
-        parser.ticketParser();
+       int [] c = parser.ticketParser();
+        System.out.println(c[0]);
+        System.out.println(c[1]);
+
+//        parser.ticketParser();
 
 //        Assertions.assertTrue(b, "something goes wrong");
 //        System.out.println(dataSource);

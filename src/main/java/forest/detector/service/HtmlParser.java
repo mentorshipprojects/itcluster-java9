@@ -25,9 +25,15 @@ public class HtmlParser {
         tractRepository = new TractRepository(dataSource);
     }
 
-    public void ticketParser() throws IOException, ParseException {
+    /*
+     * method ticketParser() returns a counter of changes:
+     * [0] – counter of newly added ticket
+     * [1] – counter of all checked tickets
+     * */
+    public int[] ticketParser() throws IOException, ParseException {
         Ticket ticket = new Ticket();
-        int pageNumber = 1;
+        int[] counter = {0, 0};
+        int pageNumber = 45;
         boolean isLastPage = false;
         while (!isLastPage) {
             String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=" + pageNumber;
@@ -48,9 +54,12 @@ public class HtmlParser {
                 ticket.setCuttingType(table[6][i]);
                 ticket.setTicketStatus(table[7][i]);
                 ticket.setCuttingStatus(table[8][i]);
-                if (ticketRepository.save(ticket)) {
+                if (!ticketRepository.isInDataBase(ticket)) {
+                    ticketRepository.save(ticket);
+                    counter[0]++; //adding counter
                     tractParser(table[9][i], table[2][i]);
                 }
+                counter[1]++; //checking counter
             }
             if (isLastPage(nextButtonClass)) {
                 isLastPage = true;
@@ -59,6 +68,7 @@ public class HtmlParser {
                 System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
+        return counter;
     }
 
     public void tractParser(String tractLink, String ticketNumber) throws IOException {

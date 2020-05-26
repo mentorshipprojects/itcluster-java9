@@ -44,4 +44,51 @@ public class TicketRepository {
             return false;
         }
     }
+
+    public boolean isInDataBase(Ticket ticket) {
+
+        String query = "SELECT number, start_date, Finish_date FROM tickets " +
+                "WHERE number=? AND start_date=? AND finish_date=?";
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, ticket.getNumber());
+            preparedStatement.setDate(2, ticket.getStartDate());
+            preparedStatement.setDate(3, ticket.getFinishDate());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                log.info("ticket already exists " + ticket.getNumber());
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            log.error("FAILED checking ticket "+ticket.getNumber(), e);
+            return true;
+        }
+    }
+
+    public int update(Ticket ticket) {
+        String query = "UPDATE tickets SET region=?, forest_user=?, forestry=?, " +
+                "cutting_type=?, ticket_status=?, cutting_status=? " +
+                "WHERE number=? AND start_date=? AND finish_date=?";
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+            preparedStatement.setString(1, ticket.getRegion());
+            preparedStatement.setString(2, ticket.getForestUser());
+            preparedStatement.setString(3, ticket.getForestry());
+            preparedStatement.setString(4, ticket.getCuttingType());
+            preparedStatement.setString(5, ticket.getTicketStatus());
+            preparedStatement.setString(6, ticket.getCuttingStatus());
+            preparedStatement.setString(7, ticket.getNumber());
+            preparedStatement.setDate(8, ticket.getStartDate());
+            preparedStatement.setDate(9, ticket.getFinishDate());
+            return preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error("FAILED update ticket "+ticket.getNumber(), e);
+        }
+
+        return 1;
+    }
 }

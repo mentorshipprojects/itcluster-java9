@@ -18,12 +18,6 @@ create table tickets
 	cutting_status varchar(20)
 );
 
-create unique index tickets_number_uindex
-	on tickets (number);
-
-
-
-
 
 create table tracts
 (
