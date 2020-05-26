@@ -125,7 +125,7 @@ public class Launcher {
         dataSource.setProperty("minimumIdle", "1"); // min connection pool
         dataSource.setProperty("maximumPoolSize", "4"); // max connection pool
         dataSource.setProperty("connectionTimeout", "300000"); // miliseconds, cannot be less than 250ms
-        dataSource.setProperty("dataSourceClassName", "PGPoolingDataSource");
+        dataSource.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
         dataSource.setProperty("dataSource.url", connectionURL);
         dataSource.setProperty("dataSource.user", username);
         dataSource.setProperty("dataSource.password", password);
