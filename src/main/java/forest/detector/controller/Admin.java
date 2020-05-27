@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static forest.detector.utils.AdminTemplates.*;
 import static j2html.TagCreator.*;
-@WebServlet(name = "admin", urlPatterns = "/admin")
+@WebServlet(name = "admin", urlPatterns = "/admin", loadOnStartup = 1)
 public class Admin extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(TemplateController.class);
@@ -38,36 +38,7 @@ public class Admin extends HttpServlet {
                                         main(
                                                 div(
                                                         h1("Dashboard").withClass("mt-4"),
-                                                        div(
-                                                                div(
-                                                                        div(
-                                                                               div(
-                                                                                       i().withClass("fas fa-chart-area mr-1"),
-                                                                               text("Area Chart Example")).withClass("card-header"),
-                                                                                div(
-                                                                                        canvas().withId("myAreaChart")
-                                                                                                .attr("width","100%")
-                                                                                                .attr("height","40")
-
-                                                                                ).withClass("card-body")
-
-                                                                        ).withClass("card mb-4")
-                                                                ).withClass("col-xl-6"),
-                                                                div(
-                                                                        div(
-                                                                                div(
-                                                                                        i().withClass("fas fa-chart-bar mr-1"),
-                                                                                                text("Bar Chart Example")).withClass("card-header"),
-                                                                                div(
-                                                                                        canvas().withId("myBarChart")
-                                                                                                .attr("width","100%")
-                                                                                                .attr("height","40")
-
-                                                                                ).withClass("card-body")
-
-                                                                        ).withClass("card mb-4")
-                                                                ).withClass("col-xl-6")
-                                                        ).withClass("row"),
+                                                        GRAPH,
                                                         div(
                                                                 div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
                                                                 ).withClass("card-header"),
