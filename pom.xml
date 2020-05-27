@@ -107,7 +107,7 @@
                 <version>3.0.2</version>
                 <configuration>
                     <jdkVersion>11</jdkVersion>
-                    <appName>itcluster-java9</appName>
+                    <appName>forest-monitoring</appName>
                 </configuration>
             </plugin>
             <plugin>
