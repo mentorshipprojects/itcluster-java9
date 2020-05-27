@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 
@@ -32,132 +33,143 @@ public class Admin extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-        ContainerTag homeHtml = html(HEAD,
-                body(
-                        NAV,
-                        div(
-                                div(
 
-                                MENU
+        HttpSession session = request.getSession();
+        String role = (String) session.getAttribute("role");
 
-                                ).withId("layoutSidenav_nav"),
-                                div(
-                                        main(
-                                                div(
-                                                        h1("Dashboard").withClass("mt-4"),
-                                                        div(
-                                                                div(
-                                                                        div(
-                                                                               div(
-                                                                                       i().withClass("fas fa-chart-area mr-1"),
-                                                                               text("Area Chart Example")).withClass("card-header"),
-                                                                                div(
-                                                                                        canvas().withId("myAreaChart")
-                                                                                                .attr("width","100%")
-                                                                                                .attr("height","40")
+        if(role == null)
+            response.sendRedirect("/home");
+        else{
 
-                                                                                ).withClass("card-body")
+            ContainerTag homeHtml = html(HEAD,
+                    body(
+                            NAV,
+                            div(
+                                    div(
 
-                                                                        ).withClass("card mb-4")
-                                                                ).withClass("col-xl-6"),
-                                                                div(
-                                                                        div(
-                                                                                div(
-                                                                                        i().withClass("fas fa-chart-bar mr-1"),
-                                                                                                text("Bar Chart Example")).withClass("card-header"),
-                                                                                div(
-                                                                                        canvas().withId("myBarChart")
-                                                                                                .attr("width","100%")
-                                                                                                .attr("height","40")
+                                            MENU
 
-                                                                                ).withClass("card-body")
+                                    ).withId("layoutSidenav_nav"),
+                                    div(
+                                            main(
+                                                    div(
+                                                            h1("Dashboard").withClass("mt-4"),
+                                                            div(
+                                                                    div(
+                                                                            div(
+                                                                                    div(
+                                                                                            i().withClass("fas fa-chart-area mr-1"),
+                                                                                            text("Area Chart Example")).withClass("card-header"),
+                                                                                    div(
+                                                                                            canvas().withId("myAreaChart")
+                                                                                                    .attr("width","100%")
+                                                                                                    .attr("height","40")
 
-                                                                        ).withClass("card mb-4")
-                                                                ).withClass("col-xl-6")
-                                                        ).withClass("row"),
-                                                        div(
-                                                                div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
-                                                                ).withClass("card-header"),
-                                                                div(
-                                                                        div(
+                                                                                    ).withClass("card-body")
 
-                                                                                table(
-                                                                                        thead(
-                                                                                                tr(
-                                                                                                        th("Number"),
-                                                                                                        th("Region"),
-                                                                                                        th("Forest user"),
-                                                                                                        th("Start date"),
-                                                                                                        th("Finish date"),
-                                                                                                        th("Forestry"),
-                                                                                                        th("Cutting type"),
-                                                                                                        th("Ticket status"),
-                                                                                                        th("Cutting status")
-                                                                                                )
+                                                                            ).withClass("card mb-4")
+                                                                    ).withClass("col-xl-6"),
+                                                                    div(
+                                                                            div(
+                                                                                    div(
+                                                                                            i().withClass("fas fa-chart-bar mr-1"),
+                                                                                            text("Bar Chart Example")).withClass("card-header"),
+                                                                                    div(
+                                                                                            canvas().withId("myBarChart")
+                                                                                                    .attr("width","100%")
+                                                                                                    .attr("height","40")
 
-                                                                                        ),
-                                                                                        tfoot(
-                                                                                                tr(
-                                                                                                        th("Number"),
-                                                                                                        th("Region"),
-                                                                                                        th("Forest user"),
-                                                                                                        th("Start date"),
-                                                                                                        th("Finish date"),
-                                                                                                        th("Forestry"),
-                                                                                                        th("Cutting type"),
-                                                                                                        th("Ticket status"),
-                                                                                                        th("Cutting status")
-                                                                                                )
+                                                                                    ).withClass("card-body")
 
-                                                                                        ),
-                                                                                        tbody(
-                                                                                                tr(
-                                                                                                        th("45645645"),
-                                                                                                        th("IF"),
-                                                                                                        th("Admin"),
-                                                                                                        th("22.05.2020"),
-                                                                                                        th("22.05.2020"),
-                                                                                                        th("N/A"),
-                                                                                                        th("N/A"),
-                                                                                                        th("Ok"),
-                                                                                                        th("Ok")
-                                                                                                ),
-                                                                                                tr(
-                                                                                                        th("45645645"),
-                                                                                                        th("IF"),
-                                                                                                        th("Admin"),
-                                                                                                        th("22.05.2020"),
-                                                                                                        th("22.05.2020"),
-                                                                                                        th("N/A"),
-                                                                                                        th("N/A"),
-                                                                                                        th("Ok"),
-                                                                                                        th("Ok")
-                                                                                                )
-                                                                                        )
+                                                                            ).withClass("card mb-4")
+                                                                    ).withClass("col-xl-6")
+                                                            ).withClass("row"),
+                                                            div(
+                                                                    div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
+                                                                    ).withClass("card-header"),
+                                                                    div(
+                                                                            div(
 
+                                                                                    table(
+                                                                                            thead(
+                                                                                                    tr(
+                                                                                                            th("Number"),
+                                                                                                            th("Region"),
+                                                                                                            th("Forest user"),
+                                                                                                            th("Start date"),
+                                                                                                            th("Finish date"),
+                                                                                                            th("Forestry"),
+                                                                                                            th("Cutting type"),
+                                                                                                            th("Ticket status"),
+                                                                                                            th("Cutting status")
+                                                                                                    )
 
-                                                                                ).withClass("table table-bordered")
-                                                                                        .withId("dataTable").attr("width","100%")
-                                                                                .attr("cellspacing","0")
+                                                                                            ),
+                                                                                            tfoot(
+                                                                                                    tr(
+                                                                                                            th("Number"),
+                                                                                                            th("Region"),
+                                                                                                            th("Forest user"),
+                                                                                                            th("Start date"),
+                                                                                                            th("Finish date"),
+                                                                                                            th("Forestry"),
+                                                                                                            th("Cutting type"),
+                                                                                                            th("Ticket status"),
+                                                                                                            th("Cutting status")
+                                                                                                    )
 
-                                                                        ).withClass("table-responsive")
-
-                                                                ).withClass("card-body")
-
-                                                        ).withClass("card mb-4")
-
-                                                ).withClass("container-fluid")
-
-                                        ),  FOOTER
-
-                                ).withId("layoutSidenav_content")
+                                                                                            ),
+                                                                                            tbody(
+                                                                                                    tr(
+                                                                                                            th("45645645"),
+                                                                                                            th("IF"),
+                                                                                                            th("Admin"),
+                                                                                                            th("22.05.2020"),
+                                                                                                            th("22.05.2020"),
+                                                                                                            th("N/A"),
+                                                                                                            th("N/A"),
+                                                                                                            th("Ok"),
+                                                                                                            th("Ok")
+                                                                                                    ),
+                                                                                                    tr(
+                                                                                                            th("45645645"),
+                                                                                                            th("IF"),
+                                                                                                            th("Admin"),
+                                                                                                            th("22.05.2020"),
+                                                                                                            th("22.05.2020"),
+                                                                                                            th("N/A"),
+                                                                                                            th("N/A"),
+                                                                                                            th("Ok"),
+                                                                                                            th("Ok")
+                                                                                                    )
+                                                                                            )
 
 
-                        ).withId("layoutSidenav")
+                                                                                    ).withClass("table table-bordered")
+                                                                                            .withId("dataTable").attr("width","100%")
+                                                                                            .attr("cellspacing","0")
 
-                ).withClass("sb-nav-fixed")
-        );
-        response.getWriter().println(homeHtml.render());
+                                                                            ).withClass("table-responsive")
+
+                                                                    ).withClass("card-body")
+
+                                                            ).withClass("card mb-4")
+
+                                                    ).withClass("container-fluid")
+
+                                            ),  FOOTER
+
+                                    ).withId("layoutSidenav_content")
+
+
+                            ).withId("layoutSidenav")
+
+                    ).withClass("sb-nav-fixed")
+            );
+            response.getWriter().println(homeHtml.render());
+
+        }
+
     }
 
     @Override
