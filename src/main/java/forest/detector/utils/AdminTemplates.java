@@ -44,6 +44,7 @@ public class AdminTemplates {
 
     ).withClass("sb-sidenav accordion sb-sidenav-dark")
             .withId("sidenavAccordion");
+
     public static final ContainerTag NAV = nav(
             a(text("Admin page")).withClass("navbar-brand"),button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
             ).withId("sidebarToggle").withHref("#"),
