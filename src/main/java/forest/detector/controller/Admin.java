@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import static forest.detector.utils.AdminTemplates.*;
 import static j2html.TagCreator.*;
-@WebServlet(name = "admin", urlPatterns = "/admin", loadOnStartup = 1)
+@WebServlet(name = "admin", urlPatterns = "/admin")
 public class Admin extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(TemplateController.class);

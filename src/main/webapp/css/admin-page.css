@@ -10212,6 +10212,15 @@ body {
 }
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
-}.btn-primary {
+}.form-group.d-flex.align-items-center.justify-content-between.mt-4.mb-0.center-a button {
    color: #fff !important;}
   .center-a{justify-content: center !important;}
+#priew-ava {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+}
+
+#avatar{
+  display: none !important;}
