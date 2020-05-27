@@ -48,7 +48,11 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                       a(
                                                               i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Register")
                                                       ).withClass("dropdown-item")
-                                                      .withHref("/register")
+                                                      .withHref("/register"),
+                                                      a(
+                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
+                                                      ).withClass("dropdown-item")
+                                                              .withHref("/logout")
                                               ).withClass("dropdown-menu navbar-dropdown")
                                               .attr("aria-labelledby","profileDropdown")
 
