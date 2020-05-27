@@ -1,6 +1,9 @@
 package forest.detector.dao.repository;
 
+import forest.detector.controller.Login;
 import forest.detector.dao.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -10,6 +13,7 @@ import java.util.List;
 public class UserRepository {
 
     private final DataSource dataSource;
+    private static Logger log = LoggerFactory.getLogger(UserRepository.class);
 
     public UserRepository(javax.sql.DataSource dataSource) {
         this.dataSource = dataSource;
@@ -65,22 +69,22 @@ public class UserRepository {
             statement.executeUpdate(role_query);
 
         } catch (SQLException e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
     }
 
     public void updateUserRoleInDB(String role,String email){
 
-        try(Connection connection = dataSource.getConnection();)
+        try(Connection con = dataSource.getConnection();)
         {
-            String query = "UPDATE user_roles" +
-                    " SET role_name='" +  role + "' " +
-                    " WHERE email='" + email + "'";
-
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
+            PreparedStatement ps = con.prepareStatement("update user_roles set role_name=?, where email=? ");
+            ps.setString(1, role);
+            ps.setString(2, email);
+            ps.executeQuery();
 
         } catch (SQLException e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
     }
@@ -114,6 +118,7 @@ public class UserRepository {
         }
         catch(SQLException e)
         {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return "<h3 style=\"color:#FF0000\";>Invalid user</h3>";
@@ -135,6 +140,7 @@ public class UserRepository {
             }
 
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return list;
@@ -151,25 +157,22 @@ public class UserRepository {
             st = rs.next();
 
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return st;
     }
 
     public void deleteUser(String email){
-        try(Connection connection = dataSource.getConnection();)
+        try(Connection con = dataSource.getConnection())
         {
-            String user_query = "DELETE FROM users" +
-                    " WHERE email='" + email + "'";
-
-            String role_query = "DELETE FROM user_roles" +
-                    " WHERE email='" + email + "'";
-
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(user_query);
-            statement.executeUpdate(role_query);
+            PreparedStatement ps = con.prepareStatement("delete from users, user_roles where users.email=?, user_roles.email=? ");
+            ps.setString(1, email);
+            ps.setString(2, email);
+            ps.executeQuery();
 
         } catch (SQLException e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
     }
