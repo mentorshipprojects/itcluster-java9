@@ -88,15 +88,16 @@ public class UserManagement extends HttpServlet {
                                                                                                         ),
 
                                                                                                         tbody(
-                                                                                                                tr(
+                                                                                                                //  tr(
 //                                                                                                                td("1"),
 //                                                                                                                td("Did pixto"),
 //                                                                                                                td("22/05/2020"),
 //                                                                                                                td("Admin"),
 //                                                                                                                td("Online"),
 
-                                                                                                                        each(list, user ->
-                                                                                                                                div(attrs(".user"),
+                                                                                                                each(list, user ->
+                                                                                                                        div(attrs(".user"),
+                                                                                                                                tr(
                                                                                                                                         td(user.getEmail()),
                                                                                                                                         td(user.getPassword()),
                                                                                                                                         td(user.getFirstName()),
@@ -112,13 +113,14 @@ public class UserManagement extends HttpServlet {
                                                                                                                                         )
                                                                                                                                 )
                                                                                                                         )
+                                                                                                                )
 
 
-                                                                                                                ).withClass("table table-bordered")
-                                                                                                                        .withId("dataTable")
-                                                                                                                        .attr("width","100%")
-                                                                                                                        .attr("cellspacing","0")
-                                                                                                        ).withClass("table-responsive")
+                                                                                                        ).withClass("table table-bordered")
+                                                                                                                .withId("dataTable")
+                                                                                                                .attr("width", "100%")
+                                                                                                                .attr("cellspacing", "0")
+                                                                                                ).withClass("table-responsive")
                                                                                                 ).withClass("card-body")
                                                                                         ).withClass("table-wrapper")
                                                                                 ).withClass("container")
@@ -137,7 +139,7 @@ public class UserManagement extends HttpServlet {
 
 
                                 ).withClass("sb-nav-fixed")
-                        )));
+                        ));
         response.getWriter().println(homeHtml.render());
     }
 }
