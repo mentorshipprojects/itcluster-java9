@@ -1,21 +1,28 @@
 package forest.detector.controller;
 
+import forest.detector.dao.entity.User;
+import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 import static forest.detector.utils.AdminTemplates.*;
 import static j2html.TagCreator.*;
+
 @WebServlet(name = "admin", urlPatterns = "/admin", loadOnStartup = 1)
 public class Admin extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
+    private static Logger log = LoggerFactory.getLogger(Admin.class);
+    private UserService userService;
+//
 
     /**
      * <script src="https://kit.fontawesome.com/aac0f778d8.js" crossorigin="anonymous"></script>
@@ -151,5 +158,26 @@ public class Admin extends HttpServlet {
                 ).withClass("sb-nav-fixed")
         );
         response.getWriter().println(homeHtml.render());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (userService == null) {
+            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
+        String email = request.getParameter("email");
+        String role = request.getParameter("role");
+
+        if(email != null && role != null){
+            User user = userService.getUserByEmail(email);
+            if(user != null) {
+                userService.updateUserRoleInDB(role, email);
+                userService.deleteUser(email);
+                response.sendRedirect("/admin");
+            }
+        }
+
     }
 }
