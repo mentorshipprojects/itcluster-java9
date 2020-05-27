@@ -37,9 +37,9 @@ public class Admin extends HttpServlet {
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
 
-        if(role == null)
+        if(role == null || !role.equals("admin"))
             response.sendRedirect("/home");
-        else{
+        else if(role.equals("admin")) {
 
             ContainerTag homeHtml = html(HEAD,
                     body(
