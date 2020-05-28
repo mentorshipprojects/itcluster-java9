@@ -37,8 +37,7 @@ public class Index extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
 
-        HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("role");
+
 
         ContainerTag homeHtml = html(HEAD,
                 body(

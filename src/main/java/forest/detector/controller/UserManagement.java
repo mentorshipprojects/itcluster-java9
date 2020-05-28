@@ -56,7 +56,7 @@ public class UserManagement extends HttpServlet {
                                 ).withId("layoutSidenav_nav"),
                                 div(
                                         main(
-                                                div(                  div(
+                                                div( div(
                                                         div(
                                                                 div(
                                                                         div(
@@ -79,21 +79,24 @@ public class UserManagement extends HttpServlet {
                                                                                                 table(
                                                                                                         thead(
                                                                                                                 tr(
-
-                                                                                                                        th("Email"),
-                                                                                                                        th("Password"),
-                                                                                                                        th("First name"),
-                                                                                                                        th("Last name")
+                                                                                                                        th("#"),
+                                                                                                                        th("Name"),
+                                                                                                                        th("Date Created"),
+                                                                                                                        th("Role"),
+                                                                                                                        th("Status"),
+                                                                                                                        th("Action")
                                                                                                                 )
                                                                                                         ),
-
+                                                                                                        tfoot(
+                                                                                                                th("#"),
+                                                                                                                th("Name"),
+                                                                                                                th("Date Created"),
+                                                                                                                th("Role"),
+                                                                                                                th("Status"),
+                                                                                                                th("Action")
+                                                                                                        ),
                                                                                                         tbody(
-                                                                                                                //  tr(
-//                                                                                                                td("1"),
-//                                                                                                                td("Did pixto"),
-//                                                                                                                td("22/05/2020"),
-//                                                                                                                td("Admin"),
-//                                                                                                                td("Online"),
+
 
                                                                                                                 each(list, user ->
                                                                                                                         div(attrs(".user"),
@@ -103,43 +106,73 @@ public class UserManagement extends HttpServlet {
                                                                                                                                         td(user.getFirstName()),
                                                                                                                                         td(user.getLastName()),
                                                                                                                                         td(
-                                                                                                                                                a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                        .withHref("#")
-                                                                                                                                                        .withClass("settings"),
-                                                                                                                                                a(i("\uE5C9").withClass("material-icons"))
-                                                                                                                                                        .withHref("#")
-                                                                                                                                                        .withClass("delete")
+                                                                                                                                                td(
+                                                                                                                                                        a(i("\uE8B8").withClass("material-icons"))
+                                                                                                                                                                .withHref("#")
+                                                                                                                                                                .withClass("settings"),
+                                                                                                                                                        a(i("\uE5C9").withClass("material-icons"))
+                                                                                                                                                                .withHref("#")
+                                                                                                                                                                .withClass("delete")
 
+
+
+                                                                                                                                                )
                                                                                                                                         )
                                                                                                                                 )
-                                                                                                                        )
-                                                                                                                )
+                                                                                                                        ))
 
 
-                                                                                                        ).withClass("table table-bordered")
-                                                                                                                .withId("dataTable")
-                                                                                                                .attr("width", "100%")
-                                                                                                                .attr("cellspacing", "0")
-                                                                                                ).withClass("table-responsive")
-                                                                                                ).withClass("card-body")
-                                                                                        ).withClass("table-wrapper")
-                                                                                ).withClass("container")
-
-                                                                        ).withClass("card mb-4")
-
-                                                                ).withClass("container-fluid")
-                                                        )
-
-                                                        ),  FOOTER
-
-                                                ).withId("layoutSidenav_content")
 
 
-                                        ).withId("layoutSidenav")
 
 
-                                ).withClass("sb-nav-fixed")
-                        ));
+
+
+
+
+// tr(
+// td("1"),
+// td("Did pixto"),
+// td("22/05/2020"),
+// td("Admin"),
+// td("Online"),
+// td(
+// a(i("\uE8B8").withClass("material-icons"))
+// .withHref("#")
+// .withClass("settings"),
+// a(i("\uE5C9").withClass("material-icons"))
+// .withHref("#")
+// .withClass("delete")
+//
+// )
+// )
+                                                                                                        )
+
+
+                                                                                                ).withClass("table table-bordered")
+                                                                                                        .withId("dataTable")
+                                                                                                        .attr("width","100%")
+                                                                                                        .attr("cellspacing","0")
+                                                                                        ).withClass("table-responsive")
+                                                                                ).withClass("card-body")
+                                                                        ).withClass("table-wrapper")
+                                                                ).withClass("container")
+
+                                                        ).withClass("card mb-4")
+
+                                                        ).withClass("container-fluid")
+                                                )
+
+                                        ), FOOTER
+
+                                ).withId("layoutSidenav_content")
+
+
+                        ).withId("layoutSidenav")
+
+
+                ).withClass("sb-nav-fixed")
+        );
         response.getWriter().println(homeHtml.render());
     }
 }
