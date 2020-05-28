@@ -42,8 +42,8 @@ public class Admin extends HttpServlet {
                                                                 div(
                                                                         div(
                                                                                 div(
-                                                                                        i().withClass("fas fa-chart-area mr-1"),
-                                                                                        text("Area Chart Example")).withClass("card-header"),
+                                                                                       i().withClass("fas fa-chart-area mr-1"),
+                                                                                 text("Area Chart Example")).withClass("card-header"),
                                                                                 div(
                                                                                         canvas().withId("myAreaChart")
                                                                                                 .attr("width","100%")
