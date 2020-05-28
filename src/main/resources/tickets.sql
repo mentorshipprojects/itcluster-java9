@@ -24,7 +24,7 @@ create table tracts
 	id serial not null
 		constraint tracts_pk
 			primary key,
-	ticket_number varchar(20) not null,
+	ticket_id integer not null,
 	quarter varchar(20),
 	division varchar(20),
 	range varchar(20),
@@ -37,4 +37,6 @@ create table tracts
 	map_id varchar(20)
 );
 
+create unique index tracts_map_id_uindex
+	on tracts (map_id);
 

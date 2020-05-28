@@ -10,20 +10,20 @@ import java.sql.*;
 public class TicketRepository {
     private final DataSource dataSource;
     private static Logger log = LoggerFactory.getLogger(TicketRepository.class);
-    private Date date = new Date(System.currentTimeMillis());
+    private static int ticketID;
 
     public TicketRepository(javax.sql.DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
-    public boolean save(Ticket ticket) {
+    public int save(Ticket ticket) {
 
         String query = "INSERT INTO tickets(number, region, forest_user, start_date, finish_date, " +
                 "forestry, cutting_type, ticket_status, cutting_status)" +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         try (Connection connection = dataSource.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, ticket.getNumber());
             preparedStatement.setString(2, ticket.getRegion());
             preparedStatement.setString(3, ticket.getForestUser());
@@ -33,22 +33,23 @@ public class TicketRepository {
             preparedStatement.setString(7, ticket.getCuttingType());
             preparedStatement.setString(8, ticket.getTicketStatus());
             preparedStatement.setString(9, ticket.getCuttingStatus());
-//            preparedStatement.addBatch();
-//            preparedStatement.executeBatch();
-            preparedStatement.execute();
-            log.info("added ticket " + ticket.getNumber());
-            return true;
-
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                ticketID = resultSet.getInt(1);
+            }
+            log.info("ADDED  ● ticket " + ticket.getNumber());
+            return ticketID;
         } catch (SQLException e) {
-            log.error("FAILED adding ticket " + ticket.getNumber(), e);
-            return false;
+            log.error("ADDING TICKET FAILED " + ticket.getNumber(), e);
+            return ticketID;
         }
     }
 
-    public boolean isInDataBase(Ticket ticket) {
-
-        String query = "SELECT number, start_date, Finish_date FROM tickets " +
-                "WHERE number=? AND start_date=? AND finish_date=?";
+    public Ticket check(Ticket ticket) {
+        Ticket checkedTicket = new Ticket();
+        String query = "SELECT id, region, forest_user, forestry, cutting_type, ticket_status, cutting_status " +
+                "FROM tickets WHERE number=? AND start_date=? AND finish_date=?";
 
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -57,38 +58,45 @@ public class TicketRepository {
             preparedStatement.setDate(3, ticket.getFinishDate());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                log.info("ticket already exists " + ticket.getNumber());
-                return true;
+                log.info("EXISTS ● ticket " + ticket.getNumber());
+                checkedTicket.setId(resultSet.getInt("id"));
+                checkedTicket.setRegion(resultSet.getString("region"));
+                checkedTicket.setForestUser(resultSet.getString("forest_user"));
+                checkedTicket.setForestry(resultSet.getString("forestry"));
+                checkedTicket.setCuttingType(resultSet.getString("cutting_type"));
+                checkedTicket.setTicketStatus(resultSet.getString("ticket_status"));
+                checkedTicket.setCuttingStatus(resultSet.getString("cutting_status"));
+                checkedTicket.setNumber(ticket.getNumber());
+                checkedTicket.setStartDate(ticket.getStartDate());
+                checkedTicket.setFinishDate(ticket.getFinishDate());
             } else {
-                return false;
+                checkedTicket.setId(-1);
             }
+            return checkedTicket;
         } catch (SQLException e) {
-            log.error("FAILED checking ticket "+ticket.getNumber(), e);
-            return true;
+            log.error("CHECKING TICKET FAILED " + ticket.getNumber(), e);
+            checkedTicket.setId(-2);
+            return checkedTicket;
         }
     }
 
-    public int update(Ticket ticket) {
+    public void update(Ticket ticket) {
         String query = "UPDATE tickets SET region=?, forest_user=?, forestry=?, " +
                 "cutting_type=?, ticket_status=?, cutting_status=? " +
-                "WHERE number=? AND start_date=? AND finish_date=?";
-        try(Connection connection = dataSource.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+                "WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, ticket.getRegion());
             preparedStatement.setString(2, ticket.getForestUser());
             preparedStatement.setString(3, ticket.getForestry());
             preparedStatement.setString(4, ticket.getCuttingType());
             preparedStatement.setString(5, ticket.getTicketStatus());
             preparedStatement.setString(6, ticket.getCuttingStatus());
-            preparedStatement.setString(7, ticket.getNumber());
-            preparedStatement.setDate(8, ticket.getStartDate());
-            preparedStatement.setDate(9, ticket.getFinishDate());
-            return preparedStatement.executeUpdate();
-
+            preparedStatement.setInt(7, ticket.getId());
+            preparedStatement.executeUpdate();
+            log.info("UPDATED ");
         } catch (SQLException e) {
-            log.error("FAILED update ticket "+ticket.getNumber(), e);
+            log.error("UPDATING TICKET FAILED " + ticket.getNumber(), e);
         }
-
-        return 1;
     }
 }

@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Ticket {
+    private int id;
     private String number;
     private String region;
     private String forestUser;
@@ -13,6 +14,14 @@ public class Ticket {
     private String cuttingType;
     private String ticketStatus;
     private String cuttingStatus;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNumber() {
         return number;
@@ -89,11 +98,12 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket{" +
-                "number='" + number + '\'' +
+                "id=" + id +
+                ", number='" + number + '\'' +
                 ", region='" + region + '\'' +
                 ", forestUser='" + forestUser + '\'' +
-                ", startDate='" + startDate + '\'' +
-                ", finishDate='" + finishDate + '\'' +
+                ", startDate=" + startDate +
+                ", finishDate=" + finishDate +
                 ", forestry='" + forestry + '\'' +
                 ", cuttingType='" + cuttingType + '\'' +
                 ", ticketStatus='" + ticketStatus + '\'' +
@@ -106,7 +116,8 @@ public class Ticket {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(number, ticket.number) &&
+        return id == ticket.id &&
+                Objects.equals(number, ticket.number) &&
                 Objects.equals(region, ticket.region) &&
                 Objects.equals(forestUser, ticket.forestUser) &&
                 Objects.equals(startDate, ticket.startDate) &&
@@ -119,6 +130,6 @@ public class Ticket {
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, region, forestUser, startDate, finishDate, forestry, cuttingType, ticketStatus, cuttingStatus);
+        return Objects.hash(id, number, region, forestUser, startDate, finishDate, forestry, cuttingType, ticketStatus, cuttingStatus);
     }
 }
