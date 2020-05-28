@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import static forest.detector.utils.HTMLTemplates.*;
 
@@ -32,16 +31,11 @@ public class Index extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-
-        HttpSession session = request.getSession();
-        String role = (String) session.getAttribute("role");
-
         ContainerTag homeHtml = html(HEAD,
                 body(
 
                         div(
-                                iffElse(role == null, NAV, NAV_LOGOUT),
-                               // NAV,
+                                NAV,
                                 div(
                                         div(
                                              div(GRAPH,TABLE,FOOTER).withClass("content-wrapper pb-0")

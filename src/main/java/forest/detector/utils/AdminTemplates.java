@@ -24,6 +24,37 @@ public class AdminTemplates {
                     .attr("crossorigin", "anonymous")
 
     );
+
+    public static final ContainerTag GRAPH = div(
+            div(
+                    div(
+                            div(
+                                    i().withClass("fas fa-chart-area mr-1"),
+                                    text("Area Chart Example")).withClass("card-header"),
+                            div(
+                                    canvas().withId("myAreaChart")
+                                            .attr("width","100%")
+                                            .attr("height","40")
+
+                            ).withClass("card-body")
+
+                    ).withClass("card mb-4")
+            ).withClass("col-xl-6"),
+            div(
+                    div(
+                            div(
+                                    i().withClass("fas fa-chart-bar mr-1"),
+                                    text("Bar Chart Example")).withClass("card-header"),
+                            div(
+                                    canvas().withId("myBarChart")
+                                            .attr("width","100%")
+                                            .attr("height","40")
+
+                            ).withClass("card-body")
+
+                    ).withClass("card mb-4")
+            ).withClass("col-xl-6")
+    ).withClass("row");
     public static final ContainerTag MENU = nav(
             div(
                     div(
@@ -86,7 +117,7 @@ div(
             script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
                     .attr("crossorigin", "anonymous"),
 
-            script().withSrc("/js/chart-area-demo.js"),
+            //script().withSrc("/js/chart-area-demo.js"),
 
             script().withSrc("/js/chart-bar-demo.js"),
 
@@ -96,7 +127,62 @@ div(
             script().withSrc("https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js")
                     .attr("crossorigin", "anonymous"),
 
-            script().withSrc("/js/datatables-demo.js")
+           script().withSrc("/js/datatables-demo.js"),
+
+            script(rawHtml("Chart.defaults.global.defaultFontFamily = \'-apple-system,system-ui,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif\';\n" +
+                    "Chart.defaults.global.defaultFontColor = \'#292b2c\';\n" +
+                    "\n" +
+                    "// Area Chart Example\n" +
+                    "var ctx = document.getElementById(\"myAreaChart\");\n" +
+                    "var myLineChart = new Chart(ctx, {\n" +
+                    "  type: \'line\',\n" +
+                    "  data: {\n" +
+                    "    labels: [\"2008\", \"2009\", \"2010\", \"2011\", \"2012\", \"2013\", \"2014\", \"2015\", \"2016\", \"2017\", \"2018\", \"2019\", \"2020\"],\n" +
+                    "    datasets: [{\n" +
+                    "      label: \"Sessions\",\n" +
+                    "      lineTension: 0.3,\n" +
+                    "      backgroundColor: \"rgba(2,117,216,0.2)\",\n" +
+                    "      borderColor: \"rgba(2,117,216,1)\",\n" +
+                    "      pointRadius: 5,\n" +
+                    "      pointBackgroundColor: \"rgba(2,117,216,1)\",\n" +
+                    "      pointBorderColor: \"rgba(255,255,255,0.8)\",\n" +
+                    "      pointHoverRadius: 5,\n" +
+                    "      pointHoverBackgroundColor: \"rgba(2,117,216,1)\",\n" +
+                    "      pointHitRadius: 50,\n" +
+                    "      pointBorderWidth: 2,\n" +
+                    "      data: [10000, 30162, 26263, 18394, 18287, 28682, 31274, 33259, 25849, 24159, 32651, 31984, 38451],\n" +
+                    "    }],\n" +
+                    "  },\n" +
+                    "  options: {\n" +
+                    "    scales: {\n" +
+                    "      xAxes: [{\n" +
+                    "        time: {\n" +
+                    "          unit: 'date'\n" +
+                    "        },\n" +
+                    "        gridLines: {\n" +
+                    "          display: false\n" +
+                    "        },\n" +
+                    "        ticks: {\n" +
+                    "          maxTicksLimit: 7\n" +
+                    "        }\n" +
+                    "      }],\n" +
+                    "      yAxes: [{\n" +
+                    "        ticks: {\n" +
+                    "          min: 0,\n" +
+                    "          max: 40000,\n" +
+                    "          maxTicksLimit: 5\n" +
+                    "        },\n" +
+                    "        gridLines: {\n" +
+                    "          color: \"rgba(0, 0, 0, .125)\",\n" +
+                    "        }\n" +
+                    "      }],\n" +
+                    "    },\n" +
+                    "    legend: {\n" +
+                    "      display: false\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "});\n")).withType("text/javascript")
+
 
 
 
