@@ -37,8 +37,6 @@ public class Index extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
 
-
-
         ContainerTag homeHtml = html(HEAD,
                 body(
 
