@@ -172,24 +172,24 @@ public class Admin extends HttpServlet {
 
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if (userService == null) {
-            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-
-        String email = request.getParameter("email");
-        String role = request.getParameter("role");
-
-        if(email != null && role != null){
-            User user = userService.getUserByEmail(email);
-            if(user != null) {
-                userService.updateUserRoleInDB(role, email);
-                userService.deleteUser(email);
-                response.sendRedirect("/admin");
-            }
-        }
-
-    }
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//        if (userService == null) {
+//            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+//        }
+//
+//        String email = request.getParameter("email");
+//        String role = request.getParameter("role");
+//
+//        if(email != null && role != null){
+//            User user = userService.getUserByEmail(email);
+//            if(user != null) {
+//                userService.updateUserRoleInDB(role, email);
+//                userService.deleteUser(email);
+//                response.sendRedirect("/admin");
+//            }
+//        }
+//
+//    }
 }

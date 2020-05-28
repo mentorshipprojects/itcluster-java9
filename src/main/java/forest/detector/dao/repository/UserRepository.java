@@ -124,14 +124,15 @@ public class UserRepository {
 
         try(Connection con = dataSource.getConnection()) {
             // test connection here
-            PreparedStatement ps = con.prepareStatement("select * from users");
+            PreparedStatement ps = con.prepareStatement("select users.email, users.password, users.first_name, users.last_name, user_roles.role_name from users, user_roles where users.email=user_roles.email");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
                 list.add(new User(rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("first_name"),
-                        rs.getString("last_name")));
+                        rs.getString("last_name"),
+                        rs.getString("role_name")));
             }
 
         } catch (Exception e) {

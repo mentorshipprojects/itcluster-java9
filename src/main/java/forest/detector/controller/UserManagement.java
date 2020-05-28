@@ -7,10 +7,12 @@ import j2html.tags.DomContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,22 +81,23 @@ public class UserManagement extends HttpServlet {
                                                                                                 table(
                                                                                                         thead(
                                                                                                                 tr(
-
                                                                                                                         th("Email"),
                                                                                                                         th("Password"),
                                                                                                                         th("First name"),
-                                                                                                                        th("Last name")
+                                                                                                                        th("Last name"),
+                                                                                                                        th("Role"),
+                                                                                                                        th("Action")
                                                                                                                 )
                                                                                                         ),
-
+                                                                                                        tfoot(
+                                                                                                                th("Email"),
+                                                                                                                th("Password"),
+                                                                                                                th("First name"),
+                                                                                                                th("Last name"),
+                                                                                                                th("Role"),
+                                                                                                                th("Action")
+                                                                                                        ),
                                                                                                         tbody(
-                                                                                                                //  tr(
-//                                                                                                                td("1"),
-//                                                                                                                td("Did pixto"),
-//                                                                                                                td("22/05/2020"),
-//                                                                                                                td("Admin"),
-//                                                                                                                td("Online"),
-
                                                                                                                 each(list, user ->
                                                                                                                         div(attrs(".user"),
                                                                                                                                 tr(
@@ -102,44 +105,59 @@ public class UserManagement extends HttpServlet {
                                                                                                                                         td(user.getPassword()),
                                                                                                                                         td(user.getFirstName()),
                                                                                                                                         td(user.getLastName()),
+                                                                                                                                        td(user.getRole()),
                                                                                                                                         td(
-                                                                                                                                                a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                        .withHref("#")
-                                                                                                                                                        .withClass("settings"),
-                                                                                                                                                a(i("\uE5C9").withClass("material-icons"))
-                                                                                                                                                        .withHref("#")
-                                                                                                                                                        .withClass("delete")
-
+                                                                                                                                                td(
+                                                                                                                                                        a(i("\uE8B8").withClass("material-icons"))
+                                                                                                                                                                .withHref("#")
+                                                                                                                                                                .withClass("settings"),
+                                                                                                                                                        a(i("\uE5C9").withClass("material-icons"))
+                                                                                                                                                                .withHref("#")
+                                                                                                                                                                .withClass("delete")
+                                                                                                                                                )
                                                                                                                                         )
                                                                                                                                 )
-                                                                                                                        )
-                                                                                                                )
+                                                                                                                        ))
+                                                                                                        )
+                                                                                                ).withClass("table table-bordered")
+                                                                                                        .withId("dataTable")
+                                                                                                        .attr("width","100%")
+                                                                                                        .attr("cellspacing","0")
+                                                                                        ).withClass("table-responsive")
+                                                                                ).withClass("card-body")
+                                                                        ).withClass("table-wrapper")
+                                                                ).withClass("container")
 
+                                                        ).withClass("card mb-4")
 
-                                                                                                        ).withClass("table table-bordered")
-                                                                                                                .withId("dataTable")
-                                                                                                                .attr("width", "100%")
-                                                                                                                .attr("cellspacing", "0")
-                                                                                                ).withClass("table-responsive")
-                                                                                                ).withClass("card-body")
-                                                                                        ).withClass("table-wrapper")
-                                                                                ).withClass("container")
+                                                        ).withClass("container-fluid")
+                                                )
 
-                                                                        ).withClass("card mb-4")
+                                        ),  FOOTER
 
-                                                                ).withClass("container-fluid")
-                                                        )
+                                ).withId("layoutSidenav_content")
 
-                                                        ),  FOOTER
+                        ).withId("layoutSidenav")
 
-                                                ).withId("layoutSidenav_content")
-
-
-                                        ).withId("layoutSidenav")
-
-
-                                ).withClass("sb-nav-fixed")
-                        ));
+                ).withClass("sb-nav-fixed")
+        );
         response.getWriter().println(homeHtml.render());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (userService == null) {
+            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+        HttpSession session = request.getSession();
+
+        String email = request.getParameter("dataTable");
+
+        if(session != null){
+                userService.deleteUser(email);
+                response.sendRedirect("/admin");
+            }
+        }
+
 }
