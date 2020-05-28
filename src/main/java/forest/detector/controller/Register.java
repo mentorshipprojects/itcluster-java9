@@ -95,7 +95,6 @@ public class Register extends HttpServlet {
 //                                                                                .withHref("")
                                                                                                       button("Create Account").withClass("btn btn-primary btn-block").withType("submit")
                                                                                                         .attr("disabled","disabled")
-                                                                                                              .withId("create-btn")
                                                                                                 ).withClass("form-group d-flex align-items-center justify-content-between mt-4 mb-0 center-a")
                                                                                         )
                                                                                 ).withClass("card-body"),

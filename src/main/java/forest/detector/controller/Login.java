@@ -67,7 +67,6 @@ div(
 //                                                                             a("Forgot Password?").withClass("small")
 //                                                                                .withHref("")
                                                                                button("Login").withClass("btn btn-primary btn-block").withType("submit")
-
                                                                         ).withClass("form-group d-flex align-items-center justify-content-between mt-4 mb-0 center-a")
                                                                 )
                                                         ).withClass("card-body"),

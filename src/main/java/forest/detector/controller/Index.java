@@ -13,14 +13,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import static forest.detector.utils.HTMLTemplates.*;
 
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.th;
 
-@WebServlet(name = "home", urlPatterns = {"/home"}, loadOnStartup = 1)
+@WebServlet(name = "home", urlPatterns = {"/home"})
 public class Index extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(TemplateController.class);
@@ -28,24 +27,18 @@ public class Index extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
-        String role = (String)session.getAttribute("role");
-
-
         log.info("Visited Home page!");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-
         ContainerTag homeHtml = html(HEAD,
                 body(
 
                         div(
-                                iffElse(role == null, NAV, NAV_LOGOUT),
-                                // NAV,
+                                NAV,
                                 div(
                                         div(
-                                                div(GRAPH,TABLE,FOOTER).withClass("content-wrapper pb-0")
+                                             div(GRAPH,TABLE,FOOTER).withClass("content-wrapper pb-0")
 
                                         ).withClass("main-panel")
                                 ).withClass("container-fluid page-body-wrapper")
@@ -55,5 +48,5 @@ public class Index extends HttpServlet {
         );
         response.getWriter().println(homeHtml.render());
     }
-
+    
 }
