@@ -19,6 +19,49 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                 .attr("crossorigin","anonymous")
         );
 
+    public static final ContainerTag NAV_LOGOUT = div(
+            nav(
+                    div(
+                            div(
+                                    a("Forest").withClass("navbar-brand")
+                            ).withClass("text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"),
+                            div(
+                                    ul(
+                                            li(
+                                                    a(
+                                                            div(
+                                                                    img()
+                                                                            .attr("alt","image")
+                                                                            .withSrc("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png")
+                                                            ).withClass("nav-profile-img")
+                                                    ).withClass("nav-link")
+                                                            .withId("profileDropdown")
+                                                            .withHref("#")
+                                                            .attr("data-toggle","dropdown")
+                                                            .attr("aria-expanded","false"),
+
+                                                    div(
+
+                                                      a(
+                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
+                                                      ).withClass("dropdown-item")
+                                                              .withHref("/logout")
+                                                    ).withClass("dropdown-menu navbar-dropdown")
+                                                            .attr("aria-labelledby","profileDropdown")
+
+                                            ).withClass("nav-item nav-profile dropdown")
+                                    ).withClass("navbar-nav navbar-nav-right"),
+                                    button(
+                                            span().withClass("mdi mdi-menu")
+                                    ).withClass("navbar-toggler navbar-toggler-right d-lg-none align-self-center")
+                                            .attr("type","button")
+                                            .attr("data-toggle","horizontal-menu-toggle")
+
+                            ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
+                    ).withClass("container")
+            ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
+    ).withClass("horizontal-menu");
+
         public static final ContainerTag NAV = div(
                 nav(
                         div(
@@ -32,7 +75,7 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                       div(
                                                               img()
                                                                       .attr("alt","image")
-                                                              .withSrc("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png")
+                                                              .withSrc("/img/no-ava.png")
                                                       ).withClass("nav-profile-img")
                                               ).withClass("nav-link")
                                                       .withId("profileDropdown")
@@ -49,6 +92,10 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                               i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Register")
                                                       ).withClass("dropdown-item")
                                                       .withHref("/register")
+//                                                      a(
+//                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
+//                                                      ).withClass("dropdown-item")
+//                                                              .withHref("/logout")
                                               ).withClass("dropdown-menu navbar-dropdown")
                                               .attr("aria-labelledby","profileDropdown")
 
@@ -63,10 +110,8 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                         ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
                         ).withClass("container")
                 ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
-
-
-
         ).withClass("horizontal-menu");
+
     public static final ContainerTag GRAPH = div(
             div(
                     div(
@@ -187,7 +232,7 @@ div(i().withClass("fa fa-chevron-up")).withClass("scrollup"),
                               div(
                                       a(
                                               i().withClass("fab fa-telegram").withStyle("color: #007bff;")
-                                      ).withHref("#")
+                                      ).withHref("https://t.me/Java9ProjectBot")
                                               .withClass("tg-link")
                                       .attr("data-toggle","popover")
                                       .attr("data-placement","top")
