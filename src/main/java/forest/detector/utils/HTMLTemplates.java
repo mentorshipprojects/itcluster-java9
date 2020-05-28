@@ -32,7 +32,7 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                       div(
                                                               img()
                                                                       .attr("alt","image")
-                                                                      .withSrc("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png")
+                                                              .withSrc("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png")
                                                       ).withClass("nav-profile-img")
                                               ).withClass("nav-link")
                                                       .withId("profileDropdown")
