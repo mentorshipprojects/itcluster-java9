@@ -24,6 +24,37 @@ public class AdminTemplates {
                     .attr("crossorigin", "anonymous")
 
     );
+
+    public static final ContainerTag GRAPH = div(
+            div(
+                    div(
+                            div(
+                                    i().withClass("fas fa-chart-area mr-1"),
+                                    text("Area Chart Example")).withClass("card-header"),
+                            div(
+                                    canvas().withId("myAreaChart")
+                                            .attr("width","100%")
+                                            .attr("height","40")
+
+                            ).withClass("card-body")
+
+                    ).withClass("card mb-4")
+            ).withClass("col-xl-6"),
+            div(
+                    div(
+                            div(
+                                    i().withClass("fas fa-chart-bar mr-1"),
+                                    text("Bar Chart Example")).withClass("card-header"),
+                            div(
+                                    canvas().withId("myBarChart")
+                                            .attr("width","100%")
+                                            .attr("height","40")
+
+                            ).withClass("card-body")
+
+                    ).withClass("card mb-4")
+            ).withClass("col-xl-6")
+    ).withClass("row");
     public static final ContainerTag MENU = nav(
             div(
                     div(
