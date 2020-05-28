@@ -22,12 +22,6 @@ public class UserRepository {
     public User getUserByEmail(String email) {
         User user = null;
 
-//        String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
-//                "WHERE users.email='" + email + "', user_roles.email='"+ email +"'";
-
-//        String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
-//                "WHERE users.email=user_roles.email='" + email + "'";
-
         String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
                 "WHERE user_roles.email='" + email + "'";
 
@@ -47,6 +41,7 @@ public class UserRepository {
             }
 
         } catch (SQLException e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return user;
