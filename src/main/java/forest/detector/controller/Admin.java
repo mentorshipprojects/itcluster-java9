@@ -31,7 +31,7 @@ public class Admin extends HttpServlet {
                         div(
                                 div(
 
-                                MENU
+                                        MENU
 
                                 ).withId("layoutSidenav_nav"),
                                 div(
@@ -41,9 +41,9 @@ public class Admin extends HttpServlet {
                                                         div(
                                                                 div(
                                                                         div(
-                                                                               div(
-                                                                                       i().withClass("fas fa-chart-area mr-1"),
-                                                                                  text("Area Chart Example")).withClass("card-header"),
+                                                                                div(
+                                                                                        i().withClass("fas fa-chart-area mr-1"),
+                                                                                        text("Area Chart Example")).withClass("card-header"),
                                                                                 div(
                                                                                         canvas().withId("myAreaChart")
                                                                                                 .attr("width","100%")
@@ -131,7 +131,7 @@ public class Admin extends HttpServlet {
 
                                                                                 ).withClass("table table-bordered")
                                                                                         .withId("dataTable").attr("width","100%")
-                                                                                .attr("cellspacing","0")
+                                                                                        .attr("cellspacing","0")
 
                                                                         ).withClass("table-responsive")
 
