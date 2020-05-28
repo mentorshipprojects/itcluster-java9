@@ -42,10 +42,10 @@ public class Index extends HttpServlet {
 
                         div(
                                 iffElse(role == null, NAV, NAV_LOGOUT),
-                               // NAV,
+                                // NAV,
                                 div(
                                         div(
-                                             div(GRAPH,TABLE,FOOTER).withClass("content-wrapper pb-0")
+                                                div(GRAPH,TABLE,FOOTER).withClass("content-wrapper pb-0")
 
                                         ).withClass("main-panel")
                                 ).withClass("container-fluid page-body-wrapper")
@@ -55,5 +55,5 @@ public class Index extends HttpServlet {
         );
         response.getWriter().println(homeHtml.render());
     }
-    
+
 }
