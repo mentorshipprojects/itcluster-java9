@@ -1,6 +1,5 @@
 package forest.detector.bot;
 
-import forest.detector.Launcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,7 +8,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class PropertyBot {
-    private static Logger log = LoggerFactory.getLogger(Launcher.class);
+    private static Logger log = LoggerFactory.getLogger(TelegramBot.class);
     Properties properties = new Properties();
     {
         final ClassLoader loader = getClass().getClassLoader();
