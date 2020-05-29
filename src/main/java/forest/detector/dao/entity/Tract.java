@@ -3,7 +3,8 @@ package forest.detector.dao.entity;
 import java.util.Objects;
 
 public class Tract {
-    private String ticketNumber;
+    private int id;
+    private int ticketID;
     private String quarter;
     private String division;
     private String range;
@@ -15,12 +16,20 @@ public class Tract {
     private String contributor;
     private String mapId;
 
-    public String getTicketNumber() {
-        return ticketNumber;
+    public int getId() {
+        return id;
     }
 
-    public void setTicketNumber(String ticketNumber) {
-        this.ticketNumber = ticketNumber;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getTicketID() {
+        return ticketID;
+    }
+
+    public void setTicketID(int ticketID) {
+        this.ticketID = ticketID;
     }
 
     public String getQuarter() {
@@ -106,17 +115,18 @@ public class Tract {
     @Override
     public String toString() {
         return "Tract{" +
-                "ticketNumber='" + ticketNumber + '\'' +
-                ", quarter=" + quarter +
-                ", division=" + division +
-                ", range=" + range +
+                "id=" + id +
+                ", ticketID=" + ticketID +
+                ", quarter='" + quarter + '\'' +
+                ", division='" + division + '\'' +
+                ", range='" + range + '\'' +
                 ", area=" + area +
                 ", forestType='" + forestType + '\'' +
                 ", generalAllowedExtent=" + generalAllowedExtent +
                 ", allowedExtent=" + allowedExtent +
                 ", cuttingStatus='" + cuttingStatus + '\'' +
                 ", contributor='" + contributor + '\'' +
-                ", mapId=" + mapId +
+                ", mapId='" + mapId + '\'' +
                 '}';
     }
 
@@ -125,14 +135,15 @@ public class Tract {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tract tract = (Tract) o;
-        return Objects.equals(ticketNumber, tract.ticketNumber) &&
+        return id == tract.id &&
+                ticketID == tract.ticketID &&
+                Float.compare(tract.area, area) == 0 &&
+                Float.compare(tract.generalAllowedExtent, generalAllowedExtent) == 0 &&
+                Float.compare(tract.allowedExtent, allowedExtent) == 0 &&
                 Objects.equals(quarter, tract.quarter) &&
                 Objects.equals(division, tract.division) &&
                 Objects.equals(range, tract.range) &&
-                Objects.equals(area, tract.area) &&
                 Objects.equals(forestType, tract.forestType) &&
-                Objects.equals(generalAllowedExtent, tract.generalAllowedExtent) &&
-                Objects.equals(allowedExtent, tract.allowedExtent) &&
                 Objects.equals(cuttingStatus, tract.cuttingStatus) &&
                 Objects.equals(contributor, tract.contributor) &&
                 Objects.equals(mapId, tract.mapId);
@@ -140,6 +151,6 @@ public class Tract {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketNumber, quarter, division, range, area, forestType, generalAllowedExtent, allowedExtent, cuttingStatus, contributor, mapId);
+        return Objects.hash(id, ticketID, quarter, division, range, area, forestType, generalAllowedExtent, allowedExtent, cuttingStatus, contributor, mapId);
     }
 }

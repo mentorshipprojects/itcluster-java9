@@ -111,7 +111,7 @@ public class UserManagement extends HttpServlet {
                                                                                                                                             td(
                                                                                                                                                     td(
                                                                                                                                                             a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                                    .withHref("#")
+                                                                                                                                                                    .withHref("/settings")
                                                                                                                                                                     .withClass("settings"),
                                                                                                                                                             a(i("\uE5C9").withClass("material-icons"))
                                                                                                                                                                     .withHref("#")
@@ -147,20 +147,20 @@ public class UserManagement extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if (userService == null) {
-            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-        HttpSession session = request.getSession();
-
-        String email = request.getParameter("dataTable");
-
-        if(session != null){
-                userService.deleteUser(email);
-                response.sendRedirect("/admin");
-            }
-        }
+//    @Override
+//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//
+//        if (userService == null) {
+//            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+//        }
+//        HttpSession session = request.getSession();
+//
+//        String email = request.getParameter("dataTable");
+//
+//        if(session != null){
+//                userService.deleteUser(email);
+//                response.sendRedirect("/admin");
+//            }
+//        }
 
 }
