@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TicketRepository {
     private final DataSource dataSource;
@@ -14,6 +16,33 @@ public class TicketRepository {
 
     public TicketRepository(javax.sql.DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public List<Ticket> getTickets() {
+        List<Ticket> list = new ArrayList<>();
+
+        try(Connection con = dataSource.getConnection()) {
+            // test connection here
+            PreparedStatement ps = con.prepareStatement("select * from tickets");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                list.add(new Ticket(rs.getString("number"),
+                        rs.getString("region"),
+                        rs.getString("forest_user"),
+                        rs.getDate("start_date"),
+                        rs.getDate("finish_date"),
+                        rs.getString("forestry"),
+                        rs.getString("cutting_type"),
+                        rs.getString("ticket_status"),
+                        rs.getString("cutting_status")));
+            }
+
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public int save(Ticket ticket) {

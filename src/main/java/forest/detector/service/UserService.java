@@ -31,7 +31,12 @@ public class UserService {
         repo.setUserInDB(email, password, first_name, last_name);
     }
 
-    public User getUserByEmail(String email){
+    public void adminSetUserInDB(String email, String password, String first_name, String last_name, String avatar, String role){
+        repo.adminSetUserInDB(email,password,first_name,last_name, avatar, role);
+    }
+
+
+        public User getUserByEmail(String email){
         return repo.getUserByEmail(email);
     }
 

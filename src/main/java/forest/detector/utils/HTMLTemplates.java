@@ -1,10 +1,15 @@
 package forest.detector.utils;
 
+import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
+
+import javax.sql.DataSource;
 
 import static j2html.TagCreator.*;
 
 public class HTMLTemplates {
+
+
 
         public static final ContainerTag HEAD = head(
                 title("Forest"),

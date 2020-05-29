@@ -22,12 +22,6 @@ public class UserRepository {
     public User getUserByEmail(String email) {
         User user = null;
 
-//        String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
-//                "WHERE users.email='" + email + "', user_roles.email='"+ email +"'";
-
-//        String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
-//                "WHERE users.email=user_roles.email='" + email + "'";
-
         String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
                 "WHERE user_roles.email='" + email + "'";
 
@@ -47,6 +41,7 @@ public class UserRepository {
             }
 
         } catch (SQLException e) {
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return user;
@@ -60,6 +55,26 @@ public class UserRepository {
         {
             String users_query = "INSERT INTO users(email, password, first_name, last_name)" +
                     "VALUES ('" + email + "', '" + password + "', '" + first_name + "', '" + last_name + "');";
+
+            String role_query = "INSERT INTO user_roles(email, role_name)" +
+                    "VALUES ('" + email + "', '" + role + "');";
+
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(users_query);
+            statement.executeUpdate(role_query);
+
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+            e.printStackTrace();
+        }
+    }
+
+    public void adminSetUserInDB(String email, String password, String first_name, String last_name, String avatar, String role){
+
+        try(Connection connection = dataSource.getConnection())
+        {
+            String users_query = "INSERT INTO users(email, password, first_name, last_name, avatar)" +
+                    "VALUES ('" + email + "', '" + password + "', '" + first_name + "', '" + last_name + "', '"+avatar+"');";
 
             String role_query = "INSERT INTO user_roles(email, role_name)" +
                     "VALUES ('" + email + "', '" + role + "');";
@@ -98,7 +113,9 @@ public class UserRepository {
         try(Connection con = dataSource.getConnection())
         {
             Statement statement = con.createStatement();
-            ResultSet resultSet = statement.executeQuery("select users.password, user_roles.email, user_roles.role_name from users, user_roles");
+//            ResultSet resultSet = statement.executeQuery("select users.password, user_roles.email, user_roles.role_name from users, user_roles");
+
+            ResultSet resultSet = statement.executeQuery("select * from users join user_roles on users.email=user_roles.email");
 
             while(resultSet.next())
             {
@@ -129,14 +146,15 @@ public class UserRepository {
 
         try(Connection con = dataSource.getConnection()) {
             // test connection here
-            PreparedStatement ps = con.prepareStatement("select * from users");
+            PreparedStatement ps = con.prepareStatement("select users.email, users.password, users.first_name, users.last_name, user_roles.role_name from users, user_roles where users.email=user_roles.email");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
                 list.add(new User(rs.getString("email"),
                         rs.getString("password"),
                         rs.getString("first_name"),
-                        rs.getString("last_name")));
+                        rs.getString("last_name"),
+                        rs.getString("role_name")));
             }
 
         } catch (Exception e) {

@@ -59,7 +59,7 @@ public class EditProfileTemplates {
                                                                                                                         ).withClass("form-group row")
     );
 
-    public static final ContainerTag EDIT_PROF_FORM = form(
+    public static final ContainerTag EDIT_PROF_FORM = form().withMethod("post").with(
             div(
             label("Role").attr("for","nickname")
                                                                                                                                         .withClass("col-4 col-form-label"),
@@ -95,19 +95,19 @@ public class EditProfileTemplates {
                                                                                                                         ).withClass("form-group row"),
 
 
-    div(
-            label("Nickname*").attr("for","nickname")
-                                                                                                                                        .withClass("col-4 col-form-label"),
-    div(
-            input().withId("nickname")
-                                                                                                                                                .withName("nickname")
-                                                                                                                                        .withPlaceholder("Nickname")
-                                                                                                                                        .withClass("form-control here")
-                                                                                                                                        .isRequired()
-                                                                                                                                        .withType("text")
-    // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
-                                                                                                                                ).withClass("col-8")
-                                                                                                                        ).withClass("form-group row"),
+//    div(
+//            label("Nickname*").attr("for","nickname")
+//                                                                                                                                        .withClass("col-4 col-form-label"),
+//    div(
+//            input().withId("nickname")
+//                                                                                                                                                .withName("nickname")
+//                                                                                                                                        .withPlaceholder("Nickname")
+//                                                                                                                                        .withClass("form-control here")
+//                                                                                                                                        .isRequired()
+//                                                                                                                                        .withType("text")
+//    // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
+//                                                                                                                                ).withClass("col-8")
+//                                                                                                                        ).withClass("form-group row"),
 
     div(
             label("Email*").attr("for","email")

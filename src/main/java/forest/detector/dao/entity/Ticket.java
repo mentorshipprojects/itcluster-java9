@@ -15,6 +15,22 @@ public class Ticket {
     private String ticketStatus;
     private String cuttingStatus;
 
+    public Ticket(String number, String region, String forestUser, Date startDate, Date finishDate, String forestry, String cuttingType, String ticketStatus, String cuttingStatus) {
+        //this.id = id;
+        this.number = number;
+        this.region = region;
+        this.forestUser = forestUser;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.forestry = forestry;
+        this.cuttingType = cuttingType;
+        this.ticketStatus = ticketStatus;
+        this.cuttingStatus = cuttingStatus;
+    }
+
+    public Ticket() {
+    }
+
     public int getId() {
         return id;
     }

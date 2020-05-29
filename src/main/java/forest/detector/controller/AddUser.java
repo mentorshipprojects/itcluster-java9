@@ -1,13 +1,17 @@
 package forest.detector.controller;
 
+import forest.detector.dao.entity.User;
+import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 import static forest.detector.utils.AdminTemplates.*;
@@ -16,7 +20,8 @@ import static j2html.TagCreator.*;
 @WebServlet(name = "add_user", urlPatterns = "/admin/add_user")
 public class AddUser extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
+    private static Logger log = LoggerFactory.getLogger(AddUser.class);
+    private UserService userService;
 
     /**
      * <script src="https://kit.fontawesome.com/aac0f778d8.js" crossorigin="anonymous"></script>
@@ -33,9 +38,7 @@ public class AddUser extends HttpServlet {
                 body(
                         NAV,
                         div(
-
                                 div(
-
                                         MENU
 
                                 ).withId("layoutSidenav_nav"),
@@ -61,14 +64,15 @@ public class AddUser extends HttpServlet {
                                                                                                 div(
 
                                                                                                         div(
-                                                                                                                form(
+                                                                                                                form().withMethod("post").with(
                                                                                                                         div(
                                                                                                                                 label("Role").attr("for","nickname")
                                                                                                                                         .withClass("col-4 col-form-label"),
                                                                                                                                 div(
                                                                                                                                         select(
                                                                                                                                                 option("Admin").withValue("admin"),
-                                                                                                                                                option("Moder").withValue("moder"),
+                                                                                                                                                option("Moderator-api").withValue("moderator-api"),
+                                                                                                                                                option("Moderator-gui").withValue("moderator-gui"),
                                                                                                                                                 option("User").withValue("user")
 
                                                                                                                                         ).withId("role")
@@ -86,28 +90,11 @@ public class AddUser extends HttpServlet {
                                                                                                                                 div(
                                                                                                                                         input().withId("avatar")
                                                                                                                                                 .withName("avatar")
-
                                                                                                                                                 .withClass("form-control-filer")
-
                                                                                                                                                 .withType("file"),
                                                                                                                                         img().withId("priew-ava").withSrc("/img/no-ava.png")
                                                                                                                                         // в .withSrc() повинна бути змінна з лінком аватара того юзера якого редагуємо
 
-                                                                                                                                ).withClass("col-8")
-                                                                                                                        ).withClass("form-group row"),
-
-
-                                                                                                                        div(
-                                                                                                                                label("Nickname*").attr("for","nickname")
-                                                                                                                                        .withClass("col-4 col-form-label"),
-                                                                                                                                div(
-                                                                                                                                        input().withId("nickname")
-                                                                                                                                                .withName("nickname")
-                                                                                                                                                .withPlaceholder("Nickname")
-                                                                                                                                                .withClass("form-control here")
-                                                                                                                                                .isRequired()
-                                                                                                                                                .withType("text")
-                                                                                                                                        // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -126,6 +113,34 @@ public class AddUser extends HttpServlet {
                                                                                                                         ).withClass("form-group row"),
 
                                                                                                                         div(
+                                                                                                                                label("First name*").attr("for","firstName")
+                                                                                                                                        .withClass("col-4 col-form-label"),
+                                                                                                                                div(
+                                                                                                                                        input().withId("firstName")
+                                                                                                                                                .withName("firstName")
+                                                                                                                                                .withPlaceholder("First name")
+                                                                                                                                                .withClass("form-control here")
+                                                                                                                                                .isRequired()
+                                                                                                                                                .withType("text")
+                                                                                                                                        // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
+                                                                                                                                ).withClass("col-8")
+                                                                                                                        ).withClass("form-group row"),
+
+                                                                                                                        div(
+                                                                                                                                label("Last name*").attr("for","lastName")
+                                                                                                                                        .withClass("col-4 col-form-label"),
+                                                                                                                                div(
+                                                                                                                                        input().withId("lastName")
+                                                                                                                                                .withName("lastName")
+                                                                                                                                                .withPlaceholder("Last name")
+                                                                                                                                                .withClass("form-control here")
+                                                                                                                                                .isRequired()
+                                                                                                                                                .withType("text")
+                                                                                                                                        // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
+                                                                                                                                ).withClass("col-8")
+                                                                                                                        ).withClass("form-group row"),
+
+                                                                                                                        div(
                                                                                                                                 label("Password*").attr("for","password")
                                                                                                                                         .withClass("col-4 col-form-label"),
                                                                                                                                 div(
@@ -138,13 +153,7 @@ public class AddUser extends HttpServlet {
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
-
-
-
-
-
                                                                                                                         div(
-
                                                                                                                                 div(
                                                                                                                                         button("Save")
                                                                                                                                                 .withName("submit")
@@ -152,10 +161,6 @@ public class AddUser extends HttpServlet {
                                                                                                                                                 .withClass("btn btn-primary")
                                                                                                                                 ).withClass("offset-4 col-8")
                                                                                                                         ).withClass("form-group row")
-
-
-
-
 
                                                                                                                 )
                                                                                                         ).withClass("col-md-12")
@@ -206,4 +211,30 @@ public class AddUser extends HttpServlet {
         );
         response.getWriter().println(homeHtml.render());
     }
-}
+
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (userService == null) {
+            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String avatar = request.getParameter("avatar");
+        String role = request.getParameter("role");
+
+        if(email != null && role != null){
+
+                // userService.updateUserRoleInDB(role, email);
+                //userService.deleteUser(email);
+                userService.adminSetUserInDB(email,password,firstName,lastName,avatar,role);
+                response.sendRedirect("/admin");
+            }
+        }
+    }
+    
+
