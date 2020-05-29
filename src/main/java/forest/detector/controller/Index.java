@@ -23,8 +23,7 @@ import static j2html.TagCreator.th;
 @WebServlet(name = "home", urlPatterns = {"/home"})
 public class Index extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
-
+    private static Logger log = LoggerFactory.getLogger(Index.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -49,10 +48,8 @@ public class Index extends HttpServlet {
                                         ).withClass("main-panel")
                                 ).withClass("container-fluid page-body-wrapper")
                         ).withClass("container-scroller")
-
                 )
         );
         response.getWriter().println(homeHtml.render());
     }
-    
 }
