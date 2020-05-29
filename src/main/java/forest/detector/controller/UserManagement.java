@@ -97,7 +97,9 @@ public class UserManagement extends HttpServlet {
                                                                                                                     th("Password"),
                                                                                                                     th("First name"),
                                                                                                                     th("Last name"),
-                                                                                                                    th("Role")
+                                                                                                                    th("Role"),
+                                                                                                                                th("  ")
+
                                                                                                             ),
                                                                                                             tbody(
                                                                                                                     each(list, user ->
@@ -108,7 +110,7 @@ public class UserManagement extends HttpServlet {
                                                                                                                                             td(user.getFirstName()),
                                                                                                                                             td(user.getLastName()),
                                                                                                                                             td(user.getRole()),
-                                                                                                                                            td(
+
                                                                                                                                                     td(
                                                                                                                                                             a(i("\uE8B8").withClass("material-icons"))
                                                                                                                                                                     .withHref("/settings")
@@ -117,7 +119,7 @@ public class UserManagement extends HttpServlet {
                                                                                                                                                                     .withHref("#")
                                                                                                                                                                     .withClass("delete")
                                                                                                                                                     )
-                                                                                                                                            )
+
                                                                                                                                     )
                                                                                                                             ))
                                                                                                             )

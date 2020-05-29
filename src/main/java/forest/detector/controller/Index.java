@@ -96,15 +96,15 @@ public class Index extends HttpServlet {
                                                                                         each(list, ticket ->
                                                                                                 div(attrs(".ticket"),
                                                                                                         tr(
-                                                                                                                th(ticket.getNumber()),
-                                                                                                                th(ticket.getRegion()),
-                                                                                                                th(ticket.getForestUser()),
-                                                                                                                th(String.valueOf(ticket.getStartDate())),
-                                                                                                                th(String.valueOf(ticket.getFinishDate())),
-                                                                                                                th(ticket.getForestry()),
-                                                                                                                th(ticket.getCuttingType()),
-                                                                                                                th(ticket.getTicketStatus()),
-                                                                                                                th(ticket.getCuttingStatus())
+                                                                                                                td(ticket.getNumber()),
+                                                                                                                td(ticket.getRegion()),
+                                                                                                                td(ticket.getForestUser()),
+                                                                                                                td(String.valueOf(ticket.getStartDate())),
+                                                                                                                td(String.valueOf(ticket.getFinishDate())),
+                                                                                                                td(ticket.getForestry()),
+                                                                                                                td(ticket.getCuttingType()),
+                                                                                                                td(ticket.getTicketStatus()),
+                                                                                                                td(ticket.getCuttingStatus())
                                                                                                         )
 //                                                                                     tr(
 //                                                                                             th("45645645"),
@@ -133,7 +133,7 @@ public class Index extends HttpServlet {
 
 
                                                                                                 ))
-                                                                                ).withClass("table table-bordered")
+                                                                                )).withClass("table table-bordered")
                                                                                         .withId("dataTable").attr("width","100%")
                                                                                         .attr("cellspacing","0")
 
@@ -147,7 +147,7 @@ public class Index extends HttpServlet {
                                         ).withClass("container-fluid page-body-wrapper")
                                 ).withClass("container-scroller")
                         )
-                ));
+                );
         response.getWriter().println(homeHtml.render());
 
     }
