@@ -8,10 +8,13 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import javax.sql.DataSource;
+
 public class TelegramBot extends TelegramLongPollingBot {
     private PropertyBot property = new PropertyBot();
     private KeyHandler handler = new KeyHandler();
     private String msgID = "";
+ //   private BotDB botDB = new BotDB();
 
     private static Logger log = LoggerFactory.getLogger(TelegramBot.class);
 
@@ -20,6 +23,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if(update.hasMessage()) {
             if(update.getMessage().getText() != null || update.getMessage().getText().equals("/bot") || update.getMessage().getText().equals("/key")) {
+              //  System.out.println(botDB.getTicket());
                 sendKeyboard(update.getMessage().getChatId().toString(), handler.getMenuName());
             }
         } else if(update.hasCallbackQuery()){

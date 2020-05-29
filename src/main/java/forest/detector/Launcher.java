@@ -13,6 +13,7 @@ import org.apache.catalina.valves.PersistentValve;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.EmptyResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.apache.tomcat.util.descriptor.web.LoginConfig;
 import org.apache.tomcat.util.scan.StandardJarScanFilter;
@@ -45,9 +46,10 @@ public class Launcher {
             exception.printStackTrace();
         }
 
-        // Timer init
-        eventTimer timer = new eventTimer();
-        timer.UpdateTimer();
+
+//        // Timer init
+//        eventTimer timer = new eventTimer();
+//        timer.UpdateTimer();
 
 
         File root = getRootFolder();
@@ -214,7 +216,6 @@ public class Launcher {
         // https://stackoverflow.com/questions/31033751/embedded-tomcat-enable-ssl
         // http://tomcat.apache.org/tomcat-9.0-doc/ssl-howto.html
     }
-
 
     private static File getRootFolder() {
         try {
