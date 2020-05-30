@@ -47,10 +47,10 @@ public class EditProfile extends HttpServlet {
                                 ).withId("layoutSidenav_nav"),
                                 div(
                                         main(
-                                                div(                  div(
+                                                  div(
                                                         div(
                                                                 div(
-                                                                        div(
+                                                                        div(div(
                                                                                 div(
                                                                                         div(
                                                                                                 div(
@@ -62,7 +62,7 @@ public class EditProfile extends HttpServlet {
 
                                                                                         ).withClass("row")
                                                                                 ).withClass("table-title"),
-                                                                                div(
+
                                                                                         div(
                                                                                                 div(
 
@@ -156,8 +156,8 @@ public class EditProfile extends HttpServlet {
 
                                                         ).withClass("card mb-4")
 
-                                                        ).withClass("container-fluid")
-                                                )
+                                                        ).withClass("container-fluid"))
+
 
                                         ),  FOOTER,
 
@@ -191,7 +191,7 @@ public class EditProfile extends HttpServlet {
 
 
                 ).withClass("sb-nav-fixed")
-        ));
+        );
         response.getWriter().println(homeHtml.render());
     }
 }

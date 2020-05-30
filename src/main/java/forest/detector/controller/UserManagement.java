@@ -113,7 +113,7 @@ public class UserManagement extends HttpServlet {
 
                                                                                                                                                     td(
                                                                                                                                                             a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                                    .withHref("/settings")
+                                                                                                                                                                    .withHref("/admin/edit_profile")
                                                                                                                                                                     .withClass("settings"),
                                                                                                                                                             a(i("\uE5C9").withClass("material-icons"))
                                                                                                                                                                     .withHref("#")

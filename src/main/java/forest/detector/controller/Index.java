@@ -96,7 +96,7 @@ public class Index extends HttpServlet {
                                                                                         each(list, ticket ->
                                                                                                 div(attrs(".ticket"),
                                                                                                         tr(
-                                                                                                                td(ticket.getNumber()),
+                                                                                                                td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
                                                                                                                 td(ticket.getRegion()),
                                                                                                                 td(ticket.getForestUser()),
                                                                                                                 td(String.valueOf(ticket.getStartDate())),
@@ -106,6 +106,8 @@ public class Index extends HttpServlet {
                                                                                                                 td(ticket.getTicketStatus()),
                                                                                                                 td(ticket.getCuttingStatus())
                                                                                                         )
+//
+
 
                                                                                                 ))
                                                                                 )).withClass("table table-bordered")

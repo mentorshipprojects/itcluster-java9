@@ -1,6 +1,8 @@
 package forest.detector.controller;
 
+import forest.detector.dao.entity.Ticket;
 import forest.detector.dao.entity.User;
+import forest.detector.service.TicketService;
 import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.List;
 
 import static forest.detector.utils.AdminTemplates.*;
 import static j2html.TagCreator.*;
@@ -23,6 +26,7 @@ public class Admin extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Admin.class);
     private UserService userService;
+    private TicketService ticketService;
 //
 
     /**
@@ -33,6 +37,11 @@ public class Admin extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
+
+        if (ticketService == null) {
+            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+        List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
@@ -120,28 +129,23 @@ public class Admin extends HttpServlet {
 
                                                                                             ),
                                                                                             tbody(
-                                                                                                    tr(
-                                                                                                            th("45645645"),
-                                                                                                            th("IF"),
-                                                                                                            th("Admin"),
-                                                                                                            th("22.05.2020"),
-                                                                                                            th("22.05.2020"),
-                                                                                                            th("N/A"),
-                                                                                                            th("N/A"),
-                                                                                                            th("Ok"),
-                                                                                                            th("Ok")
-                                                                                                    ),
-                                                                                                    tr(
-                                                                                                            th("45645645"),
-                                                                                                            th("IF"),
-                                                                                                            th("Admin"),
-                                                                                                            th("22.05.2020"),
-                                                                                                            th("22.05.2020"),
-                                                                                                            th("N/A"),
-                                                                                                            th("N/A"),
-                                                                                                            th("Ok"),
-                                                                                                            th("Ok")
-                                                                                                    )
+                                                                                                    each(list, ticket ->
+                                                                                                            div(attrs(".ticket"),
+                                                                                                                    tr(
+                                                                                                                            td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
+                                                                                                                            td(ticket.getRegion()),
+                                                                                                                            td(ticket.getForestUser()),
+                                                                                                                            td(String.valueOf(ticket.getStartDate())),
+                                                                                                                            td(String.valueOf(ticket.getFinishDate())),
+                                                                                                                            td(ticket.getForestry()),
+                                                                                                                            td(ticket.getCuttingType()),
+                                                                                                                            td(ticket.getTicketStatus()),
+                                                                                                                            td(ticket.getCuttingStatus())
+                                                                                                                    )
+//
+
+
+                                                                                                            ))
                                                                                             )
 
 
