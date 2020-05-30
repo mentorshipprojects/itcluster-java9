@@ -1,5 +1,6 @@
 package forest.detector.utils;
 
+import forest.detector.service.TicketService;
 import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 
@@ -9,6 +10,8 @@ import static j2html.TagCreator.*;
 
 public class HTMLTemplates {
 
+
+    private TicketService ticketService;
 
 
         public static final ContainerTag HEAD = head(
@@ -160,7 +163,8 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                     ).withClass("card mb-4")
             ).withClass("col-xl-6")
     ).withClass("row");
-    public static final ContainerTag TABLE = div(
+
+    public static  ContainerTag TABLE = div(
             div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
             ).withClass("card-header"),
             div(
@@ -179,7 +183,6 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                     th("Ticket status"),
                                                     th("Cutting status")
                                             )
-
                                     ),
                                     tfoot(
                                             tr(

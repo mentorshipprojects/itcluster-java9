@@ -106,31 +106,6 @@ public class Index extends HttpServlet {
                                                                                                                 td(ticket.getTicketStatus()),
                                                                                                                 td(ticket.getCuttingStatus())
                                                                                                         )
-//                                                                                     tr(
-//                                                                                             th("45645645"),
-//                                                                                             th("IF"),
-//                                                                                             th("Admin"),
-//                                                                                             th("22.05.2020"),
-//                                                                                             th("22.05.2020"),
-//                                                                                             th("N/A"),
-//                                                                                             th("N/A"),
-//                                                                                             th("Ok"),
-//                                                                                             th("Ok")
-//                                                                                     ),
-//                                                                                     tr(
-//                                                                                             th("45645645"),
-//                                                                                             th("IF"),
-//                                                                                             th("Admin"),
-//                                                                                             th("22.05.2020"),
-//                                                                                             th("22.05.2020"),
-//                                                                                             th("N/A"),
-//                                                                                             th("N/A"),
-//                                                                                             th("Ok"),
-//                                                                                             th("Ok")
-//                                                                                     )
-
-
-
 
                                                                                                 ))
                                                                                 )).withClass("table table-bordered")

@@ -27,7 +27,8 @@ public class TicketRepository {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                list.add(new Ticket(rs.getString("number"),
+                list.add(new Ticket(rs.getInt("id"),
+                        rs.getString("number"),
                         rs.getString("region"),
                         rs.getString("forest_user"),
                         rs.getDate("start_date"),
