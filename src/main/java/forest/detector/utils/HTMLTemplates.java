@@ -24,7 +24,8 @@ link().withHref("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.mi
                 .withRel("stylesheet")
         .attr("crossorigin","anonymous"),
 script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
-                .attr("crossorigin","anonymous")
+                .attr("crossorigin","anonymous"),
+                script().withSrc("/js/vendor.bundle.base.js")
         );
 
     public static final ContainerTag NAV_LOGOUT = div(
@@ -40,7 +41,7 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                             div(
                                                                     img()
                                                                             .attr("alt","image")
-                                                                            .withSrc("https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png")
+                                                                            .withSrc("")
                                                             ).withClass("nav-profile-img")
                                                     ).withClass("nav-link")
                                                             .withId("profileDropdown")
@@ -54,6 +55,58 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                               i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
                                                       ).withClass("dropdown-item")
                                                               .withHref("/logout")
+                                                    ).withClass("dropdown-menu navbar-dropdown")
+                                                            .attr("aria-labelledby","profileDropdown")
+
+                                            ).withClass("nav-item nav-profile dropdown")
+                                    ).withClass("navbar-nav navbar-nav-right"),
+                                    button(
+                                            span().withClass("mdi mdi-menu")
+                                    ).withClass("navbar-toggler navbar-toggler-right d-lg-none align-self-center")
+                                            .attr("type","button")
+                                            .attr("data-toggle","horizontal-menu-toggle")
+
+                            ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
+                    ).withClass("container")
+            ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
+    ).withClass("horizontal-menu");
+
+    public static final ContainerTag ADM_NAV = div(
+            nav(
+                    div(
+                            div(
+                                    a("Forest").withClass("navbar-brand")
+                            ).withClass("text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"),
+                            div(
+                                    ul(
+                                            li(
+                                                    a(
+                                                            div(
+                                                                    img()
+                                                                            .attr("alt","image")
+                                                                            .withSrc("")
+                                                            ).withClass("nav-profile-img")
+                                                    ).withClass("nav-link")
+                                                            .withId("profileDropdown")
+                                                            .withHref("#")
+                                                            .attr("data-toggle","dropdown")
+                                                            .attr("aria-expanded","false"),
+
+                                                    div(
+
+                                                            a(
+                                                                    i().withClass("mdi mdi-crown mr-2 text-success"), text(" Admin panel ")
+                                                            ).withClass("dropdown-item")
+                                                                    .withHref("/admin"),
+                                                            a(
+                                                                    i().withClass("mdi mdi-settings mr-2 text-success"), text(" Settings ")
+                                                            ).withClass("dropdown-item")
+                                                                    .withHref("/settings"),
+
+                                                            a(
+                                                                    i().withClass("mdi mdi-logout mr-2 text-success"), text(" Logout ")
+                                                            ).withClass("dropdown-item")
+                                                                    .withHref("/logout")
                                                     ).withClass("dropdown-menu navbar-dropdown")
                                                             .attr("aria-labelledby","profileDropdown")
 
@@ -253,7 +306,7 @@ div(i().withClass("fa fa-chevron-up")).withClass("scrollup"),
                 script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"),
 
 
-                script().withSrc("/js/vendor.bundle.base.js"),
+
                 script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
                         .attr("crossorigin", "anonymous"),
                 script().withSrc("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")

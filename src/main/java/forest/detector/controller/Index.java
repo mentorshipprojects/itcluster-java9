@@ -50,10 +50,22 @@ public class Index extends HttpServlet {
 
 
         ContainerTag homeHtml = html(HEAD,
-                body(
+                body( div(div().withId("loader")).withId("loader-wrapper"),
 
+
+
+
+
+//                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
+                        script(rawHtml("$('document').ready(function() {\n" +
+                                "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
+                                "        $(\"html\").css(\"overflow\",\"auto\")\n" +
+                                "        \n" +
+                                "\n" +
+                                "    });")),
                         div(
-                                iffElse(role == null, NAV, NAV_LOGOUT),
+                                iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
+
                                 // NAV,
                                 div(
                                         div(
@@ -124,7 +136,7 @@ public class Index extends HttpServlet {
                                         ).withClass("container-fluid page-body-wrapper")
                                 ).withClass("container-scroller")
                         )
-                );
+                ).withStyle("overflow:hidden");
         response.getWriter().println(homeHtml.render());
 
     }
