@@ -22,8 +22,7 @@ public class UserRepository {
     public User getUserByEmail(String email) {
         User user = null;
 
-        String users_query = "SELECT users.email, users.password, users.first_name, users.last_name, user_roles.role_name FROM users, user_roles " +
-                "WHERE user_roles.email='" + email + "'";
+        String users_query = "select * from users join user_roles on users.email=user_roles.email where users.email='"+email+"'";
 
         try (
                 Connection connection = dataSource.getConnection();
@@ -89,14 +88,19 @@ public class UserRepository {
         }
     }
 
-    public void updateUserRoleInDB(String role,String email){
+    public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
 
         try(Connection con = dataSource.getConnection();)
         {
-            PreparedStatement ps = con.prepareStatement("update user_roles set role_name=?, where email=? ");
-            ps.setString(1, role);
-            ps.setString(2, email);
-            ps.executeQuery();
+            String userQuery = "update users " +
+                    "set password='"+password+"', first_name='"+first_name+"', last_name='"+last_name+"', avatar='"+avatar+"' " +
+                    "where email='"+email+"' ";
+
+           String roleQuery = "update user_roles set role_name='"+role+"' where email='"+email+"' ";
+//
+            Statement statement = con.createStatement();
+            statement.executeUpdate(userQuery);
+            statement.executeUpdate(roleQuery);
 
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -113,8 +117,6 @@ public class UserRepository {
         try(Connection con = dataSource.getConnection())
         {
             Statement statement = con.createStatement();
-//            ResultSet resultSet = statement.executeQuery("select users.password, user_roles.email, user_roles.role_name from users, user_roles");
-
             ResultSet resultSet = statement.executeQuery("select * from users join user_roles on users.email=user_roles.email");
 
             while(resultSet.next())

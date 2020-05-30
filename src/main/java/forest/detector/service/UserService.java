@@ -35,13 +35,12 @@ public class UserService {
         repo.adminSetUserInDB(email,password,first_name,last_name, avatar, role);
     }
 
-
-        public User getUserByEmail(String email){
+    public User getUserByEmail(String email){
         return repo.getUserByEmail(email);
     }
 
-    public void updateUserRoleInDB(String role,String email){
-        repo.updateUserRoleInDB(role, email);
+    public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
+        repo.updateUserRoleInDB(email, password, first_name, last_name, avatar, role);
     }
 
     public void deleteUser(String email){

@@ -7,6 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String role;
+    private String avatar;
 
     public User() {
     }
@@ -25,6 +26,23 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
 
+    }
+
+    public User(String email, String password, String firstName, String lastName, String role, String avatar) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.avatar = avatar;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getEmail() {

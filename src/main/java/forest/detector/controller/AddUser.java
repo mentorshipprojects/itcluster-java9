@@ -2,6 +2,7 @@ package forest.detector.controller;
 
 import forest.detector.dao.entity.User;
 import forest.detector.service.UserService;
+import forest.detector.utils.PasswordHashing;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,7 @@ public class AddUser extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(AddUser.class);
     private UserService userService;
+    private PasswordHashing hashing = new PasswordHashing();
 
     /**
      * <script src="https://kit.fontawesome.com/aac0f778d8.js" crossorigin="anonymous"></script>
@@ -221,16 +223,13 @@ public class AddUser extends HttpServlet {
         }
 
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = hashing.getHash(request.getParameter("password"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String avatar = request.getParameter("avatar");
         String role = request.getParameter("role");
 
         if(email != null && role != null){
-
-                // userService.updateUserRoleInDB(role, email);
-                //userService.deleteUser(email);
                 userService.adminSetUserInDB(email,password,firstName,lastName,avatar,role);
                 response.sendRedirect("/admin");
             }

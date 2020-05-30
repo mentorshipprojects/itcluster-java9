@@ -89,7 +89,8 @@ public class UserManagement extends HttpServlet {
                                                                                                                             th("Password"),
                                                                                                                             th("First name"),
                                                                                                                             th("Last name"),
-                                                                                                                            th("Role")
+                                                                                                                            th("Role"),
+                                                                                                                            th("Action")
                                                                                                                     )
                                                                                                             ),
                                                                                                             tfoot(
@@ -98,7 +99,7 @@ public class UserManagement extends HttpServlet {
                                                                                                                     th("First name"),
                                                                                                                     th("Last name"),
                                                                                                                     th("Role"),
-                                                                                                                                th("  ")
+                                                                                                                    th("Action")
 
                                                                                                             ),
                                                                                                             tbody(
@@ -113,7 +114,7 @@ public class UserManagement extends HttpServlet {
 
                                                                                                                                                     td(
                                                                                                                                                             a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                                    .withHref("/admin/edit_profile")
+                                                                                                                                                                    .withHref("/admin/edit_profile?email="+user.getEmail())
                                                                                                                                                                     .withClass("settings"),
                                                                                                                                                             a(i("\uE5C9").withClass("material-icons"))
                                                                                                                                                                     .withHref("#")
