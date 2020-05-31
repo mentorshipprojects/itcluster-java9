@@ -19,8 +19,11 @@ public class AdminTemplates {
                     .withRel("stylesheet")
                     .withHref("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css")
                     .attr("crossorigin", "anonymous"),
+            script().withSrc("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
             script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
-                    .attr("crossorigin", "anonymous")
+                    .attr("crossorigin", "anonymous"),
+            script().withSrc("/js/nprogress.js"),
+            link().withRel("stylesheet").withHref("/css/nprogress.css")
     );
 
     public static final ContainerTag GRAPH = div(
@@ -64,6 +67,25 @@ public class AdminTemplates {
                             a(
                                     div(i().withClass("fas fa-user"))
                                             .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
+
+                            ,a(
+                                    div(i().withClass("fas fa-sync-alt"))
+                                            .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
+                                    .attr("onclick","bar()")
+                            .withId("update-bd")
+
+
+
+                            , script(rawHtml("$(document).ready(function(){\n" +
+                                    "  $(\"#update-bd\").click(function(){\n" +
+                                    "    $.get(\"/parser\", function(data, status){\n" +
+                                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
+                                    "    });\n" +
+                                    "  });\n" +
+                                    "});" +
+                                    "function bar() {\n" +"NProgress.start();"+
+
+                                    "        }"))
                     ).withClass("nav")
             ).withClass("sb-sidenav-menu"),
             div(
@@ -168,15 +190,16 @@ public class AdminTemplates {
     ).withClasses("py-4 bg-light mt-auto");
 
     public static final ContainerTag PARSER_START_BUTTON = div(
-            script().withSrc("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
+
+
             script(rawHtml("$(document).ready(function(){\n" +
                     "  $(\"input\").click(function(){\n" +
                     "    $.get(\"/parser\", function(data, status){\n" +
-                    "      alert(data);\n" +
+                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
                     "    });\n" +
                     "  });\n" +
                     "});" +
-                    "function myFunction() {\n" +
+                    "function myFunction() {\n" +"NProgress.start();"+
                     "            document.getElementById(\"start_parser\").disabled = true;\n" +
                     "            document.getElementById(\"start_parser\").value = \"UPDATING STARTED\";\n" +
                     "        }")),

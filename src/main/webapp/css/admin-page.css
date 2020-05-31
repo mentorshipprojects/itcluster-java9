@@ -10221,6 +10221,8 @@ body {
   height: 70px;
   cursor: pointer;
 }
-
+#update-bd {
+  cursor: pointer;
+}
 #avatar{
   display: none !important;}
