@@ -2,41 +2,42 @@
 
 --postgreSQL
 
-create table tickets
+create table users
 (
-	id serial not null
-		constraint tickets_pk
+	email varchar(30) not null
+		constraint users_pkey
 			primary key,
-	number varchar(20) not null,
-	region varchar(100) not null,
-	forest_user varchar(100) not null,
-	start_date date not null,
-	finish_date date not null,
-	forestry varchar(100),
-	cutting_type varchar(100),
-	ticket_status varchar(20),
-	cutting_status varchar(20)
+	password varchar(80) not null,
+	first_name varchar(15),
+	last_name varchar(15),
+	avatar varchar(50) default '/img/no-ava.png'::character varying
 );
 
+alter table users owner to fepmwlwrizhqqr;
 
-create table tracts
+
+
+create table user_roles
 (
-	id serial not null
-		constraint tracts_pk
-			primary key,
-	ticket_id integer not null,
-	quarter varchar(20),
-	division varchar(20),
-	range varchar(20),
-	area real,
-	forest_type varchar(20),
-	general_allowed_extent double precision,
-	allowed_extent double precision,
-	cutting_status varchar(20),
-	contributor varchar(100),
-	map_id varchar(20)
+	email varchar(30) not null,
+	role_name varchar(15) not null,
+	constraint user_roles_pkey
+		primary key (email, role_name)
 );
 
-create unique index tracts_map_id_uindex
-	on tracts (map_id);
+create table tomcat_sessions
+(
+	session_id varchar(100) not null
+		constraint tomcat_sessions_pkey
+			primary key,
+	valid_sessions char not null,
+	max_inactive integer not null,
+	last_access bigint not null,
+	app_name varchar(255),
+	session_data bytea
+);
+
+create index kapp_name
+	on tomcat_sessions (app_name);
+
 

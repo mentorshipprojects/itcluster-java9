@@ -22,6 +22,7 @@ public class HtmlParser {
     private TicketRepository ticketRepository;
     private TractRepository tractRepository;
     private static Logger log = LoggerFactory.getLogger(HtmlParser.class);
+    private static String URL = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=23&page=";
 
     public HtmlParser(DataSource dataSource) {
         ticketRepository = new TicketRepository(dataSource);
@@ -40,13 +41,14 @@ public class HtmlParser {
     public int[] ticketParser() throws IOException, ParseException {
         Ticket ticket = new Ticket();
         Ticket checkedTicket;
+        int statusID = ticketRepository.statusTotalRecord(totalToCheck());
         int ticketID;
         int[] generalCounter = {0, 0, 0, 0, 0, 0};
         int[] tractCounter;
-        int pageNumber = 44;
+        int pageNumber = 19;
         boolean isLastPage = false;
         while (!isLastPage) {
-            String url = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=" + pageNumber;
+            String url = URL + pageNumber;
             Document document = Jsoup.connect(url).get();
             Element tbody = document.select("tbody").get(0); // table
             Elements row = tbody.select("tr"); // List of rows
@@ -77,6 +79,7 @@ public class HtmlParser {
                 }
                 tractCounter = tractParser(table[9][i], ticketID);
                 generalCounter[2]++; // checking counter
+                ticketRepository.statusProgressRecord(generalCounter[2], false, statusID);
                 generalCounter[3] += tractCounter[0];
                 generalCounter[4] += tractCounter[1];
                 generalCounter[5] += tractCounter[2];
@@ -88,6 +91,7 @@ public class HtmlParser {
                 System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
+        ticketRepository.statusProgressRecord(generalCounter[2], true, statusID);
         log.info("\n\nParsing finished. " +
                 "Tickets: added [" + generalCounter[0] + "], " +
                 "updated [" + generalCounter[1] + "], " +
@@ -172,6 +176,14 @@ public class HtmlParser {
             }
         }
         return array;
+    }
+
+    public static int totalToCheck () throws IOException {
+        Document document = Jsoup.connect(URL).get();
+        Element tbody = document.select("div").attr("class", "col-xs-12").get(45); // table
+        Elements row = tbody.select("div").attr("class", "summary"); // List of rows
+        String total = row.get(1).select("b").last().text().replaceAll(" ", "");
+        return Integer.parseInt(total);
     }
 
     public static java.sql.Date sqlDate(String date) throws ParseException {

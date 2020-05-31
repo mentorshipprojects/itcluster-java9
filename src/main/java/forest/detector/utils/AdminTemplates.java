@@ -10,7 +10,6 @@ public class AdminTemplates {
     public static final ContainerTag HEAD = head(
             title("Admin page"),
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
-
             meta().attr("charset", "UTF-8"),
             meta().attr("name", "UTF-8").attr("content", "width=device-width, initial-scale=1.0"),
             meta().attr("http-equiv", "X-UA-Compatible").attr("content", "ie=edge"),
@@ -19,10 +18,9 @@ public class AdminTemplates {
             link()
                     .withRel("stylesheet")
                     .withHref("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css")
-                    .attr("crossorigin","anonymous"),
+                    .attr("crossorigin", "anonymous"),
             script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
                     .attr("crossorigin", "anonymous")
-
     );
 
     public static final ContainerTag GRAPH = div(
@@ -33,8 +31,8 @@ public class AdminTemplates {
                                     text("Area Chart Example")).withClass("card-header"),
                             div(
                                     canvas().withId("myAreaChart")
-                                            .attr("width","100%")
-                                            .attr("height","40")
+                                            .attr("width", "100%")
+                                            .attr("height", "40")
 
                             ).withClass("card-body")
 
@@ -47,88 +45,73 @@ public class AdminTemplates {
                                     text("Bar Chart Example")).withClass("card-header"),
                             div(
                                     canvas().withId("myBarChart")
-                                            .attr("width","100%")
-                                            .attr("height","40")
+                                            .attr("width", "100%")
+                                            .attr("height", "40")
 
                             ).withClass("card-body")
 
                     ).withClass("card mb-4")
             ).withClass("col-xl-6")
     ).withClass("row");
+
     public static final ContainerTag MENU = nav(
             div(
                     div(
                             div("Main").withClass("sb-sidenav-menu-heading"),
                             a(
                                     div(i().withClass("fas fa-tachometer-alt"))
-                                            .withClass("sb-nav-link-icon"),text("Dashboard")).withClass("nav-link").withHref("/admin"),
-
+                                            .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
                             a(
                                     div(i().withClass("fas fa-user"))
-                                            .withClass("sb-nav-link-icon"),text("User Management")).withClass("nav-link").withHref("/admin/user-management")
-
+                                            .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
                     ).withClass("nav")
             ).withClass("sb-sidenav-menu"),
             div(
-                    div("Logged in as:").withClass("small"),text("User Nickname")
+                    div("Logged in as:").withClass("small"), text("User Nickname")
             ).withClass("sb-sidenav-footer")
-
     ).withClass("sb-sidenav accordion sb-sidenav-dark")
             .withId("sidenavAccordion");
 
     public static final ContainerTag NAV = nav(
-            a(text("Admin page")).withClass("navbar-brand"),button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
+            a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
             ).withId("sidebarToggle").withHref("#"),
             form().withClass("d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"),
             ul(
                     li(a(i().withClass("fas fa-user fa-fw")).withClass("nav-link dropdown-toggle").withId("userDropdown")
-                            .withHref("#").attr("role","button")
-                            .attr("data-toggle","dropdown")
-                            .attr("aria-haspopup","true")
-                            .attr("aria-expanded","aria-expanded"),
-
-                    div(a("Settings").withClass("dropdown-item")
-                        .withHref("#"),
-
-                            div().withClass("dropdown-divider"),
-                            a("Logout").withClass("dropdown-item").withHref("/logout")
-                    ).withClass("dropdown-menu dropdown-menu-right")
-                            .attr("aria-labelledby","userDropdown")
+                                    .withHref("#").attr("role", "button")
+                                    .attr("data-toggle", "dropdown")
+                                    .attr("aria-haspopup", "true")
+                                    .attr("aria-expanded", "aria-expanded"),
+                            div(a("Settings").withClass("dropdown-item")
+                                            .withHref("#"),
+                                    div().withClass("dropdown-divider"),
+                                    a("Logout").withClass("dropdown-item").withHref("/logout")
+                            ).withClass("dropdown-menu dropdown-menu-right")
+                                    .attr("aria-labelledby", "userDropdown")
                     ).withClass("nav-item dropdown")
-
             ).withClass("navbar-nav ml-auto ml-md-0")
     ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");
 //source
 
 
     public static final ContainerTag FOOTER = footer(
-div(
-        div().withClass("d-flex align-items-center justify-content-between small")
-).withClass("container-fluid"),
-
-
+            div(
+                    div().withClass("d-flex align-items-center justify-content-between small")
+            ).withClass("container-fluid"),
             script().withSrc("https://code.jquery.com/jquery-3.4.1.min.js")
                     .attr("crossorigin", "anonymous"),
             script().withSrc("https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js")
                     .attr("crossorigin", "anonymous"),
-
             script().withSrc("/js/scripts.js"),
-
             script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
                     .attr("crossorigin", "anonymous"),
-
             //script().withSrc("/js/chart-area-demo.js"),
-
             script().withSrc("/js/chart-bar-demo.js"),
-
             script().withSrc("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")
                     .attr("crossorigin", "anonymous"),
-
             script().withSrc("https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js")
                     .attr("crossorigin", "anonymous"),
-
-           script().withSrc("/js/datatables-demo.js"),
-
+            script().withSrc("/js/datatables-demo.js"),
             script(rawHtml("Chart.defaults.global.defaultFontFamily = \'-apple-system,system-ui,BlinkMacSystemFont,\"Segoe UI\",Roboto,\"Helvetica Neue\",Arial,sans-serif\';\n" +
                     "Chart.defaults.global.defaultFontColor = \'#292b2c\';\n" +
                     "\n" +
@@ -182,15 +165,24 @@ div(
                     "    }\n" +
                     "  }\n" +
                     "});\n")).withType("text/javascript")
-
-
-
-
-
-
-
-
-
-
     ).withClasses("py-4 bg-light mt-auto");
+
+    public static final ContainerTag PARSER_START_BUTTON = div(
+            script().withSrc("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
+            script(rawHtml("$(document).ready(function(){\n" +
+                    "  $(\"input\").click(function(){\n" +
+                    "    $.get(\"/parser\", function(data, status){\n" +
+                    "      alert(data);\n" +
+                    "    });\n" +
+                    "  });\n" +
+                    "});" +
+                    "function myFunction() {\n" +
+                    "            document.getElementById(\"start_parser\").disabled = true;\n" +
+                    "            document.getElementById(\"start_parser\").value = \"UPDATING STARTED\";\n" +
+                    "        }")),
+            input().withValue("UPDATE DataBase")
+                    .withClass("btn btn-primary")
+                    .withId("start_parser")
+                    .attr("onclick","myFunction()")
+    );
 }

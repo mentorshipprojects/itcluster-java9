@@ -18,13 +18,12 @@ create table tickets
 	cutting_status varchar(20)
 );
 
-
 create table tracts
 (
 	id serial not null
 		constraint tracts_pk
 			primary key,
-	ticket_number varchar(20) not null,
+	ticket_id integer not null,
 	quarter varchar(20),
 	division varchar(20),
 	range varchar(20),
@@ -36,5 +35,25 @@ create table tracts
 	contributor varchar(100),
 	map_id varchar(20)
 );
+
+create unique index tracts_map_id_uindex
+	on tracts (map_id);
+
+	create table update_status
+(
+	id serial not null
+		constraint update_status_pk
+			primary key,
+	progress integer,
+	total integer,
+	finished boolean default false
+);
+
+create unique index update_status_id_uindex
+	on update_status (id);
+
+
+
+
 
 

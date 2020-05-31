@@ -13,6 +13,7 @@ public class TicketRepository {
     private final DataSource dataSource;
     private static Logger log = LoggerFactory.getLogger(TicketRepository.class);
     private static int ticketID;
+    private static int statusID;
 
     public TicketRepository(javax.sql.DataSource dataSource) {
         this.dataSource = dataSource;
@@ -23,7 +24,7 @@ public class TicketRepository {
 
         try(Connection con = dataSource.getConnection()) {
             // test connection here
-            PreparedStatement ps = con.prepareStatement("select * from tickets");
+            PreparedStatement ps = con.prepareStatement("select * from tickets LIMIT 50");
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
@@ -38,7 +39,6 @@ public class TicketRepository {
                         rs.getString("ticket_status"),
                         rs.getString("cutting_status")));
             }
-
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             e.printStackTrace();
@@ -128,5 +128,58 @@ public class TicketRepository {
         } catch (SQLException e) {
             log.error("UPDATING TICKET FAILED " + ticket.getNumber(), e);
         }
+    }
+
+    public int statusTotalRecord(int total) {
+        String query = "INSERT INTO update_status(total, finished) VALUES (?, ?)";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, total);
+            preparedStatement.setBoolean(2, false);
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                statusID = resultSet.getInt(1);
+            }
+            log.info("UPDATED TOTAL", statusID);
+        } catch (SQLException e) {
+            log.error("UPDATING TOTAL FAILED ", e);
+        }
+        return statusID;
+    }
+
+    public void statusProgressRecord(int progress, boolean isFinished, int statusID) {
+        String query = "UPDATE update_status SET progress=?, finished=? WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, progress);
+            preparedStatement.setBoolean(2, isFinished);
+            preparedStatement.setInt(3, statusID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            log.error("UPDATING PROGRESS FAILED ", e);
+        }
+    }
+
+    public int[] statusUpload() {
+        String query = "SELECT * FROM update_status ORDER BY ID DESC LIMIT 1";
+        int[] i = {3, 3, 3};
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                i[0] = resultSet.getInt("progress");
+                i[1] = resultSet.getInt("total");
+                if (resultSet.getBoolean("finished")) {
+                    i[2] = 1;
+                } else {
+                    i[2] = 0;
+                }
+            }
+            return i;
+        } catch (SQLException e) {
+            log.error("STATUS_UPLOAD FAILED ", e);
+        }
+        return i;
     }
 }
