@@ -74,8 +74,6 @@ public class AdminTemplates {
                                     .attr("onclick","bar()")
                             .withId("update-bd")
 
-
-
                             , script(rawHtml("$(document).ready(function(){\n" +
                                     "  $(\"#update-bd\").click(function(){\n" +
                                     "    $.get(\"/parser\", function(data, status){\n" +
@@ -112,9 +110,7 @@ public class AdminTemplates {
                                     .attr("aria-labelledby", "userDropdown")
                     ).withClass("nav-item dropdown")
             ).withClass("navbar-nav ml-auto ml-md-0")
-    ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");
-//source
-
+    ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");//source
 
     public static final ContainerTag FOOTER = footer(
             div(

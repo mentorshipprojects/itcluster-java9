@@ -10,10 +10,6 @@ import static j2html.TagCreator.*;
 
 public class HTMLTemplates {
 
-
-    private TicketService ticketService;
-
-
         public static final ContainerTag HEAD = head(
                 title("Forest"),
                 link().withHref("/css/home-page.css")

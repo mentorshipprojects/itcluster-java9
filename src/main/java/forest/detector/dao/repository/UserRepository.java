@@ -186,10 +186,13 @@ public class UserRepository {
     public void deleteUser(String email){
         try(Connection con = dataSource.getConnection())
         {
-            PreparedStatement ps = con.prepareStatement("delete from users, user_roles where users.email=?, user_roles.email=? ");
+            PreparedStatement ps = con.prepareStatement("delete from users where email=? ");
+            PreparedStatement ps2 = con.prepareStatement("delete from user_roles where email=? ");
             ps.setString(1, email);
-            ps.setString(2, email);
-            ps.executeQuery();
+            ps2.setString(1, email);
+            //ps.executeQuery();
+            ps.executeUpdate();
+            ps2.executeUpdate();
 
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
