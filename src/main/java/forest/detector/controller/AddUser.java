@@ -231,7 +231,7 @@ public class AddUser extends HttpServlet {
 
         if(email != null && role != null){
                 userService.adminSetUserInDB(email,password,firstName,lastName,avatar,role);
-                response.sendRedirect("/admin");
+                response.sendRedirect("/admin/user-management");
             }
         }
     }

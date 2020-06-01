@@ -22,7 +22,7 @@ import static j2html.TagCreator.*;
 @WebServlet(name = "edit_profile", urlPatterns = "/admin/edit_profile")
 public class EditProfile extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
+    private static Logger log = LoggerFactory.getLogger(EditProfile.class);
     private UserService userService;
     private User user;
 

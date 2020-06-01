@@ -124,7 +124,6 @@ public class UserRepository {
             ps_users.executeUpdate();
             ps_role.executeUpdate();
 
-
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
             e.printStackTrace();
