@@ -80,7 +80,7 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
                                                             div(
                                                                     img()
                                                                             .attr("alt","image")
-                                                                            .withSrc("")
+                                                                            .withSrc("/img/no-ava.png")
                                                             ).withClass("nav-profile-img")
                                                     ).withClass("nav-link")
                                                             .withId("profileDropdown")
