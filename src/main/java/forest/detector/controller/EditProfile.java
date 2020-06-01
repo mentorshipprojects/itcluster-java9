@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ import static forest.detector.utils.AdminTemplates.*;
 import static forest.detector.utils.AdminTemplates.FOOTER;
 import static j2html.TagCreator.*;
 
-@WebServlet(name = "edit_profile", urlPatterns = "/admin/edit_profile")
+@WebServlet(name = "edit_profil", urlPatterns = "/admin/edit_profil")
 public class EditProfile extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(EditProfile.class);
@@ -40,7 +39,7 @@ public class EditProfile extends HttpServlet {
             userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
 
-       user = userService.getUserByEmail(request.getParameter("email"));
+        user = userService.getUserByEmail(request.getParameter("email"));
 
         ContainerTag homeHtml = html(
                 title("Edit Profile "),
@@ -55,7 +54,7 @@ public class EditProfile extends HttpServlet {
                                 ).withId("layoutSidenav_nav"),
                                 div(
                                         main(
-                                                  div(
+                                                div(
                                                         div(
                                                                 div(
                                                                         div(div(
@@ -63,13 +62,13 @@ public class EditProfile extends HttpServlet {
                                                                                         div(
                                                                                                 div(
                                                                                                         h2(text("Edit "),b("Profile  "),b(request.getParameter("email"))
-                                                                                                ).withClass("col-sm-5"),
-                                                                                                div(
+                                                                                                        ).withClass("col-sm-5"),
+                                                                                                        div(
 
-                                                                                                ).withClass("col-sm-7")
+                                                                                                        ).withClass("col-sm-7")
 
-                                                                                        ).withClass("row")
-                                                                                ).withClass("table-title"),
+                                                                                                ).withClass("row")
+                                                                                        ).withClass("table-title"),
 
                                                                                         div(
                                                                                                 div(
@@ -91,7 +90,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withName("role")
                                                                                                                                                 .withClass("custom-select")
                                                                                                                                                 .withType("text")
-                                                                                                                                        .withValue(user.getRole())
+                                                                                                                                                .withValue(user.getRole())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -104,7 +103,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withClass("form-control-filer")
                                                                                                                                                 .withType("file"),
                                                                                                                                         img().withId("priew-ava").withSrc("/img/no-ava.png")
-                                                                                                                                        .withSrc(user.getAvatar())
+                                                                                                                                                .withSrc(user.getAvatar())
 
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
@@ -119,7 +118,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withClass("form-control here")
                                                                                                                                                 .isRequired()
                                                                                                                                                 .withType("email")
-                                                                                                                                        .withValue(user.getEmail())
+                                                                                                                                                .withValue(user.getEmail())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -133,7 +132,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withClass("form-control here")
                                                                                                                                                 .isRequired()
                                                                                                                                                 .withType("text")
-                                                                                                                                         .withValue(user.getFirstName())
+                                                                                                                                                .withValue(user.getFirstName())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -147,7 +146,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withClass("form-control here")
                                                                                                                                                 .isRequired()
                                                                                                                                                 .withType("text")
-                                                                                                                                        .withValue(user.getLastName())
+                                                                                                                                                .withValue(user.getLastName())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -178,40 +177,40 @@ public class EditProfile extends HttpServlet {
                                                                                                 ).withClass("row")
                                                                                         ).withClass("table-responsive").withStyle("overflow: hidden;")
                                                                                 ).withClass("card-body")
-                                                                        ).withClass("table-wrapper")
-                                                                ).withClass("container")
-                                                        ).withClass("card mb-4")
+                                                                                ).withClass("table-wrapper")
+                                                                        ).withClass("container")
+                                                                ).withClass("card mb-4")
 
-                                                  ).withClass("container-fluid")
-                                        )
-                                ),  FOOTER,
+                                                        ).withClass("container-fluid")
+                                                )
+                                        ),  FOOTER,
 
-                                script(rawHtml(" $(document)\n" +
-                                        "        .on(\"click\",\"#priew-ava\", function () {\n" +
-                                        "\n" +
-                                        "            $(\"#avatar\").click();\n" +
-                                        "        });\n" +
-                                        "            function readURL(input) {\n" +
-                                        "                if (input.files && input.files[0]) {\n" +
-                                        "                    var reader = new FileReader();\n" +
-                                        "\n" +
-                                        "                    reader.onload = function(e) {\n" +
-                                        "                        $('#priew-ava').attr('src', e.target.result);\n" +
-                                        "                    }\n" +
-                                        "\n" +
-                                        "                    reader.readAsDataURL(input.files[0]); // convert to base64 string\n" +
-                                        "                }\n" +
-                                        "            }\n" +
-                                        "\n" +
-                                        "            $(\"#avatar\").change(function() {\n" +
-                                        "                readURL(this);\n" +
-                                        "            });"))
+                                        script(rawHtml(" $(document)\n" +
+                                                "        .on(\"click\",\"#priew-ava\", function () {\n" +
+                                                "\n" +
+                                                "            $(\"#avatar\").click();\n" +
+                                                "        });\n" +
+                                                "            function readURL(input) {\n" +
+                                                "                if (input.files && input.files[0]) {\n" +
+                                                "                    var reader = new FileReader();\n" +
+                                                "\n" +
+                                                "                    reader.onload = function(e) {\n" +
+                                                "                        $('#priew-ava').attr('src', e.target.result);\n" +
+                                                "                    }\n" +
+                                                "\n" +
+                                                "                    reader.readAsDataURL(input.files[0]); // convert to base64 string\n" +
+                                                "                }\n" +
+                                                "            }\n" +
+                                                "\n" +
+                                                "            $(\"#avatar\").change(function() {\n" +
+                                                "                readURL(this);\n" +
+                                                "            });"))
 
-                        ).withId("layoutSidenav_content")
+                                ).withId("layoutSidenav_content")
 
-                ).withId("layoutSidenav")
+                        ).withId("layoutSidenav")
 
-        ).withClass("sb-nav-fixed"));
+                ).withClass("sb-nav-fixed"));
 
         response.getWriter().println(homeHtml.render());
     }
