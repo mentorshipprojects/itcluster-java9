@@ -114,7 +114,7 @@ public class UserManagement extends HttpServlet {
 
                                                                                                                                                     td(
                                                                                                                                                             a(i("\uE8B8").withClass("material-icons"))
-                                                                                                                                                                    .withHref("/admin/edit_profile?email="+user.getEmail())
+                                                                                                                                                                    .withHref("/admin/edit_profil?email="+user.getEmail())
                                                                                                                                                                     .withClass("settings"),
                                                                                                                                                             a(i("\uE5C9").withClass("material-icons"))
                                                                                                                                                                     .withHref("/delete?email="+user.getEmail())
