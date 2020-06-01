@@ -45,9 +45,10 @@ public class HtmlParser {
         int ticketID;
         int[] generalCounter = {0, 0, 0, 0, 0, 0};
         int[] tractCounter;
-        int pageNumber = 19;
+        int pageNumber = 1;
         boolean isLastPage = false;
-        while (!isLastPage) {
+        boolean isParsingStopped = false;
+        while (!isLastPage && !isParsingStopped) {
             String url = URL + pageNumber;
             Document document = Jsoup.connect(url).get();
             Element tbody = document.select("tbody").get(0); // table
@@ -79,24 +80,34 @@ public class HtmlParser {
                 }
                 tractCounter = tractParser(table[9][i], ticketID);
                 generalCounter[2]++; // checking counter
-                ticketRepository.statusProgressRecord(generalCounter[2], false, statusID);
+                ticketRepository.statusProgressRecord(generalCounter[2], statusID);
                 generalCounter[3] += tractCounter[0];
                 generalCounter[4] += tractCounter[1];
                 generalCounter[5] += tractCounter[2];
+                if (ticketRepository.statusUpload()[2] == 1) {
+                    isParsingStopped = true;
+                    break;
+                }
             }
             if (isLastPage(nextButtonClass)) {
                 isLastPage = true;
             } else {
                 pageNumber++;
-                System.out.println("\nNEW PAGE " + pageNumber + "\n");
+                if (!isParsingStopped)
+                    System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
-        ticketRepository.statusProgressRecord(generalCounter[2], true, statusID);
-        log.info("\n\nParsing finished. " +
-                "Tickets: added [" + generalCounter[0] + "], " +
+        ticketRepository.statusProgressRecord(generalCounter[2], statusID);
+        if (isParsingStopped) {
+            log.info("Parsing STOPPED.");
+        } else {
+            log.info("Parsing FINISHED.");
+        }
+        log.info("TOTAL: \n\n" +
+                "TICKETS: added [" + generalCounter[0] + "], " +
                 "updated [" + generalCounter[1] + "], " +
                 "checked [" + generalCounter[2] + "]). " +
-                "Tracts: added [" + generalCounter[3] + "], " +
+                "TRACTS: added [" + generalCounter[3] + "], " +
                 "updated [" + generalCounter[4] + "], " +
                 "checked [" + generalCounter[5] + "]\n");
         return generalCounter;
@@ -178,7 +189,7 @@ public class HtmlParser {
         return array;
     }
 
-    public static int totalToCheck () throws IOException {
+    public static int totalToCheck() throws IOException {
         Document document = Jsoup.connect(URL).get();
         Element tbody = document.select("div").attr("class", "col-xs-12").get(45); // table
         Elements row = tbody.select("div").attr("class", "summary"); // List of rows

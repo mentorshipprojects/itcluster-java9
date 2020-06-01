@@ -14,13 +14,12 @@ import java.io.PrintWriter;
 import java.text.ParseException;
 
 
-@WebServlet(name = "Parser", urlPatterns = "/parser")
-public class Parser extends HttpServlet {
-    private static Logger log = LoggerFactory.getLogger(Parser.class);
+@WebServlet(name = "startParser", urlPatterns = "/parser-start")
+public class ParserStartController extends HttpServlet {
+    private static Logger log = LoggerFactory.getLogger(ParserStartController.class);
     private HtmlParser parser;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("Parser start.");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);

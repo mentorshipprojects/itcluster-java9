@@ -22,12 +22,12 @@ public class TicketRepository {
     public List<Ticket> getTickets() {
         List<Ticket> list = new ArrayList<>();
 
-        try(Connection con = dataSource.getConnection()) {
+        try (Connection con = dataSource.getConnection()) {
             // test connection here
             PreparedStatement ps = con.prepareStatement("select * from tickets LIMIT 50");
             ResultSet rs = ps.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 list.add(new Ticket(rs.getInt("id"),
                         rs.getString("number"),
                         rs.getString("region"),
@@ -148,13 +148,12 @@ public class TicketRepository {
         return statusID;
     }
 
-    public void statusProgressRecord(int progress, boolean isFinished, int statusID) {
-        String query = "UPDATE update_status SET progress=?, finished=? WHERE id=?";
+    public void statusProgressRecord(int progress, int statusID) {
+        String query = "UPDATE update_status SET progress=? WHERE id=?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, progress);
-            preparedStatement.setBoolean(2, isFinished);
-            preparedStatement.setInt(3, statusID);
+            preparedStatement.setInt(2, statusID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("UPDATING PROGRESS FAILED ", e);
@@ -163,7 +162,7 @@ public class TicketRepository {
 
     public int[] statusUpload() {
         String query = "SELECT * FROM update_status ORDER BY ID DESC LIMIT 1";
-        int[] i = {3, 3, 3};
+        int[] i = new int[4];
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -175,11 +174,23 @@ public class TicketRepository {
                 } else {
                     i[2] = 0;
                 }
+                i[3] = resultSet.getInt("id");
             }
             return i;
         } catch (SQLException e) {
             log.error("STATUS_UPLOAD FAILED ", e);
         }
         return i;
+    }
+
+    public void stopParsing(int statusID) {
+        String query = "UPDATE update_status SET finished=true WHERE id=?";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, statusID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            log.error("CAN'T STOP PARSING... ", e);
+        }
     }
 }

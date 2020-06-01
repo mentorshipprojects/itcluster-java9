@@ -190,22 +190,42 @@ public class AdminTemplates {
     ).withClasses("py-4 bg-light mt-auto");
 
     public static final ContainerTag PARSER_START_BUTTON = div(
-
-
+            script().withSrc("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
             script(rawHtml("$(document).ready(function(){\n" +
                     "  $(\"input\").click(function(){\n" +
-                    "    $.get(\"/parser\", function(data, status){\n" +
-                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
+                    "    $.get(\"/parser-start\", function(data, status){\n" +
                     "    });\n" +
                     "  });\n" +
                     "});" +
-                    "function myFunction() {\n" +"NProgress.start();"+
+                    "function myStartFunction() {\n" +
                     "            document.getElementById(\"start_parser\").disabled = true;\n" +
                     "            document.getElementById(\"start_parser\").value = \"UPDATING STARTED\";\n" +
+                    "            document.getElementById(\"stop_parser\").value = \"STOP\";\n" +
                     "        }")),
             input().withValue("UPDATE DataBase")
+                    .withType("button")
                     .withClass("btn btn-primary")
                     .withId("start_parser")
-                    .attr("onclick","myFunction()")
+                    .attr("onclick","myStartFunction()")
+    );
+
+    public static final ContainerTag PARSER_STOP_BUTTON = div(
+            script().withSrc("https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"),
+            script(rawHtml("$(document).ready(function(){\n" +
+                    "  $(\"input\").click(function(){\n" +
+                    "    $.get(\"/parser-stop\", function(data, status){\n" +
+                    "    });\n" +
+                    "  });\n" +
+                    "});" +
+                    "function myStopFunction() {\n" +
+                    "            document.getElementById(\"start_parser\").disabled = false;\n" +
+                    "            document.getElementById(\"start_parser\").value = \"UPDATE DataBase\";\n" +
+                    "            document.getElementById(\"stop_parser\").value = \"STOPPED\";\n" +
+                    "        }")),
+            input().withValue("STOP")
+                    .withType("button")
+                    .withClass("btn btn-danger")
+                    .withId("stop_parser")
+                    .attr("onclick","myStopFunction()")
     );
 }

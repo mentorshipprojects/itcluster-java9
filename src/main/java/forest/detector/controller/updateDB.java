@@ -12,14 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static forest.detector.utils.AdminTemplates.PARSER_START_BUTTON;
+import static forest.detector.utils.AdminTemplates.PARSER_STOP_BUTTON;
 import static forest.detector.utils.HTMLTemplates.*;
 import static j2html.TagCreator.*;
 
 @WebServlet(name = "test", urlPatterns = "/admin/db-update")
 public class updateDB extends HttpServlet {
-    private static Logger log = LoggerFactory.getLogger(Parser.class);
+    private static Logger log = LoggerFactory.getLogger(updateDB.class);
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        log.info("Visited Parser page!");
+        log.info("Visited UPDATE page!");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -28,6 +30,9 @@ public class updateDB extends HttpServlet {
                         NAV,
                         div(
                                 PARSER_START_BUTTON
+                        ).attr("align", "center"),
+                        div(
+                                PARSER_STOP_BUTTON
                         ).attr("align", "center")
                 ),
                 FOOTER
