@@ -27,8 +27,8 @@ public class UserService {
         return repo.authenticateUser(mail,pass);
     }
 
-    public void setUserInDB(String email, String password, String first_name, String last_name){
-        repo.setUserInDB(email, password, first_name, last_name);
+    public void setUserInDB(String email, String password, String first_name, String last_name, String avatar){
+        repo.setUserInDB(email, password, first_name, last_name, avatar);
     }
 
     public void adminSetUserInDB(String email, String password, String first_name, String last_name, String avatar, String role){
