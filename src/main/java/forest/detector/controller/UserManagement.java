@@ -120,8 +120,6 @@ public class UserManagement extends HttpServlet {
                                                                                                                                                                     .withHref("#")
                                                                                                                                                                     .withClass("delete")
                                                                                                                                                     )
-
-
                                                                                                                                     )
                                                                                                                             ))
                                                                                                             )
@@ -150,21 +148,4 @@ public class UserManagement extends HttpServlet {
             response.getWriter().println(homeHtml.render());
         }
     }
-
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//
-//        if (userService == null) {
-//            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
-//        }
-//        HttpSession session = request.getSession();
-//
-//        String email = request.getParameter("dataTable");
-//
-//        if(session != null){
-//                userService.deleteUser(email);
-//                response.sendRedirect("/admin");
-//            }
-//        }
-
 }

@@ -49,9 +49,7 @@ public class EditProfile extends HttpServlet {
                 body(
                         NAV,
                         div(
-
                                 div(
-
                                         MENU
 
                                 ).withId("layoutSidenav_nav"),
@@ -78,7 +76,6 @@ public class EditProfile extends HttpServlet {
 
                                                                                                         div(
 
-
                                                                                                                 form().withMethod("post").with(
                                                                                                                         div(
                                                                                                                                 label("Role").attr("for","nickname")
@@ -97,7 +94,6 @@ public class EditProfile extends HttpServlet {
                                                                                                                                         .withValue(user.getRole())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
-
 
                                                                                                                         div(
                                                                                                                                 label("Avatar").attr("for","avatar")
@@ -163,8 +159,8 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withName("password")
                                                                                                                                                 .withPlaceholder("password")
                                                                                                                                                 .withClass("form-control here")
-
                                                                                                                                                 .withType("text")
+                                                                                                                                                .withValue(user.getPassword())
                                                                                                                                 ).withClass("col-8")
                                                                                                                         ).withClass("form-group row"),
 
@@ -176,7 +172,6 @@ public class EditProfile extends HttpServlet {
                                                                                                                                                 .withClass("btn btn-primary")
                                                                                                                                 ).withClass("offset-4 col-8")
                                                                                                                         ).withClass("form-group row")
-
                                                                                                                 )
                                                                                                         ).withClass("col-md-12")
 
@@ -185,12 +180,10 @@ public class EditProfile extends HttpServlet {
                                                                                 ).withClass("card-body")
                                                                         ).withClass("table-wrapper")
                                                                 ).withClass("container")
-
                                                         ).withClass("card mb-4")
 
                                                   ).withClass("container-fluid")
                                         )
-
                                 ),  FOOTER,
 
                                 script(rawHtml(" $(document)\n" +
@@ -214,13 +207,9 @@ public class EditProfile extends HttpServlet {
                                         "                readURL(this);\n" +
                                         "            });"))
 
-
-
                         ).withId("layoutSidenav_content")
 
-
                 ).withId("layoutSidenav")
-
 
         ).withClass("sb-nav-fixed"));
 

@@ -28,5 +28,4 @@ public class ParserStopController extends HttpServlet {
         int[] i = ticketRepository.statusUpload();
         ticketRepository.stopParsing(i[3]);
     }
-
 }

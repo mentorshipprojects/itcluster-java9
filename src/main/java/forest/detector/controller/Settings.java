@@ -30,7 +30,6 @@ public class Settings extends HttpServlet {
                 title("Settings"),
                 HEAD,
                 body(
-
                         div(
                                 div(
                                         main(

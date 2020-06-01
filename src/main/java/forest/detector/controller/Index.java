@@ -52,10 +52,6 @@ public class Index extends HttpServlet {
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
 
-
-
-
-
 //                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
@@ -66,7 +62,6 @@ public class Index extends HttpServlet {
                         div(
                                 iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
 
-                                // NAV,
                                 div(
                                         div(
                                                 div(GRAPH,div(
@@ -88,7 +83,6 @@ public class Index extends HttpServlet {
                                                                                                 th("Ticket status"),
                                                                                                 th("Cutting status")
                                                                                         )
-
                                                                                 ),
                                                                                 tfoot(
                                                                                         tr(
@@ -102,7 +96,6 @@ public class Index extends HttpServlet {
                                                                                                 th("Ticket status"),
                                                                                                 th("Cutting status")
                                                                                         )
-
                                                                                 ),
                                                                                 tbody(
                                                                                         each(list, ticket ->
@@ -118,9 +111,6 @@ public class Index extends HttpServlet {
                                                                                                                 td(ticket.getTicketStatus()),
                                                                                                                 td(ticket.getCuttingStatus())
                                                                                                         )
-//
-
-
                                                                                                 ))
                                                                                 )).withClass("table table-bordered")
                                                                                         .withId("dataTable").attr("width","100%")
@@ -138,6 +128,5 @@ public class Index extends HttpServlet {
                         )
                 ).withStyle("overflow:hidden");
         response.getWriter().println(homeHtml.render());
-
     }
 }

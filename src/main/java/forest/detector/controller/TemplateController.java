@@ -66,7 +66,6 @@ public class TemplateController extends HttpServlet {
                                                                                             div(input().withType("email").withClasses("form-control form-control-lg").withPlaceholder("Email")).withClass("form-group"),
                                                                                             div(input().withType("password").withClasses("form-control form-control-lg").withPlaceholder("Password")).withClass("form-group"),
                                                                                             div(input().withType("password").withClasses("form-control form-control-lg").withPlaceholder("Confirm Password")).withClass("form-group")
-
                                                                                     )
                                                                             ).withClass("card-body")
                                                                     ).withClasses("card bg-primary text-center card-form")

@@ -46,7 +46,6 @@ public class Login extends HttpServlet {
                     title("Login"),
                     HEAD,
                     body(
-
                             div(
                                     div(
                                             main(
@@ -65,7 +64,6 @@ public class Login extends HttpServlet {
                                                                                                             input().withClass("form-control py-4")
                                                                                                                     .withId("inputEmailAddress")
                                                                                                                     .withName("email")
-
                                                                                                                     .withPlaceholder("Enter email address")
                                                                                                                     .withType("email")
                                                                                                     ).withClass("form-group"),
@@ -76,7 +74,6 @@ public class Login extends HttpServlet {
                                                                                                             input().withClass("form-control py-4")
                                                                                                                     .withId("inputPassword")
                                                                                                                     .withName("password")
-
                                                                                                                     .withPlaceholder("Enter password")
                                                                                                                     .withType("password")
                                                                                                     ).withClass("form-group"),
@@ -113,7 +110,6 @@ public class Login extends HttpServlet {
             response.sendRedirect("/template");
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -139,37 +135,28 @@ public class Login extends HttpServlet {
 
                 if(userValidate.equals("Admin_Role"))
                 {
-                    // HttpSession session = request.getSession();
                     session.setAttribute("email", email); //setting session attribute
                     String str = userService.getUserByEmail(email).getRole();
                     session.setAttribute("role", str);
-                    //request.setAttribute("email", email);
                     response.sendRedirect("/admin");
                 }
                 else if(userValidate.equals("Moderator-api"))
                 {
-//                    HttpSession session = request.getSession();
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    // request.setAttribute("email", email);
                     response.sendRedirect("/template");
                 }
                 else if(userValidate.equals("Moderator-gui"))
                 {
-//                    HttpSession session = request.getSession();
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    // request.setAttribute("email", email);
                     response.sendRedirect("/template");
                 }
                 else if(userValidate.equals("User"))
                 {
-//                    HttpSession session = request.getSession();
                     session.setMaxInactiveInterval(10*60);
                     session.setAttribute("email", email);
-
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    //request.setAttribute("email", email);
                     response.sendRedirect("/template");
                 }
                 else

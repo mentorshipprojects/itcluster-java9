@@ -66,7 +66,6 @@ public class Register extends HttpServlet {
                                                                                                         input().withClass("form-control py-4")
                                                                                                                 .withId("lastName")
                                                                                                                 .withName("lastName")
-
                                                                                                                 .withPlaceholder("Enter last name")
                                                                                                                 .withType("text")
                                                                                                 ).withClass("form-group"),
@@ -82,14 +81,12 @@ public class Register extends HttpServlet {
                                                                                                                 .withType("email")
                                                                                                 ).withClass("form-group"),
 
-
                                                                                                 div(  div( div(
                                                                                                         label("Password").withClass("small mb-1")
                                                                                                                 .attr("for","inputPassword"),
                                                                                                         input().withClass("form-control py-4")
                                                                                                                 .withId("inputPassword")
                                                                                                                 .withName("password")
-
                                                                                                                 .withPlaceholder("Enter password")
                                                                                                                 .withType("password")
                                                                                                         ).withClass("form-group")).withClass("col-md-6"),
@@ -99,7 +96,6 @@ public class Register extends HttpServlet {
                                                                                                                         .attr("for","inputConfirmPassword"),
                                                                                                                 input().withClass("form-control py-4")
                                                                                                                         .withId("inputConfirmPassword")
-
                                                                                                                         .withPlaceholder("Confirm password")
                                                                                                                         .withType("password")
                                                                                                         ).withClass("form-group")).withClass("col-md-6")
