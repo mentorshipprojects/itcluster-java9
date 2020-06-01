@@ -145,6 +145,7 @@ public class Register extends HttpServlet {
         String password = hashing.getHash(request.getParameter("password"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
+        String avatar = request.getParameter("avatar");
 
         if (userService == null) {
             userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
@@ -152,7 +153,7 @@ public class Register extends HttpServlet {
 
         if(email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9+])*(\\.[A-Za-z]{2,})$")){
 
-            userService.setUserInDB(email,password,firstName,lastName);
+            userService.setUserInDB(email,password,firstName,lastName, avatar);
             response.sendRedirect(request.getContextPath()+ "/login");
 
         }else{

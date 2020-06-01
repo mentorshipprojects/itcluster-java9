@@ -46,21 +46,25 @@ public class UserRepository {
         return user;
     }
 
-    public void setUserInDB(String email, String password, String first_name, String last_name){
+    public void setUserInDB(String email, String password, String first_name, String last_name, String avatar){
 
         String role = "user";
 
         try(Connection connection = dataSource.getConnection())
         {
-            String users_query = "INSERT INTO users(email, password, first_name, last_name)" +
-                    "VALUES ('" + email + "', '" + password + "', '" + first_name + "', '" + last_name + "');";
+            PreparedStatement ps_users = connection.prepareStatement("insert into users(email, password, first_name, last_name, avatar) values(?,?,?,?,?) ");
+            PreparedStatement ps_role = connection.prepareStatement("insert into user_roles(email, role_name) values (?,?)");
+            ps_users.setString(1, email);
+            ps_users.setString(2, password);
+            ps_users.setString(3, first_name);
+            ps_users.setString(4, last_name);
+            ps_users.setString(5, avatar);
 
-            String role_query = "INSERT INTO user_roles(email, role_name)" +
-                    "VALUES ('" + email + "', '" + role + "');";
+            ps_role.setString(1, email);
+            ps_role.setString(2, role);
 
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(users_query);
-            statement.executeUpdate(role_query);
+            ps_users.executeUpdate();
+            ps_role.executeUpdate();
 
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -72,15 +76,19 @@ public class UserRepository {
 
         try(Connection connection = dataSource.getConnection())
         {
-            String users_query = "INSERT INTO users(email, password, first_name, last_name, avatar)" +
-                    "VALUES ('" + email + "', '" + password + "', '" + first_name + "', '" + last_name + "', '"+avatar+"');";
+            PreparedStatement ps_users = connection.prepareStatement("insert into users(email, password, first_name, last_name, avatar) values(?,?,?,?,?) ");
+            PreparedStatement ps_role = connection.prepareStatement("insert into user_roles(email, role_name) values (?,?)");
+            ps_users.setString(1, email);
+            ps_users.setString(2, password);
+            ps_users.setString(3, first_name);
+            ps_users.setString(4, last_name);
+            ps_users.setString(5, avatar);
 
-            String role_query = "INSERT INTO user_roles(email, role_name)" +
-                    "VALUES ('" + email + "', '" + role + "');";
+            ps_role.setString(1, email);
+            ps_role.setString(2, role);
 
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(users_query);
-            statement.executeUpdate(role_query);
+            ps_users.executeUpdate();
+            ps_role.executeUpdate();
 
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
@@ -90,17 +98,32 @@ public class UserRepository {
 
     public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
 
-        try(Connection con = dataSource.getConnection();)
+        try(Connection connection = dataSource.getConnection();)
         {
-            String userQuery = "update users " +
-                    "set password='"+password+"', first_name='"+first_name+"', last_name='"+last_name+"', avatar='"+avatar+"' " +
-                    "where email='"+email+"' ";
-
-           String roleQuery = "update user_roles set role_name='"+role+"' where email='"+email+"' ";
+//            String userQuery = "update users " +
+//                    "set password='"+password+"', first_name='"+first_name+"', last_name='"+last_name+"', avatar='"+avatar+"' " +
+//                    "where email='"+email+"' ";
 //
-            Statement statement = con.createStatement();
-            statement.executeUpdate(userQuery);
-            statement.executeUpdate(roleQuery);
+//           String roleQuery = "update user_roles set role_name='"+role+"' where email='"+email+"' ";
+////
+//            Statement statement = con.createStatement();
+//            statement.executeUpdate(userQuery);
+//            statement.executeUpdate(roleQuery);
+            PreparedStatement ps_users = connection.prepareStatement("update users set password=?, first_name=?, last_name=?, avatar=? where email=?");
+            PreparedStatement ps_role = connection.prepareStatement("update user_roles set role_name=? where email=?");
+
+            ps_users.setString(1, password);
+            ps_users.setString(2, first_name);
+            ps_users.setString(3, last_name);
+            ps_users.setString(4, avatar);
+            ps_users.setString(5, email);
+
+            ps_role.setString(1, role);
+            ps_role.setString(2, email);
+
+            ps_users.executeUpdate();
+            ps_role.executeUpdate();
+
 
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
