@@ -1,49 +1,49 @@
 package forest.detector.dao.repository;
 
+import lombok.SneakyThrows;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DataSource implements AutoCloseable {
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    static final String DB_URL="jdbc:mysql://localhost/forest?user=root&password=12345678&useTimezone=true&serverTimezone=UTC";
+public class DataSource {
+    //  Database credentials
+    static final String DB_URL = "jdbc:postgresql://ec2-52-71-85-210.compute-1.amazonaws.com:5432/d7k83ecbfcmo7d";
+    static final String USER = "fepmwlwrizhqqr";
+    static final String PASS = "6f65b0109f7ec9ea7640167425a632598aae4aa0f326b4bc44071a76962ba52a";
+    static Connection connection = null;
 
-    private Connection connection = null;
-
-    public DataSource() {
-        try{
-            Class.forName(JDBC_DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Створює з'єднання із БД
-     * @return об'єкт класу з'єднання з БД
-     */
-    public Connection getConnection()
-    {
-        try {
-            if(connection == null) {
-                connection = DriverManager.getConnection(DB_URL);
-            }
-        }
-        catch( SQLException e ) {
-            System.out.println("Error Occured " + e.toString());
-        }
+    public Connection getConnection() {
         return connection;
     }
 
-    @Override
-    public void close() throws Exception {
+    @SneakyThrows
+    static void DBconnect() {
+        System.out.println("Testing connection to PostgreSQL JDBC");
+
         try {
-            if(connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("PostgreSQL JDBC Driver is not found. Include it in your library path ");
             e.printStackTrace();
         }
+
+        System.out.println("PostgreSQL JDBC Driver successfully connected");
+
+        try {
+            connection = DriverManager
+                    .getConnection(DB_URL, USER, PASS);
+
+        } catch (SQLException e) {
+            System.out.println("Connection Failed");
+            e.printStackTrace();
+        }
+
+        if (connection != null) {
+            System.out.println("You successfully connected to database now");
+        } else {
+            System.out.println("Failed to make connection to database");
+        }
     }
+
 }

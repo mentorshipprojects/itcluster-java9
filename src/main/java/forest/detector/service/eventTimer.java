@@ -10,18 +10,20 @@ import java.util.TimerTask;
 
 public class eventTimer {
     TelegramBot bot = new TelegramBot();
-    private HtmlParser parser;
-    final DataSource dataSource;
+    //private HtmlParser parser;
+   // final DataSource dataSource;
 
-    public eventTimer(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+//    public eventTimer(DataSource dataSource) {
+//        this.dataSource = dataSource;
+//       // bot = new TelegramBot(dataSource);
+//    }
 
     public void UpdateTimer() {
         TimerTask repeatedTask = new TimerTask() {
             public void run() {
                 System.out.println("Task performed on " + new Date());
 
+               // bot.sendMsg("941295905", "String msg delay");                TEST
 //                parser = new HtmlParser(dataSource);
 //                try {
 //                    int[] c = parser.ticketParser();
@@ -34,12 +36,12 @@ public class eventTimer {
 //                // if we have new info.
 //                //bot.groupAlert("test");
             }
-        };
+            };
         Timer timer = new Timer("Timer");
 
         long delay = 1000L;
         long period = 1000L *  60L *  60L *  24L; //  set delay for timer (24 hours like this set)
         timer.scheduleAtFixedRate(repeatedTask, delay, period);
     }
-
 }
+

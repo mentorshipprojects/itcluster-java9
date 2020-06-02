@@ -1,5 +1,6 @@
 package forest.detector.bot;
 
+import forest.detector.bot.repository.BotRepository;
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -13,6 +14,7 @@ public class KeyHandler {
     private String data = "";
     private String navigationLink = "botMainMenu.properties";
     private KeyBoardBuilder inlineKeyBoard = new KeyBoardBuilder(mb.SetMenu(navigationLink));
+    private BotRepository botRepository = new BotRepository();
 
     // menu title generation
     public void setMenuName(String navigationLink) {
@@ -40,7 +42,9 @@ public class KeyHandler {
                 data = "LAST 5 TICKETS:";
                 break;
             case "getLast":
-                data = "LAST TICKET:";
+                return botRepository.getLastTicket();
+            case "getByForestry":
+
                 break;
             default:
             inlineKeyBoard.setInlineKeyboardMarkup(mb.SetMenu(callbackQuery.getData()));

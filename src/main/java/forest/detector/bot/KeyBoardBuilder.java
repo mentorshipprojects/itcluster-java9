@@ -15,25 +15,25 @@ public class KeyBoardBuilder {
         setInlineKeyboardMarkup(menu);
     }
 
-    //
     public void setInlineKeyboardMarkup(Map<String,String> menu){
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-
-        var rowList = new ArrayList<InlineKeyboardButton>();
+        // creates rows of key buttons
+        var rowList1 = new ArrayList<InlineKeyboardButton>();
         var rowList2 = new ArrayList<InlineKeyboardButton>();
+
         for(Map.Entry<String, String> item : menu.entrySet()){
-            if(rowList.size() < 2) {
-                rowList.add(new InlineKeyboardButton(item.getKey()).setCallbackData(item.getValue()));
+        // add buttons to rows
+            if(rowList1.size() < 2) {
+                rowList1.add(new InlineKeyboardButton(item.getKey()).setCallbackData(item.getValue()));
             }else{
                 rowList2.add(new InlineKeyboardButton(item.getKey()).setCallbackData(item.getValue()));
             }
-
         }
+        // add rows to keyboard
         if(rowList2.size() != 0){
-
-            inlineKeyboardMarkup.setKeyboard(List.of(rowList, rowList2));
+            inlineKeyboardMarkup.setKeyboard(List.of(rowList1, rowList2));
         }else {
-            inlineKeyboardMarkup.setKeyboard(Collections.singletonList(rowList));
+            inlineKeyboardMarkup.setKeyboard(Collections.singletonList(rowList1));
         }
         this.inlineKeyboardMarkup = inlineKeyboardMarkup;
     }

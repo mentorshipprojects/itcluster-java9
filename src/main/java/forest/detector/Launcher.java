@@ -29,6 +29,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Launcher {
 
@@ -47,9 +50,9 @@ public class Launcher {
         }
 
 
-//        // Timer init
-//        eventTimer timer = new eventTimer();
-//        timer.UpdateTimer();
+        // Timer init
+        eventTimer timer = new eventTimer();
+        timer.UpdateTimer();
 
 
         File root = getRootFolder();
@@ -209,8 +212,6 @@ public class Launcher {
 //        loginConfig.setLoginPage("/html/login.html");
 //        loginConfig.setErrorPage("/html/login.html");
         ctx.setLoginConfig(loginConfig);
-
-        //
 
         // SSL/TSL
         // https://stackoverflow.com/questions/31033751/embedded-tomcat-enable-ssl

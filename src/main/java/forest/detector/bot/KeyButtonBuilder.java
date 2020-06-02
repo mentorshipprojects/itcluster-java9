@@ -19,10 +19,10 @@ public class KeyButtonBuilder {
             }
                 keydata.clear();
                 keydata = prop;
-
-        for (Object s : keydata.keySet()) {
-            System.out.println(keydata.toString());
-        }
+//       ->  log.info
+////        for (Object s : keydata.keySet()) {
+////            System.out.println(keydata.toString());
+////        }
             return keydata;
     }
 }
