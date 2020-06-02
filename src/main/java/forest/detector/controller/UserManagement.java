@@ -44,6 +44,7 @@ public class UserManagement extends HttpServlet {
 
         HttpSession session = request.getSession();
         String role = (String) session.getAttribute("role");
+        String email = (String) session.getAttribute("email");
 
         if(role == null || !role.equals("admin"))
             response.sendRedirect("/home");
@@ -58,7 +59,7 @@ public class UserManagement extends HttpServlet {
                             NAV,
                             div(
                                     div(
-                                            MENU
+                                            MENU(request, email)
                                     ).withId("layoutSidenav_nav"),
                                     div(
                                             main(

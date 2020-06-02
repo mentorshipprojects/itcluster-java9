@@ -57,7 +57,7 @@ public class Admin extends HttpServlet {
                             div(
                                     div(
 
-                                            MENU
+                                            MENU(request, (String) session.getAttribute("email"))
 
                                     ).withId("layoutSidenav_nav"),
                                     div(

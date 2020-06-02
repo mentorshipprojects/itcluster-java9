@@ -1,11 +1,18 @@
 package forest.detector.utils;
 
+import forest.detector.dao.entity.User;
+import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.sql.DataSource;
 
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.button;
 
 public class AdminTemplates {
+    private static UserService userService;
+
 
     public static final ContainerTag HEAD = head(
             title("Admin page"),
@@ -57,40 +64,84 @@ public class AdminTemplates {
             ).withClass("col-xl-6")
     ).withClass("row");
 
-    public static final ContainerTag MENU = nav(
-            div(
-                    div(
-                            div("Main").withClass("sb-sidenav-menu-heading"),
-                            a(
-                                    div(i().withClass("fas fa-tachometer-alt"))
-                                            .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
-                            a(
-                                    div(i().withClass("fas fa-user"))
-                                            .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
+//    public static final ContainerTag MENU = nav(
+//            div(
+//                    div(
+//                            div("Main").withClass("sb-sidenav-menu-heading"),
+//                            a(
+//                                    div(i().withClass("fas fa-tachometer-alt"))
+//                                            .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
+//                            a(
+//                                    div(i().withClass("fas fa-user"))
+//                                            .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
+//
+//                            ,a(
+//                                    div(i().withClass("fas fa-sync-alt"))
+//                                            .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
+//                                    .attr("onclick","bar()")
+//                            .withId("update-bd")
+//
+//                            , script(rawHtml("$(document).ready(function(){\n" +
+//                                    "  $(\"#update-bd\").click(function(){\n" +
+//                                    "    $.get(\"/parser\", function(data, status){\n" +
+//                                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
+//                                    "    });\n" +
+//                                    "  });\n" +
+//                                    "});" +
+//                                    "function bar() {\n" +"NProgress.start();"+
+//
+//                                    "        }"))
+//                    ).withClass("nav")
+//            ).withClass("sb-sidenav-menu"),
+//            div(
+//                    div("Logged in as:").withClass("small"), text("User Nickname")
+//            ).withClass("sb-sidenav-footer")
+//    ).withClass("sb-sidenav accordion sb-sidenav-dark")
+//            .withId("sidenavAccordion");
 
-                            ,a(
-                                    div(i().withClass("fas fa-sync-alt"))
-                                            .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
-                                    .attr("onclick","bar()")
-                            .withId("update-bd")
+        public static final ContainerTag  MENU(HttpServletRequest request, String email) {
+            if (userService == null) {
+                userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+            }
 
-                            , script(rawHtml("$(document).ready(function(){\n" +
-                                    "  $(\"#update-bd\").click(function(){\n" +
-                                    "    $.get(\"/parser\", function(data, status){\n" +
-                                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
-                                    "    });\n" +
-                                    "  });\n" +
-                                    "});" +
-                                    "function bar() {\n" +"NProgress.start();"+
+            User user = userService.getUserByEmail(email);
+            String mail = user.getEmail();
+            return nav(
+                div(
+                        div(
+                                div("Main").withClass("sb-sidenav-menu-heading"),
+                                a(
+                                        div(i().withClass("fas fa-tachometer-alt"))
+                                                .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
+                                a(
+                                        div(i().withClass("fas fa-user"))
+                                                .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
 
-                                    "        }"))
-                    ).withClass("nav")
-            ).withClass("sb-sidenav-menu"),
-            div(
-                    div("Logged in as:").withClass("small"), text("User Nickname")
-            ).withClass("sb-sidenav-footer")
-    ).withClass("sb-sidenav accordion sb-sidenav-dark")
-            .withId("sidenavAccordion");
+                                ,a(
+                                        div(i().withClass("fas fa-sync-alt"))
+                                                .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
+                                        .attr("onclick","bar()")
+                                        .withId("update-bd")
+
+                                , script(rawHtml("$(document).ready(function(){\n" +
+                                        "  $(\"#update-bd\").click(function(){\n" +
+                                        "    $.get(\"/parser\", function(data, status){\n" +
+                                        "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
+                                        "    });\n" +
+                                        "  });\n" +
+                                        "});" +
+                                        "function bar() {\n" +"NProgress.start();"+
+
+                                        "        }"))
+                        ).withClass("nav")
+                ).withClass("sb-sidenav-menu"),
+                div(
+                        div("Logged in as:").withClass("small"), text(mail)
+                ).withClass("sb-sidenav-footer")
+        ).withClass("sb-sidenav accordion sb-sidenav-dark")
+                .withId("sidenavAccordion");
+            }
+
 
     public static final ContainerTag NAV = nav(
             a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
