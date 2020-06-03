@@ -22,7 +22,7 @@ public class HtmlParser {
     private TicketRepository ticketRepository;
     private TractRepository tractRepository;
     private static Logger log = LoggerFactory.getLogger(HtmlParser.class);
-    private static String URL = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=23&page=";
+    private static String URL = "https://lk.ukrforest.com/forest-tickets/index?TicketSearchPublic[region_id]=10&page=";
 
     public HtmlParser(DataSource dataSource) {
         ticketRepository = new TicketRepository(dataSource);
