@@ -1,6 +1,5 @@
-package forest.detector.controller;
+package forest.detector.controller.functionality;
 
-import forest.detector.dao.entity.User;
 import forest.detector.service.UserService;
 import forest.detector.utils.PasswordHashing;
 import j2html.tags.ContainerTag;

@@ -64,41 +64,6 @@ public class AdminTemplates {
             ).withClass("col-xl-6")
     ).withClass("row");
 
-//    public static final ContainerTag MENU = nav(
-//            div(
-//                    div(
-//                            div("Main").withClass("sb-sidenav-menu-heading"),
-//                            a(
-//                                    div(i().withClass("fas fa-tachometer-alt"))
-//                                            .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
-//                            a(
-//                                    div(i().withClass("fas fa-user"))
-//                                            .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
-//
-//                            ,a(
-//                                    div(i().withClass("fas fa-sync-alt"))
-//                                            .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
-//                                    .attr("onclick","bar()")
-//                            .withId("update-bd")
-//
-//                            , script(rawHtml("$(document).ready(function(){\n" +
-//                                    "  $(\"#update-bd\").click(function(){\n" +
-//                                    "    $.get(\"/parser\", function(data, status){\n" +
-//                                    "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
-//                                    "    });\n" +
-//                                    "  });\n" +
-//                                    "});" +
-//                                    "function bar() {\n" +"NProgress.start();"+
-//
-//                                    "        }"))
-//                    ).withClass("nav")
-//            ).withClass("sb-sidenav-menu"),
-//            div(
-//                    div("Logged in as:").withClass("small"), text("User Nickname")
-//            ).withClass("sb-sidenav-footer")
-//    ).withClass("sb-sidenav accordion sb-sidenav-dark")
-//            .withId("sidenavAccordion");
-
         public static final ContainerTag  MENU(HttpServletRequest request, String email) {
             if (userService == null) {
                 userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
@@ -154,7 +119,7 @@ public class AdminTemplates {
                                     .attr("aria-haspopup", "true")
                                     .attr("aria-expanded", "aria-expanded"),
                             div(a("Settings").withClass("dropdown-item")
-                                            .withHref("#"),
+                                            .withHref("/settings"),
                                     div().withClass("dropdown-divider"),
                                     a("Logout").withClass("dropdown-item").withHref("/logout")
                             ).withClass("dropdown-menu dropdown-menu-right")

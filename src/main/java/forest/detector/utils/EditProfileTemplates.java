@@ -2,8 +2,6 @@ package forest.detector.utils;
 
 import j2html.tags.ContainerTag;
 
-import javax.servlet.http.HttpSession;
-import  forest.detector.controller.EditProfile;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.button;
 public class EditProfileTemplates {
@@ -95,19 +93,6 @@ public class EditProfileTemplates {
                                                                                                                         ).withClass("form-group row"),
 
 
-//    div(
-//            label("Nickname*").attr("for","nickname")
-//                                                                                                                                        .withClass("col-4 col-form-label"),
-//    div(
-//            input().withId("nickname")
-//                                                                                                                                                .withName("nickname")
-//                                                                                                                                        .withPlaceholder("Nickname")
-//                                                                                                                                        .withClass("form-control here")
-//                                                                                                                                        .isRequired()
-//                                                                                                                                        .withType("text")
-//    // в .withValue("") повинна бути змінна з ніком юзера якого редагуємо
-//                                                                                                                                ).withClass("col-8")
-//                                                                                                                        ).withClass("form-group row"),
 
     div(
             label("Email*").attr("for","email")

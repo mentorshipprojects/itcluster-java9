@@ -1,4 +1,4 @@
-package forest.detector.controller;
+package forest.detector.controller.functionality;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

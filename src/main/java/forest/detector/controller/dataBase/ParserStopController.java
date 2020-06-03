@@ -1,7 +1,6 @@
-package forest.detector.controller;
+package forest.detector.controller.dataBase;
 
 import forest.detector.dao.repository.TicketRepository;
-import forest.detector.service.HtmlParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 
 
 @WebServlet(name = "stopParser", urlPatterns = "/parser-stop")

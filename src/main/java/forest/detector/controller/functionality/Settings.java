@@ -1,4 +1,4 @@
-package forest.detector.controller;
+package forest.detector.controller.functionality;
 
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
@@ -17,7 +17,7 @@ import static j2html.TagCreator.script;
 @WebServlet(name = "settings", urlPatterns = {"/settings"})
 public class Settings extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(TemplateController.class);
+    private static Logger log = LoggerFactory.getLogger(Settings.class);
 
 
     @Override

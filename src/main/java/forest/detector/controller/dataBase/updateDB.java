@@ -1,6 +1,5 @@
-package forest.detector.controller;
+package forest.detector.controller.dataBase;
 
-import forest.detector.service.HtmlParser;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
