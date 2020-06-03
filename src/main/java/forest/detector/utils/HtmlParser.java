@@ -29,16 +29,7 @@ public class HtmlParser {
         tractRepository = new TractRepository(dataSource);
     }
 
-    /*
-     * method ticketParser() returns a counter of changes:
-     * [0] – counter of newly added tickets
-     * [1] – counter of updated tickets
-     * [2] – counter of checked ticket's positions
-     * [3] – counter of newly added tracts
-     * [4] – counter of updated tracts
-     * [5] – counter of checked tract's positions
-     * */
-    public int[] ticketParser() throws IOException, ParseException {
+    public void ticketParser() throws IOException, ParseException {
         Ticket ticket = new Ticket();
         Ticket checkedTicket;
         int statusID = ticketRepository.statusTotalRecord(totalToCheck());
@@ -80,7 +71,8 @@ public class HtmlParser {
                 }
                 tractCounter = tractParser(table[9][i], ticketID);
                 generalCounter[2]++; // checking counter
-                ticketRepository.statusProgressRecord(generalCounter[2], statusID);
+                ticketRepository.statusProgressRecord(statusID, generalCounter);
+
                 generalCounter[3] += tractCounter[0];
                 generalCounter[4] += tractCounter[1];
                 generalCounter[5] += tractCounter[2];
@@ -97,7 +89,7 @@ public class HtmlParser {
                     System.out.println("\nNEW PAGE " + pageNumber + "\n");
             }
         }
-        ticketRepository.statusProgressRecord(generalCounter[2], statusID);
+        ticketRepository.statusProgressRecord(statusID, generalCounter);
         if (isParsingStopped) {
             log.info("Parsing STOPPED.");
         } else {
@@ -110,7 +102,7 @@ public class HtmlParser {
                 "TRACTS: added [" + generalCounter[3] + "], " +
                 "updated [" + generalCounter[4] + "], " +
                 "checked [" + generalCounter[5] + "]\n");
-        return generalCounter;
+//        return generalCounter;
     }
 
     public int[] tractParser(String tractLink, int ticketID) throws IOException {

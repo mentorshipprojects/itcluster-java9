@@ -36,10 +36,7 @@ public class ParserStartController extends HttpServlet {
             parser = new HtmlParser((DataSource) request.getServletContext().getAttribute("datasource"));
             PrintWriter out = response.getWriter();
             try {
-                int i[] = parser.ticketParser();
-                out.print("БАЗУ ДАНИХ УСПІШНО ОНОВЛЕНО!\n\n" +
-                        "Лісорубні квитки: додано " + i[0] + ", оновлено " + i[1] + ", перевірено " + i[2] + "\n" +
-                        "Лісорубні ділянки: додано " + i[3] + ",  оновлено " + i[4] + ",  перевірено " + i[5]);
+                parser.ticketParser();
             } catch (ParseException e) {
                 log.error("Parsing FAILED ", e);
             }

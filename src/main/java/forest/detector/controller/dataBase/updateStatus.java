@@ -33,7 +33,9 @@ public class updateStatus extends HttpServlet {
             TicketRepository ticketRepository = new TicketRepository((DataSource) request.getServletContext().getAttribute("datasource"));
             int[] i = ticketRepository.statusUpload();
             PrintWriter out = response.getWriter();
-            String json = "{\"status\":\"" + i[0] + "\",\"total\":\"" + i[1] + "\",\"is_finished\":\"" + i[2] + "\"}";
+            String json = "{\"status\":\"" + i[0] + "\",\"total\":\"" + i[1] + "\",\"is_finished\":\"" + i[2] +
+                    "\",\"new_tickets\":\"" + i[4] + "\",\"updated_tickets\":\"" + i[5] + "\",\"checked_tickets\":\"" + i[6] +
+                    "\",\"new_tracts\":\"" + i[7] + "\",\"updated_tracts\":\"" + i[8] + "\",\"checked_tracts\":\"" + i[9] + "\"}";
             out.print(json);
         }
     }

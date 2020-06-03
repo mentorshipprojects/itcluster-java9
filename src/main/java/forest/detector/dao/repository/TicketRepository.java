@@ -148,12 +148,27 @@ public class TicketRepository {
         return statusID;
     }
 
-    public void statusProgressRecord(int progress, int statusID) {
-        String query = "UPDATE update_status SET progress=? WHERE id=?";
+    /*
+     * progress[0] – counter of newly added tickets
+     * progress[1] – counter of updated tickets
+     * progress[2] – counter of checked ticket's positions
+     * progress[3] – counter of newly added tracts
+     * progress[4] – counter of updated tracts
+     * progress[5] – counter of checked tract's positions
+     * */
+    public void statusProgressRecord(int statusID, int[] progress) {
+        String query = "UPDATE update_status SET progress=?, new_tickets=?, updated_tickets=?, " +
+                "checked_tickets=?, new_tracts=?, updated_tracts=?, checked_tracts=?  WHERE id=?";
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, progress);
-            preparedStatement.setInt(2, statusID);
+            preparedStatement.setInt(1, progress[2]);
+            preparedStatement.setInt(2, progress[0]);
+            preparedStatement.setInt(3, progress[1]);
+            preparedStatement.setInt(4, progress[2]);
+            preparedStatement.setInt(5, progress[3]);
+            preparedStatement.setInt(6, progress[4]);
+            preparedStatement.setInt(7, progress[5]);
+            preparedStatement.setInt(8, statusID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             log.error("UPDATING PROGRESS FAILED ", e);
@@ -162,7 +177,7 @@ public class TicketRepository {
 
     public int[] statusUpload() {
         String query = "SELECT * FROM update_status ORDER BY ID DESC LIMIT 1";
-        int[] i = new int[4];
+        int[] i = new int[10];
         try (Connection connection = dataSource.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -175,6 +190,12 @@ public class TicketRepository {
                     i[2] = 0;
                 }
                 i[3] = resultSet.getInt("id");
+                i[4] = resultSet.getInt("new_tickets");
+                i[5] = resultSet.getInt("updated_tickets");
+                i[6] = resultSet.getInt("checked_tickets");
+                i[7] = resultSet.getInt("new_tracts");
+                i[8] = resultSet.getInt("updated_tracts");
+                i[9] = resultSet.getInt("checked_tracts");
             }
             return i;
         } catch (SQLException e) {

@@ -39,18 +39,26 @@ create table tracts
 create unique index tracts_map_id_uindex
 	on tracts (map_id);
 
-	create table update_status
+create table update_status
 (
 	id serial not null
 		constraint update_status_pk
 			primary key,
 	progress integer,
 	total integer,
-	finished boolean default false
+	finished boolean default false,
+	new_tickets integer,
+	updated_tickets integer,
+	checked_tickets integer,
+	new_tracts integer,
+	updated_tracts integer,
+	checked_tracts integer
 );
 
 create unique index update_status_id_uindex
 	on update_status (id);
+
+
 
 
 
