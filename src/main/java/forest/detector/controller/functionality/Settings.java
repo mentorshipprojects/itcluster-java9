@@ -1,13 +1,19 @@
 package forest.detector.controller.functionality;
 
+import forest.detector.dao.entity.User;
+import forest.detector.service.UserService;
+import forest.detector.utils.PasswordHashing;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 import java.io.IOException;
 
 import static forest.detector.templates.AdminTemplates.HEAD;
@@ -18,7 +24,8 @@ import static j2html.TagCreator.script;
 public class Settings extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Settings.class);
-
+    private UserService userService;
+    private PasswordHashing hashing = new PasswordHashing();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -62,5 +69,24 @@ public class Settings extends HttpServlet {
                 ).withClass("bg-primary")
         );
         response.getWriter().println(homeHtml.render());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (userService == null) {
+            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+        String oldPassword = hashing.getHash(request.getParameter("old_password"));
+        String newPassword = hashing.getHash(request.getParameter("new_password"));
+        String avatar = request.getParameter("avatar");
+
+        if(oldPassword.equals(session.getAttribute("password"))){
+            userService.settingsUpdateUserInDB(email, newPassword, avatar);
+            response.sendRedirect("/home");
+        }
     }
 }

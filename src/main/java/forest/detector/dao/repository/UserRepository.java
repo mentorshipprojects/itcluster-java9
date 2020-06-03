@@ -96,19 +96,11 @@ public class UserRepository {
         }
     }
 
-    public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
+    public void adminUpdateUserInDB(String email, String password, String first_name, String last_name, String avatar, String role){
 
         try(Connection connection = dataSource.getConnection();)
         {
-//            String userQuery = "update users " +
-//                    "set password='"+password+"', first_name='"+first_name+"', last_name='"+last_name+"', avatar='"+avatar+"' " +
-//                    "where email='"+email+"' ";
-//
-//           String roleQuery = "update user_roles set role_name='"+role+"' where email='"+email+"' ";
-////
-//            Statement statement = con.createStatement();
-//            statement.executeUpdate(userQuery);
-//            statement.executeUpdate(roleQuery);
+
             PreparedStatement ps_users = connection.prepareStatement("update users set password=?, first_name=?, last_name=?, avatar=? where email=?");
             PreparedStatement ps_role = connection.prepareStatement("update user_roles set role_name=? where email=?");
 
@@ -127,6 +119,22 @@ public class UserRepository {
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
             e.printStackTrace();
+        }
+    }
+
+    public void settingsUpdateUserInDB(String email, String new_password, String avatar){
+
+        try(Connection connection = dataSource.getConnection();)
+        {
+            PreparedStatement ps_users = connection.prepareStatement("update users set password=?, avatar=? where email=?");
+
+            ps_users.setString(1, new_password);
+            ps_users.setString(2, avatar);
+            ps_users.setString(3, email);
+            ps_users.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
         }
     }
 

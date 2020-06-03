@@ -1,10 +1,8 @@
 package forest.detector.service;
 
 import forest.detector.dao.entity.User;
-import forest.detector.dao.entity.User;
 import forest.detector.dao.repository.UserRepository;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 public class UserService {
@@ -40,7 +38,11 @@ public class UserService {
     }
 
     public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
-        repo.updateUserRoleInDB(email, password, first_name, last_name, avatar, role);
+        repo.adminUpdateUserInDB(email, password, first_name, last_name, avatar, role);
+    }
+
+    public void settingsUpdateUserInDB(String email, String new_password, String avatar){
+        repo.settingsUpdateUserInDB(email, new_password, avatar);
     }
 
     public void deleteUser(String email){
