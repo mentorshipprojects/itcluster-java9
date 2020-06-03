@@ -55,8 +55,6 @@ public class Index extends HttpServlet {
                         div(
                                 iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
 
-
-
                                 div(
                                         div(
                                                 div(GRAPH,div(
