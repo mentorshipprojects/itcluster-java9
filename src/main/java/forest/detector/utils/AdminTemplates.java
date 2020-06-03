@@ -105,7 +105,6 @@ public class AdminTemplates {
             }
 
             User user = userService.getUserByEmail(email);
-            String mail = user.getEmail();
             return nav(
                 div(
                         div(
@@ -136,7 +135,7 @@ public class AdminTemplates {
                         ).withClass("nav")
                 ).withClass("sb-sidenav-menu"),
                 div(
-                        div("Logged in as:").withClass("small"), text(mail)
+                        div("Logged in as:").withClass("small"), text(user.getEmail())
                 ).withClass("sb-sidenav-footer")
         ).withClass("sb-sidenav accordion sb-sidenav-dark")
                 .withId("sidenavAccordion");
