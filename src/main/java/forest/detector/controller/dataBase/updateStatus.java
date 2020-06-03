@@ -1,4 +1,4 @@
-package forest.detector.controller;
+package forest.detector.controller.dataBase;
 
 import forest.detector.dao.repository.TicketRepository;
 import org.slf4j.Logger;
