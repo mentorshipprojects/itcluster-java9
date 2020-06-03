@@ -3,6 +3,7 @@ dist: xenial
 jdk:
 - openjdk11
 script:
+- git fetch --unshallow
 - mvn clean package
 - mvn sonar:sonar
 cache:
