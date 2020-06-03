@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static forest.detector.utils.AdminTemplates.PARSER_START_BUTTON;
-import static forest.detector.utils.AdminTemplates.PARSER_STOP_BUTTON;
-import static forest.detector.utils.HTMLTemplates.*;
+import static forest.detector.templates.AdminTemplates.PARSER_START_BUTTON;
+import static forest.detector.templates.AdminTemplates.PARSER_STOP_BUTTON;
+import static forest.detector.templates.HTMLTemplates.*;
 import static j2html.TagCreator.*;
 
 @WebServlet(name = "test", urlPatterns = "/admin/db-update")

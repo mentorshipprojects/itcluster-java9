@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static forest.detector.utils.AdminTemplates.HEAD;
+import static forest.detector.templates.AdminTemplates.HEAD;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.script;
 @WebServlet(name = "register", urlPatterns = {"/register"})

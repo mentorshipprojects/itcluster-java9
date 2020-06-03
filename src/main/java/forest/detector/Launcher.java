@@ -1,7 +1,7 @@
 package forest.detector;
 
 import forest.detector.bot.TelegramBot;
-import forest.detector.service.eventTimer;
+import forest.detector.utils.eventTimer;
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.WebResourceSet;
 import org.apache.catalina.core.StandardContext;

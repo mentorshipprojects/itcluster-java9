@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static forest.detector.utils.AdminTemplates.HEAD;
-import static forest.detector.utils.EditProfileTemplates.EDIT_PROF_FORM;
+import static forest.detector.templates.AdminTemplates.HEAD;
+import static forest.detector.templates.EditProfileTemplates.EDIT_PROF_FORM;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.script;
 @WebServlet(name = "settings", urlPatterns = {"/settings"})

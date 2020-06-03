@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static forest.detector.utils.AdminTemplates.*;
+import static forest.detector.templates.AdminTemplates.*;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.div;
 

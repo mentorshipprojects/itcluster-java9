@@ -1,4 +1,4 @@
-package forest.detector.utils;
+package forest.detector.templates;
 
 import forest.detector.service.TicketService;
 import forest.detector.service.UserService;

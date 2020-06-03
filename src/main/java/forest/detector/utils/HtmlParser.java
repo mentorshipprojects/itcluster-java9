@@ -1,4 +1,4 @@
-package forest.detector.service;
+package forest.detector.utils;
 
 import forest.detector.dao.entity.Ticket;
 import forest.detector.dao.entity.Tract;

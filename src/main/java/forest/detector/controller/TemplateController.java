@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static j2html.TagCreator.*;
-import static forest.detector.utils.HTMLTemplates.*;
+import static forest.detector.templates.HTMLTemplates.*;
 
 @WebServlet(name = "template", urlPatterns = "/template", loadOnStartup = 1)
 public class TemplateController extends HttpServlet {

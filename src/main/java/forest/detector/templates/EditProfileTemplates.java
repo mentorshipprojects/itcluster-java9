@@ -1,4 +1,4 @@
-package forest.detector.utils;
+package forest.detector.templates;
 
 import j2html.tags.ContainerTag;
 

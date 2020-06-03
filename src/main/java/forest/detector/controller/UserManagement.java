@@ -3,11 +3,9 @@ package forest.detector.controller;
 import forest.detector.dao.entity.User;
 import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
-import j2html.tags.DomContent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-import static forest.detector.utils.AdminTemplates.*;
-import static forest.detector.utils.AdminTemplates.FOOTER;
+import static forest.detector.templates.AdminTemplates.*;
+import static forest.detector.templates.AdminTemplates.FOOTER;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.th;
 @WebServlet(name = "users", urlPatterns = "/admin/user-management", loadOnStartup = 1)

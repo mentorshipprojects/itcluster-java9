@@ -1,6 +1,6 @@
 package forest.detector.controller.dataBase;
 
-import forest.detector.service.HtmlParser;
+import forest.detector.utils.HtmlParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

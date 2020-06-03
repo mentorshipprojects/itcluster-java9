@@ -15,8 +15,8 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-import static forest.detector.utils.AdminTemplates.*;
-import static forest.detector.utils.AdminTemplates.FOOTER;
+import static forest.detector.templates.AdminTemplates.*;
+import static forest.detector.templates.AdminTemplates.FOOTER;
 import static j2html.TagCreator.*;
 
 @WebServlet(name = "edit_profil", urlPatterns = "/admin/edit_profil")

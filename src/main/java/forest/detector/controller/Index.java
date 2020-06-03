@@ -1,11 +1,7 @@
 package forest.detector.controller;
 
 import forest.detector.dao.entity.Ticket;
-import forest.detector.dao.entity.User;
-import forest.detector.service.HelloService;
 import forest.detector.service.TicketService;
-import forest.detector.service.UserService;
-import forest.detector.utils.HTMLTemplates;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
-import static forest.detector.utils.HTMLTemplates.*;
+import static forest.detector.templates.HTMLTemplates.*;
 
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.th;

@@ -13,7 +13,7 @@
 //
 //import org.apache.commons.dbcp2.BasicDataSource;
 //
-//import static forest.detector.service.HtmlParser.sqlDate;
+//import static forest.detector.utils.HtmlParser.sqlDate;
 //
 //public class HTMLParserServiceTest {
 //

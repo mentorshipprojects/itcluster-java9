@@ -1,14 +1,12 @@
 package forest.detector.controller;
 
 import forest.detector.dao.entity.Ticket;
-import forest.detector.dao.entity.User;
 import forest.detector.service.TicketService;
 import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.List;
 
-import static forest.detector.utils.AdminTemplates.*;
+import static forest.detector.templates.AdminTemplates.*;
 import static j2html.TagCreator.*;
 
 @WebServlet(name = "admin", urlPatterns = "/admin", loadOnStartup = 1)
