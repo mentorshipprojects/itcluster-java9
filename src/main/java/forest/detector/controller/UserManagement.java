@@ -40,6 +40,7 @@ public class UserManagement extends HttpServlet {
 
 
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(300*60);
         String role = (String) session.getAttribute("role");
         String email = (String) session.getAttribute("email");
 

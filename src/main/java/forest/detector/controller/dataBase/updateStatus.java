@@ -20,6 +20,7 @@ public class updateStatus extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(300*60);
         String role = (String) session.getAttribute("role");
 
         if(role == null)

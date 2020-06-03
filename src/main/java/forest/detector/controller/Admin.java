@@ -42,6 +42,7 @@ public class Admin extends HttpServlet {
         List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(300*60);
         String role = (String) session.getAttribute("role");
 
         if(role == null || !role.equals("admin"))
