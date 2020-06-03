@@ -1,28 +1,30 @@
 package forest.detector.templates;
 
+import forest.detector.dao.entity.User;
 import forest.detector.service.TicketService;
 import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import static j2html.TagCreator.*;
 
 public class HTMLTemplates {
 
-        public static final ContainerTag HEAD = head(
-                title("Forest"),
-                link().withHref("/css/home-page.css")
-                        .withRel("stylesheet"),
-                link().withHref("/css/mdi/css/materialdesignicons.min.css")
-                        .withRel("stylesheet"),
-link().withHref("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css")
-                .withRel("stylesheet")
-        .attr("crossorigin","anonymous"),
-script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
-                .attr("crossorigin","anonymous"),
-                script().withSrc("/js/vendor.bundle.base.js")
-        );
+    public static final ContainerTag HEAD = head(
+            title("Forest"),
+            link().withHref("/css/home-page.css")
+                    .withRel("stylesheet"),
+            link().withHref("/css/mdi/css/materialdesignicons.min.css")
+                    .withRel("stylesheet"),
+            link().withHref("https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css")
+                    .withRel("stylesheet")
+                    .attr("crossorigin","anonymous"),
+            script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
+                    .attr("crossorigin","anonymous"),
+            script().withSrc("/js/vendor.bundle.base.js")
+    );
 
     public static final ContainerTag NAV_LOGOUT = div(
             nav(
@@ -47,10 +49,10 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
 
                                                     div(
 
-                                                      a(
-                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
-                                                      ).withClass("dropdown-item")
-                                                              .withHref("/logout")
+                                                            a(
+                                                                    i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
+                                                            ).withClass("dropdown-item")
+                                                                    .withHref("/logout")
                                                     ).withClass("dropdown-menu navbar-dropdown")
                                                             .attr("aria-labelledby","profileDropdown")
 
@@ -119,61 +121,39 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
             ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
     ).withClass("horizontal-menu");
 
-        public static final ContainerTag NAV = div(
-                nav(
-                        div(
-                                div(
-                                        a("Forest").withClass("navbar-brand")
-                                ).withClass("text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"),
-                        div(
-                              ul(
-                                      li(
-                                              a(
-                                                      div(
-                                                              img()
-                                                                      .attr("alt","image")
-                                                              .withSrc("/img/no-ava.png")
-                                                      ).withClass("nav-profile-img")
-                                              ).withClass("nav-link")
-                                                      .withId("profileDropdown")
-                                                      .withHref("#")
-                                              .attr("data-toggle","dropdown")
-                                              .attr("aria-expanded","false"),
+    public static final ContainerTag NAV = div(
+            nav(
+                    div(
+                            div(
+                                    a("Forest").withClass("navbar-brand")
+                            ).withClass("text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"),
+                            div(
+                                    ul(
+                                            li(
+                                                    a("Sign in").withClass("btn btn-outline-success").withHref("/login")
 
-                                              div(
-                                                      a(
-                                                              i().withClass("mdi mdi-arrow-right-bold-circle-outline mr-2 text-success"), text(" Login")
-                                                      ).withClass("dropdown-item")
-                                                      .withHref("/login"),
-                                                      a(
-                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Register")
-                                                      ).withClass("dropdown-item")
-                                                      .withHref("/register")
-//                                                      a(
-//                                                              i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
-//                                                      ).withClass("dropdown-item")
-//                                                              .withHref("/logout")
-                                              ).withClass("dropdown-menu navbar-dropdown")
-                                              .attr("aria-labelledby","profileDropdown")
+                                            ).withClass("nav-item"),
+                                            li(
+                                                    a("Sign up").withClass("btn btn-outline-primary").withHref("/register")
 
-                                      ).withClass("nav-item nav-profile dropdown")
-                              ).withClass("navbar-nav navbar-nav-right"),
-                                button(
-                                        span().withClass("mdi mdi-menu")
-                                ).withClass("navbar-toggler navbar-toggler-right d-lg-none align-self-center")
-                                .attr("type","button")
-                                .attr("data-toggle","horizontal-menu-toggle")
+                                            ).withClass("nav-item")
+                                    ).withClass("navbar-nav navbar-nav-right"),
+                                    button(
+                                            span().withClass("mdi mdi-menu")
+                                    ).withClass("navbar-toggler navbar-toggler-right d-lg-none align-self-center")
+                                            .attr("type","button")
+                                            .attr("data-toggle","horizontal-menu-toggle")
 
-                        ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
-                        ).withClass("container")
-                ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
-        ).withClass("horizontal-menu");
+                            ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
+                    ).withClass("container")
+            ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
+    ).withClass("horizontal-menu");
 
     public static final ContainerTag GRAPH = div(
             div(
                     div(
                             div(
-                                  i().withClass("fas fa-chart-area mr-1"),
+                                    i().withClass("fas fa-chart-area mr-1"),
                                     text("Area Chart Example")
                             ).withClass("card-header"),
                             div(
@@ -282,40 +262,40 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
             ).withClass("card-body")
 
     ).withClass("card mb-4");
-        public static final ContainerTag FOOTER = footer(
-div(i().withClass("fa fa-chevron-up")).withClass("scrollup"),
-                div(
-                      div(
-                              div(
-                                      a(
-                                              i().withClass("fab fa-telegram").withStyle("color: #007bff;")
-                                      ).withHref("https://t.me/Java9ProjectBot")
-                                              .withClass("tg-link")
-                                      .attr("data-toggle","popover")
-                                      .attr("data-placement","top")
-                                      .attr("data-trigger","hover")
-                                      .attr("data-content","Use our telegram bot")
-                              ).withClass("myPopover")
-                      ).withClass("d-sm-flex justify-content-center justify-content-sm-between")
+    public static final ContainerTag FOOTER = footer(
+            div(i().withClass("fa fa-chevron-up")).withClass("scrollup"),
+            div(
+                    div(
+                            div(
+                                    a(
+                                            i().withClass("fab fa-telegram").withStyle("color: #007bff;")
+                                    ).withHref("https://t.me/Java9ProjectBot")
+                                            .withClass("tg-link")
+                                            .attr("data-toggle","popover")
+                                            .attr("data-placement","top")
+                                            .attr("data-trigger","hover")
+                                            .attr("data-content","Use our telegram bot")
+                            ).withClass("myPopover")
+                    ).withClass("d-sm-flex justify-content-center justify-content-sm-between")
 
-                ).withClass("container"),
-                script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"),
+            ).withClass("container"),
+            script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"),
 
 
 
-                script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
-                        .attr("crossorigin", "anonymous"),
-                script().withSrc("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")
-                        .attr("crossorigin", "anonymous"),
+            script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js")
+                    .attr("crossorigin", "anonymous"),
+            script().withSrc("https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js")
+                    .attr("crossorigin", "anonymous"),
 
-                script().withSrc("https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js")
-                        .attr("crossorigin", "anonymous"),
+            script().withSrc("https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js")
+                    .attr("crossorigin", "anonymous"),
 
-                script().withSrc("/js/datatables-demo.js"),
-                script().withSrc("/js/chart-area-demo.js"),
+            script().withSrc("/js/datatables-demo.js"),
+            script().withSrc("/js/chart-area-demo.js"),
 
-                script().withSrc("/js/chart-bar-demo.js"),
-                script().withSrc("/js/chart-pie-demo.js")
+            script().withSrc("/js/chart-bar-demo.js"),
+            script().withSrc("/js/chart-pie-demo.js")
 
-        ).withClass("footer");
-    }
+    ).withClass("footer");
+}

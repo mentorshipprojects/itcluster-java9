@@ -62,102 +62,19 @@ public class Admin extends HttpServlet {
                                     div(
                                             main(
                                                     div(
-                                                            h1("Dashboard").withClass("mt-4"),
+//                                                            h1("Dashboard").withClass("mt-4"),
+
+                                                            div(div(b("Database update: "),div())
+                                                                    .withClass("dpm-menu-stats-list-bar dpm-bar2"))
+                                                                    .withClass("row").withStyle("justify-content: center"),
+
                                                             div(
-                                                                    div(
-                                                                            div(
-                                                                                    div(
-                                                                                            i().withClass("fas fa-chart-area mr-1"),
-                                                                                            text("Area Chart Example")).withClass("card-header"),
-                                                                                    div(
-                                                                                            canvas().withId("myAreaChart")
-                                                                                                    .attr("width","100%")
-                                                                                                    .attr("height","40")
-
-                                                                                    ).withClass("card-body")
-
-                                                                            ).withClass("card mb-4")
-                                                                    ).withClass("col-xl-6"),
-                                                                    div(
-                                                                            div(
-                                                                                    div(
-                                                                                            i().withClass("fas fa-chart-bar mr-1"),
-                                                                                            text("Bar Chart Example")).withClass("card-header"),
-                                                                                    div(
-                                                                                            canvas().withId("myBarChart")
-                                                                                                    .attr("width","100%")
-                                                                                                    .attr("height","40")
-
-                                                                                    ).withClass("card-body")
-
-                                                                            ).withClass("card mb-4")
-                                                                    ).withClass("col-xl-6")
-                                                            ).withClass("row"),
                                                             div(
-                                                                    div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
-                                                                    ).withClass("card-header"),
-                                                                    div(
-                                                                            div(
-
-                                                                                    table(
-                                                                                            thead(
-                                                                                                    tr(
-                                                                                                            th("Number"),
-                                                                                                            th("Region"),
-                                                                                                            th("Forest user"),
-                                                                                                            th("Start date"),
-                                                                                                            th("Finish date"),
-                                                                                                            th("Forestry"),
-                                                                                                            th("Cutting type"),
-                                                                                                            th("Ticket status"),
-                                                                                                            th("Cutting status")
-                                                                                                    )
-
-                                                                                            ),
-                                                                                            tfoot(
-                                                                                                    tr(
-                                                                                                            th("Number"),
-                                                                                                            th("Region"),
-                                                                                                            th("Forest user"),
-                                                                                                            th("Start date"),
-                                                                                                            th("Finish date"),
-                                                                                                            th("Forestry"),
-                                                                                                            th("Cutting type"),
-                                                                                                            th("Ticket status"),
-                                                                                                            th("Cutting status")
-                                                                                                    )
-
-                                                                                            ),
-                                                                                            tbody(
-                                                                                                    each(list, ticket ->
-                                                                                                            div(attrs(".ticket"),
-                                                                                                                    tr(
-                                                                                                                            td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
-                                                                                                                            td(ticket.getRegion()),
-                                                                                                                            td(ticket.getForestUser()),
-                                                                                                                            td(String.valueOf(ticket.getStartDate())),
-                                                                                                                            td(String.valueOf(ticket.getFinishDate())),
-                                                                                                                            td(ticket.getForestry()),
-                                                                                                                            td(ticket.getCuttingType()),
-                                                                                                                            td(ticket.getTicketStatus()),
-                                                                                                                            td(ticket.getCuttingStatus())
-                                                                                                                    )
-//
-
-
-                                                                                                            ))
-                                                                                            )
-
-
-                                                                                    ).withClass("table table-bordered")
-                                                                                            .withId("dataTable").attr("width","100%")
-                                                                                            .attr("cellspacing","0")
-
-                                                                            ).withClass("table-responsive")
-
-                                                                    ).withClass("card-body")
-
-                                                            ).withClass("card mb-4")
+                                                                    button(i().withClass("fas fa-sync-alt"),text(" Update DB")).withClass("btn btn-success")
+                                                                            .withId("update-bd"),
+                                                                    button(i().withClass("fas fa-stop-circle"),text(" Stop")).withClass("btn btn-danger")
+                                                            ).withClass("row").withStyle("justify-content: center;")
+                                                            ).withClass("card mb-4").withStyle("border: none")
 
                                                     ).withClass("container-fluid")
 

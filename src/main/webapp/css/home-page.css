@@ -11705,7 +11705,7 @@ code {
 
 .btn-outline-primary:hover, .btn-outline-primary:focus, .btn-outline-primary:active {
   background: #0033c4;
-  color: #000; }
+  color: #fff; }
 
 .btn-inverse-secondary {
   background-color: rgba(160, 160, 160, 0.2);
@@ -11773,7 +11773,7 @@ code {
 
 .btn-outline-success:hover, .btn-outline-success:focus, .btn-outline-success:active {
   background: #00d284;
-  color: #000; }
+  color: #fff; }
 
 .btn-inverse-info {
   background-color: rgba(0, 207, 244, 0.2);
