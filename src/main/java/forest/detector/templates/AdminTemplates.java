@@ -106,7 +106,7 @@ public class AdminTemplates {
                                     .attr("aria-haspopup", "true")
                                     .attr("aria-expanded", "aria-expanded"),
                             div(a("Settings").withClass("dropdown-item")
-                                            .withHref("#"),
+                                            .withHref("/settings"),
                                     div().withClass("dropdown-divider"),
                                     a("Logout").withClass("dropdown-item").withHref("/logout")
                             ).withClass("dropdown-menu dropdown-menu-right")
