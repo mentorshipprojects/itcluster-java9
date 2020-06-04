@@ -135,34 +135,32 @@ public class Login extends HttpServlet {
 
                 if(userValidate.equals("Admin_Role"))
                 {
+                    session.setMaxInactiveInterval(500*60);
                     session.setAttribute("email", email); //setting session attribute
                     String str = userService.getUserByEmail(email).getRole();
-                    session.setMaxInactiveInterval(500*60);
                     session.setAttribute("role", str);
                     response.sendRedirect("/admin");
                 }
                 else if(userValidate.equals("Moderator-api"))
                 {
+                    session.setMaxInactiveInterval(500*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setMaxInactiveInterval(500*60);
-
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else if(userValidate.equals("Moderator-gui"))
                 {
+                    session.setMaxInactiveInterval(500*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setMaxInactiveInterval(500*60);
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else if(userValidate.equals("User"))
                 {
                     session.setMaxInactiveInterval(500*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setMaxInactiveInterval(500*60);
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else
                 {
@@ -172,7 +170,6 @@ public class Login extends HttpServlet {
             } catch (Exception e2)
             {
                 log.error(e2.getMessage(), e2);
-                e2.printStackTrace();
             }
         }
     }

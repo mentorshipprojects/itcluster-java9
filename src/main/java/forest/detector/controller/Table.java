@@ -6,6 +6,7 @@ import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,7 @@ public class Table extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
-        String role = (String) session.getAttribute("role");
+//        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
@@ -62,37 +63,37 @@ public class Table extends HttpServlet {
                                                                 div(i().withClass("fas fa-filter"),text(" Filter")).withClass("card-header"),
                                                                 div(
 
-                                                                        form(
+                                                                        form().withMethod("post").with(
                                                                                 select(
                                                                                         option("Forest user").attr("selected"),
-                                                                                        option("1").withValue("1"),
+                                                                                        option("Калуське лісове господарство").withValue("Калуське лісове господарство"),
                                                                                         option("2").withValue("2"),
                                                                                         option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select"),
+                                                                                ).withName("forest_user").withClass("browser-default custom-select"),
                                                                                 select(
                                                                                         option("Forestry").attr("selected"),
                                                                                         option("1").withValue("1"),
                                                                                         option("2").withValue("2"),
                                                                                         option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select")
+                                                                                ).withClass("browser-default custom-select").withName("forestry")
                                                                                 , select(
                                                                                         option("Start date").attr("selected"),
                                                                                         option("1").withValue("1"),
                                                                                         option("2").withValue("2"),
                                                                                         option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select"),
+                                                                                ).withClass("browser-default custom-select").withName("start_date"),
                                                                                 select(
                                                                                         option("Finish date").attr("selected"),
                                                                                         option("1").withValue("1"),
                                                                                         option("2").withValue("2"),
                                                                                         option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select"),
+                                                                                ).withClass("browser-default custom-select").withName("finish_date"),
                                                                                 select(
                                                                                         option("Cutting type").attr("selected"),
                                                                                         option("1").withValue("1"),
                                                                                         option("2").withValue("2"),
                                                                                         option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select"),
+                                                                                ).withClass("browser-default custom-select").withName("cutting_type"),
                                                                                 button("Search").withClass("btn btn-primary")
                                                                                         .withType("submit")
 
@@ -100,25 +101,7 @@ public class Table extends HttpServlet {
                                                                 ).withClass("card-body")
                                                         ).withClass("card mb-4"),
 
-
-
-
                                                         div(
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                                         div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
                                                         ).withClass("card-header"),
@@ -129,7 +112,6 @@ public class Table extends HttpServlet {
                                                                                 thead(
                                                                                         tr(
                                                                                                 th("Number"),
-
                                                                                                 th("Forest user"),
                                                                                                 th("Start date"),
                                                                                                 th("Finish date"),
@@ -140,13 +122,11 @@ public class Table extends HttpServlet {
                                                                                 tfoot(
                                                                                         tr(
                                                                                                 th("Number"),
-
                                                                                                 th("Forest user"),
                                                                                                 th("Start date"),
                                                                                                 th("Finish date"),
                                                                                                 th("Forestry"),
                                                                                                 th("Cutting type")
-
                                                                                         )
                                                                                 ),
                                                                                 tbody(
@@ -160,7 +140,6 @@ public class Table extends HttpServlet {
                                                                                                                 td(String.valueOf(ticket.getFinishDate())),
                                                                                                                 td(ticket.getForestry()),
                                                                                                                 td(ticket.getCuttingType())
-
                                                                                                         )
                                                                                                 ))
                                                                                 )).withClass("table table-bordered")
@@ -179,5 +158,21 @@ public class Table extends HttpServlet {
                 )
         ).withStyle("overflow:hidden");
         response.getWriter().println(homeHtml.render());
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        if (ticketService == null) {
+            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
+        String forestUser = (String) request.getAttribute("forest_user");
+        String forestry = (String) request.getAttribute("forestry");
+        String startDate = (String) request.getAttribute("start_date");
+        String finishDate = (String) request.getAttribute("finish_date");
+        String cuttingType = (String) request.getAttribute("cutting_type");
+
+
     }
 }

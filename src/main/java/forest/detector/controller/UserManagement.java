@@ -54,7 +54,7 @@ public class UserManagement extends HttpServlet {
                     link().withHref("/css/user-management.css").withRel("stylesheet"),
                     HEAD,
                     body(
-                            NAV(session),
+                            NAV,
                             div(
                                     div(
                                             MENU(request, email)

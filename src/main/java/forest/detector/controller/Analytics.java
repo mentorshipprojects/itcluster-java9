@@ -23,7 +23,6 @@ import static j2html.TagCreator.td;
 public class Analytics extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Index.class);
-    //  private UserService userService;
     private TicketService ticketService;
 
     @Override
@@ -35,11 +34,11 @@ public class Analytics extends HttpServlet {
         if (ticketService == null) {
             ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
-        List<Ticket> list = ticketService.getTickets();
+//        List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
-        String role = (String) session.getAttribute("role");
+//        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
