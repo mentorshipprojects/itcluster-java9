@@ -51,7 +51,7 @@ public class Admin extends HttpServlet {
 
             ContainerTag homeHtml = html(HEAD,
                     body(
-                            NAV,
+                            NAV(session),
 
                             div(
                                     div(

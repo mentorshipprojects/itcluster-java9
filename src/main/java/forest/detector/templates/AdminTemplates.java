@@ -5,6 +5,7 @@ import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import static j2html.TagCreator.*;
@@ -107,25 +108,32 @@ public class AdminTemplates {
             }
 
 
-    public static final ContainerTag NAV = nav(
-            a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
-            ).withId("sidebarToggle").withHref("#"),
-            form().withClass("d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"),
-            ul(
-                    li(a(i().withClass("fas fa-user fa-fw")).withClass("nav-link dropdown-toggle").withId("userDropdown")
-                                    .withHref("#").attr("role", "button")
-                                    .attr("data-toggle", "dropdown")
-                                    .attr("aria-haspopup", "true")
-                                    .attr("aria-expanded", "aria-expanded"),
-                            div(a("Settings").withClass("dropdown-item")
-                                            .withHref("/settings"),
-                                    div().withClass("dropdown-divider"),
-                                    a("Logout").withClass("dropdown-item").withHref("/logout")
-                            ).withClass("dropdown-menu dropdown-menu-right")
-                                    .attr("aria-labelledby", "userDropdown")
-                    ).withClass("nav-item dropdown")
-            ).withClass("navbar-nav ml-auto ml-md-0")
-    ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");//source
+    public static final ContainerTag NAV (HttpSession session){
+
+
+        String role = (String) session.getAttribute("role");
+
+
+        return nav(
+                a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
+                ).withId("sidebarToggle").withHref("#"),
+                form().withClass("d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"),
+                ul(
+                        li(a(i().withClass("fas fa-user fa-fw")).withClass("nav-link dropdown-toggle").withId("userDropdown")
+                                        .withHref("#").attr("role", "button")
+                                        .attr("data-toggle", "dropdown")
+                                        .attr("aria-haspopup", "true")
+                                        .attr("aria-expanded", "aria-expanded"),
+                                div(a("Settings").withClass("dropdown-item")
+                                                .withHref("/settings"),
+                                        div().withClass("dropdown-divider"),
+                                        a("Logout").withClass("dropdown-item").withHref("/logout")
+                                ).withClass("dropdown-menu dropdown-menu-right")
+                                        .attr("aria-labelledby", "userDropdown")
+                        ).withClass("nav-item dropdown")
+                ).withClass("navbar-nav ml-auto ml-md-0")
+        ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");//source
+    }
 
     public static final ContainerTag FOOTER = footer(
             div(

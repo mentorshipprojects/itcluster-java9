@@ -48,7 +48,7 @@ public class AddUser extends HttpServlet {
                     link().withHref("/css/user-management.css").withRel("stylesheet"),
                     HEAD,
                     body(
-                            NAV,
+                            NAV(session),
                             div(
                                     div(
                                             MENU(request, (String) session.getAttribute("email"))

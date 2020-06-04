@@ -47,6 +47,11 @@ script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/
 
                                                     div(
 
+                                                            a(
+                                                                    i().withClass("mdi mdi-settings mr-2 text-success"), text(" Settings ")
+                                                            ).withClass("dropdown-item")
+                                                                    .withHref("/settings"),
+
                                                       a(
                                                               i().withClass("mdi mdi-arrow-down-bold-circle-outline mr-2 text-success"), text(" Logout")
                                                       ).withClass("dropdown-item")

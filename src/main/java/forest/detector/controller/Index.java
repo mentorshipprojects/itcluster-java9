@@ -54,7 +54,11 @@ public class Index extends HttpServlet {
                                 "\n" +
                                 "    });")),
                         div(
+
+
                                 iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
+
+
 
                                 div(
                                         div(
