@@ -5,7 +5,6 @@ import forest.detector.service.UserService;
 import j2html.tags.ContainerTag;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import static j2html.TagCreator.*;
@@ -13,8 +12,6 @@ import static j2html.TagCreator.button;
 
 public class AdminTemplates {
     private static UserService userService;
-
-
     public static final ContainerTag HEAD = head(
             title("Admin page"),
             // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
@@ -65,39 +62,30 @@ public class AdminTemplates {
             ).withClass("col-xl-6")
     ).withClass("row");
 
-        public static final ContainerTag  MENU(HttpServletRequest request, String email) {
-            if (userService == null) {
-                userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
-            }
+    public static final ContainerTag  MENU(HttpServletRequest request, String email) {
+        if (userService == null) {
+            userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
 
-            User user = userService.getUserByEmail(email);
-            return nav(
+        User user = userService.getUserByEmail(email);
+        return nav(
                 div(
                         div(
                                 div("Main").withClass("sb-sidenav-menu-heading"),
                                 a(
-                                        div(i().withClass("fas fa-tachometer-alt"))
-                                                .withClass("sb-nav-link-icon"), text("Dashboard")).withClass("nav-link").withHref("/admin"),
+                                        div(i().withClass("fas fa-database"))
+                                                .withClass("sb-nav-link-icon"), text("Database")).withClass("nav-link").withHref("/admin"),
                                 a(
                                         div(i().withClass("fas fa-user"))
                                                 .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
 
-                                ,a(
-                                        div(i().withClass("fas fa-sync-alt"))
-                                                .withClass("sb-nav-link-icon"), text("Update BD")).withClass("nav-link")
-                                        .attr("onclick","bar()")
-                                        .withId("update-bd")
+//                                ,a(
+//                                        div(i().withClass("fas fa-sync-alt"))
+//                                                .withClass("sb-nav-link-icon"), text("Update DB")).withClass("nav-link")
 
-                                , script(rawHtml("$(document).ready(function(){\n" +
-                                        "  $(\"#update-bd\").click(function(){\n" +
-                                        "    $.get(\"/parser\", function(data, status){\n" +
-                                        "       setTimeout(function() {NProgress.done(); $('.fade').removeClass('out');}, 1000);alert(data);\n" +
-                                        "    });\n" +
-                                        "  });\n" +
-                                        "});" +
-                                        "function bar() {\n" +"NProgress.start();"+
+//                                        .withId("update-bd")
 
-                                        "        }"))
+
                         ).withClass("nav")
                 ).withClass("sb-sidenav-menu"),
                 div(
@@ -105,35 +93,27 @@ public class AdminTemplates {
                 ).withClass("sb-sidenav-footer")
         ).withClass("sb-sidenav accordion sb-sidenav-dark")
                 .withId("sidenavAccordion");
-            }
-
-
-    public static final ContainerTag NAV (HttpSession session){
-
-
-        String role = (String) session.getAttribute("role");
-
-
-        return nav(
-                a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
-                ).withId("sidebarToggle").withHref("#"),
-                form().withClass("d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"),
-                ul(
-                        li(a(i().withClass("fas fa-user fa-fw")).withClass("nav-link dropdown-toggle").withId("userDropdown")
-                                        .withHref("#").attr("role", "button")
-                                        .attr("data-toggle", "dropdown")
-                                        .attr("aria-haspopup", "true")
-                                        .attr("aria-expanded", "aria-expanded"),
-                                div(a("Settings").withClass("dropdown-item")
-                                                .withHref("/settings"),
-                                        div().withClass("dropdown-divider"),
-                                        a("Logout").withClass("dropdown-item").withHref("/logout")
-                                ).withClass("dropdown-menu dropdown-menu-right")
-                                        .attr("aria-labelledby", "userDropdown")
-                        ).withClass("nav-item dropdown")
-                ).withClass("navbar-nav ml-auto ml-md-0")
-        ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");//source
     }
+
+    public static final ContainerTag NAV = nav(
+            a(text("Admin page")).withClass("navbar-brand"), button(i().withClass("fas fa-bars")).withClass("btn btn-link btn-sm order-1 order-lg-0"
+            ).withId("sidebarToggle").withHref("#"),
+            form().withClass("d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"),
+            ul(
+                    li(a(i().withClass("fas fa-user fa-fw")).withClass("nav-link dropdown-toggle").withId("userDropdown")
+                                    .withHref("#").attr("role", "button")
+                                    .attr("data-toggle", "dropdown")
+                                    .attr("aria-haspopup", "true")
+                                    .attr("aria-expanded", "aria-expanded"),
+                            div(a("Settings").withClass("dropdown-item")
+                                            .withHref("#"),
+                                    div().withClass("dropdown-divider"),
+                                    a("Logout").withClass("dropdown-item").withHref("/logout")
+                            ).withClass("dropdown-menu dropdown-menu-right")
+                                    .attr("aria-labelledby", "userDropdown")
+                    ).withClass("nav-item dropdown")
+            ).withClass("navbar-nav ml-auto ml-md-0")
+    ).withClass("sb-topnav navbar navbar-expand navbar-dark bg-dark");//source
 
     public static final ContainerTag FOOTER = footer(
             div(
@@ -206,6 +186,9 @@ public class AdminTemplates {
                     "    }\n" +
                     "  }\n" +
                     "});\n")).withType("text/javascript")
+            , script().withSrc("/js/bd-update.js")
+
+
     ).withClasses("py-4 bg-light mt-auto");
 
     public static final ContainerTag PARSER_START_BUTTON = div(

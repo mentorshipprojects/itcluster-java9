@@ -37,7 +37,7 @@ public class TemplateController extends HttpServlet {
 
             ContainerTag homeHtml = html(HEAD,
                     body(
-                            NAV_LOGOUT,
+
                             header(
                                     div(
                                             div(

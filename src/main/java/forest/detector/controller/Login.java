@@ -135,35 +135,34 @@ public class Login extends HttpServlet {
 
                 if(userValidate.equals("Admin_Role"))
                 {
-                    session.setMaxInactiveInterval(300*60);
                     session.setAttribute("email", email); //setting session attribute
-                    session.setAttribute("role", userService.getUserByEmail(email).getRole());
-                    session.setAttribute("password", password);
-                    response.sendRedirect("/home");
+                    String str = userService.getUserByEmail(email).getRole();
+                    session.setMaxInactiveInterval(500*60);
+                    session.setAttribute("role", str);
+                    response.sendRedirect("/admin");
                 }
                 else if(userValidate.equals("Moderator-api"))
                 {
-                    session.setMaxInactiveInterval(300*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setAttribute("password", password);
-                    response.sendRedirect("/home");
+                    session.setMaxInactiveInterval(500*60);
+
+                    response.sendRedirect("/template");
                 }
                 else if(userValidate.equals("Moderator-gui"))
                 {
-                    session.setMaxInactiveInterval(300*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setAttribute("password", password);
-                    response.sendRedirect("/home");
+                    session.setMaxInactiveInterval(500*60);
+                    response.sendRedirect("/template");
                 }
                 else if(userValidate.equals("User"))
                 {
-                    session.setMaxInactiveInterval(300*60);
+                    session.setMaxInactiveInterval(500*60);
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
-                    session.setAttribute("password", password);
-                    response.sendRedirect("/home");
+                    session.setMaxInactiveInterval(500*60);
+                    response.sendRedirect("/template");
                 }
                 else
                 {
