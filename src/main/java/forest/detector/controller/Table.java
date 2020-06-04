@@ -65,7 +65,6 @@ public class Table extends HttpServlet {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
 
-
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
 
