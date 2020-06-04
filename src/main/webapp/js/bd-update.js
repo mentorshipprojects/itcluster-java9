@@ -7,6 +7,10 @@ $(document).ready(function() {
             $('.dpm-bar2 b').text("Database update: "+(100 / (json.total / json.status)).toFixed(2)+ '%');
 
             if(json.status==json.total){
+                // alert("БАЗУ ДАНИХ УСПІШНО ОНОВЛЕНО!\n\n" +
+                //     "Лісорубні квитки: додано " + json.new_tickets + ", оновлено " + json.updated_tickets + ", перевірено " + json.checked_tickets + "\n" +
+                //     "Лісорубні ділянки: додано " + json.new_tracts + ",  оновлено " + json.updated_tracts + ",  перевірено " + json.checked_tracts);
+                //
                 $("#update-bd").removeAttr("disabled");
                 clearInterval(intervalID);
             }else {

@@ -2248,8 +2248,8 @@ pre {
 
 .container {
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
   margin-right: auto;
   margin-left: auto; }
   @media (min-width: 576px) {
@@ -14159,9 +14159,9 @@ dl {
     flex-grow: 1; }
     @media (max-width: 991px) {
       .horizontal-menu .top-navbar .navbar-menu-wrapper {
-        width: calc(100% - 55px);
+        width: 0;
         padding-left: 15px;
-        padding-right: 0; } }
+        padding-right: 10px; } }
     .horizontal-menu .top-navbar .navbar-menu-wrapper .navbar-toggler {
       border: 0;
       color: inherit;
@@ -14795,3 +14795,34 @@ div.scrollup:hover {
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
+.container {
+  width: min-content;
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+  margin-right: auto;
+  margin-left: auto; }
+.bg-light, .settings-panel .color-tiles .tiles.light {
+  background-color: #ffffff !important;
+}
+@media (max-width: 991px) {
+  .horizontal-menu .top-navbar .navbar-menu-wrapper {
+    width: 0;
+    padding-left: 15px;
+    padding-right: 10px; } }
+.navbar-light .navbar-brand {
+  color: #27367f;}
+.navbar-brand {margin-right: 2rem;}
+@media (min-width: 992px) {
+  .navbar-expand-lg {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    padding-left: 7rem !important;
+    padding-right: 7rem !important;
+  }}.filter-form select {
+        margin-bottom: 10px;
+      }
