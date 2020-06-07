@@ -107,7 +107,7 @@ public class Login extends HttpServlet {
         else if(role.equals("admin"))
             response.sendRedirect("/admin");
         else if(role.equals("user"))
-            response.sendRedirect("/template");
+            response.sendRedirect("/home");
     }
 
     @Override
@@ -147,14 +147,14 @@ public class Login extends HttpServlet {
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setMaxInactiveInterval(500*60);
 
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else if(userValidate.equals("Moderator-gui"))
                 {
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setMaxInactiveInterval(500*60);
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else if(userValidate.equals("User"))
                 {
@@ -162,7 +162,7 @@ public class Login extends HttpServlet {
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setMaxInactiveInterval(500*60);
-                    response.sendRedirect("/template");
+                    response.sendRedirect("/home");
                 }
                 else
                 {
