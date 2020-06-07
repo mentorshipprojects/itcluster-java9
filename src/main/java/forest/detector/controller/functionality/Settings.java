@@ -79,6 +79,7 @@ public class Settings extends HttpServlet {
         }
 
         HttpSession session = request.getSession();
+        String str = (String) session.getAttribute("password");
         String email = (String) session.getAttribute("email");
         String oldPassword = hashing.getHash(request.getParameter("old_password"));
         String newPassword = hashing.getHash(request.getParameter("new_password"));
