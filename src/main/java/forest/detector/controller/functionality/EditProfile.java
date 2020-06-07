@@ -2,6 +2,7 @@ package forest.detector.controller.functionality;
 
 import forest.detector.dao.entity.User;
 import forest.detector.service.UserService;
+import forest.detector.utils.PasswordHashing;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public class EditProfile extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(EditProfile.class);
     private UserService userService;
+    private PasswordHashing hashing = new PasswordHashing();
     private User user;
 
     /**
@@ -233,7 +235,7 @@ public class EditProfile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String password = hashing.getHash(request.getParameter("password"));
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String avatar = request.getParameter("avatar");
