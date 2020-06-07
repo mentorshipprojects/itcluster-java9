@@ -27,6 +27,7 @@ public class HTMLTemplates {
             script().withSrc("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js")
                     .attr("crossorigin","anonymous"),
             script().withSrc("/js/vendor.bundle.base.js")
+            ,link().withHref("https://uk.allfont.net/allfont.css?fonts=lobster").withRel("stylesheet")
     );
 
     public static final ContainerTag NAV_LOGOUT = div(
@@ -302,7 +303,70 @@ public class HTMLTemplates {
             ).withClass("col-xl-6 full")
 
     ).withClass("row");
+    public static final  ContainerTag BG = div(
+div(div(
+        div(
+                div(
+                        div("Save the forest").withClass("home-bg-text align-middle")
+                ).withClass("bg").withStyle("background-image: url(https://images2.alphacoders.com/103/1036023.jpg);height: 500px;background-repeat: no-repeat;background-size: 100% 100%;display: table;width: 100%;")
+        ).withClass("card-body").withStyle("padding: 3px")
+).withClass("card mb-4")).withClass("col-xl-6 full")
 
+
+
+    ).withClass("row");
+    public static  final ContainerTag TEAM = section(
+            h2("Our amazing team").withClass("h1-responsive font-weight-bold my-4"),
+            div(
+
+                    div(
+                            div(
+                                    img().withClass("rounded-circle z-depth-5")
+                                            .withAlt("avatar")
+                                            .withSrc("/img/ava/1.2.jpg")
+                            ).withClass("avatar mx-auto"),
+                            h5("Viktor Kukuruza").withClass("font-weight-bold mt-4 mb-3")
+                            ,p(strong("Parsing & DataBase")).withClass("text-uppercase blue-text")
+
+
+                    ).withClass("col-lg-3 col-md-6 mb-lg-0 mb-5"),
+                    div(
+                            div(
+                                    img().withClass("rounded-circle z-depth-5")
+                                            .withAlt("avatar")
+                                            .withSrc("/img/ava/2.jpg")
+                            ).withClass("avatar mx-auto"),
+                            h5("Bohdan Pryidun").withClass("font-weight-bold mt-4 mb-3")
+                            ,p(strong("User Interface")).withClass("text-uppercase blue-text")
+
+
+                    ).withClass("col-lg-3 col-md-6 mb-lg-0 mb-5"),
+                    div(
+                            div(
+                                    img().withClass("rounded-circle z-depth-5")
+                                            .withAlt("avatar")
+                                            .withSrc("/img/ava/4.jpg")
+                            ).withClass("avatar mx-auto"),
+                            h5("Lyubomyr Shynkaruk").withClass("font-weight-bold mt-4 mb-3")
+                            ,p(strong("User Management")).withClass("text-uppercase blue-text")
+
+
+                    ).withClass("col-lg-3 col-md-6 mb-lg-0 mb-5"),
+
+                    div(
+                            div(
+                                    img().withClass("rounded-circle z-depth-5")
+                                            .withAlt("avatar")
+                                            .withSrc("/img/ava/3.jpg")
+                            ).withClass("avatar mx-auto"),
+                            h5("Evgenii Semaniuk").withClass("font-weight-bold mt-4 mb-3")
+                            ,p(strong("Telegram ChatBot")).withClass("text-uppercase blue-text")
+
+
+                    ).withClass("col-lg-3 col-md-6 mb-lg-0 mb-5")
+
+            ).withClass("row")
+    ).withClass("text-center my-5 card mb-4");
     public static  ContainerTag TABLE = div(
             div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
             ).withClass("card-header"),
