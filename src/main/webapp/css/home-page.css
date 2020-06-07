@@ -14825,4 +14825,16 @@ div.scrollup:hover {
     padding-right: 7rem !important;
   }}.filter-form select {
         margin-bottom: 10px;
-      }
+      }.home-bg-text {
+         color: white;
+         font-family: Lobster;
+         height: 100%;
+         display: table-cell;
+         vertical-align: middle;
+         text-align: center;
+         text-shadow: 4px 2px 4px black;
+         font-size: 5em;
+         text-transform: capitalize;
+       }.rounded-circle.z-depth-5 {
+          width: 70% !important;
+        }

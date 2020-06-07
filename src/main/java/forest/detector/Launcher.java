@@ -124,7 +124,7 @@ public class Launcher {
         dataSource.setType("javax.sql.DataSource");
         dataSource.setProperty("minimumIdle", "1"); // min connection pool
         dataSource.setProperty("maximumPoolSize", "4"); // max connection pool
-        dataSource.setProperty("connectionTimeout", "300000"); // miliseconds, cannot be less than 250ms
+        dataSource.setProperty("connectionTimeout", "3600000"); // miliseconds, cannot be less than 250ms
         dataSource.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
         dataSource.setProperty("dataSource.url", connectionURL);
         dataSource.setProperty("dataSource.user", username);

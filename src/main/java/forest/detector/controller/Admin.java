@@ -73,6 +73,7 @@ public class Admin extends HttpServlet {
                                                                     button(i().withClass("fas fa-sync-alt"),text(" Update DB")).withClass("btn btn-success")
                                                                             .withId("update-bd"),
                                                                     button(i().withClass("fas fa-stop-circle"),text(" Stop")).withClass("btn btn-danger")
+                                                                    .withId("stop-update-bd")
                                                             ).withClass("row").withStyle("justify-content: center;")
                                                             ).withClass("card mb-4").withStyle("border: none")
 

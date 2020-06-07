@@ -59,63 +59,8 @@ public class Index extends HttpServlet {
 
                                 div(
                                         div(
-                                                div(GRAPH,div(
-                                                        div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
-                                                        ).withClass("card-header"),
-                                                        div(
-                                                                div(
-
-                                                                        table(
-                                                                                thead(
-                                                                                        tr(
-                                                                                                th("Number"),
-                                                                                                th("Region"),
-                                                                                                th("Forest user"),
-                                                                                                th("Start date"),
-                                                                                                th("Finish date"),
-                                                                                                th("Forestry"),
-                                                                                                th("Cutting type"),
-                                                                                                th("Ticket status"),
-                                                                                                th("Cutting status")
-                                                                                        )
-                                                                                ),
-                                                                                tfoot(
-                                                                                        tr(
-                                                                                                th("Number"),
-                                                                                                th("Region"),
-                                                                                                th("Forest user"),
-                                                                                                th("Start date"),
-                                                                                                th("Finish date"),
-                                                                                                th("Forestry"),
-                                                                                                th("Cutting type"),
-                                                                                                th("Ticket status"),
-                                                                                                th("Cutting status")
-                                                                                        )
-                                                                                ),
-                                                                                tbody(
-                                                                                        each(list, ticket ->
-                                                                                                div(attrs(".ticket"),
-                                                                                                        tr(
-                                                                                                                td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
-                                                                                                                td(ticket.getRegion()),
-                                                                                                                td(ticket.getForestUser()),
-                                                                                                                td(String.valueOf(ticket.getStartDate())),
-                                                                                                                td(String.valueOf(ticket.getFinishDate())),
-                                                                                                                td(ticket.getForestry()),
-                                                                                                                td(ticket.getCuttingType()),
-                                                                                                                td(ticket.getTicketStatus()),
-                                                                                                                td(ticket.getCuttingStatus())
-                                                                                                        )
-                                                                                                ))
-                                                                                )).withClass("table table-bordered")
-                                                                                        .withId("dataTable").attr("width","100%")
-                                                                                        .attr("cellspacing","0")
-
-                                                                        ).withClass("table-responsive")
-
-                                                                ).withClass("card-body")
-
-                                                        ).withClass("card mb-4"),FOOTER).withClass("content-wrapper pb-0")
+                                                div(BG,TEAM,
+                                                        FOOTER).withClass("content-wrapper pb-0")
 
                                                 ).withClass("main-panel")
                                         ).withClass("container-fluid page-body-wrapper")

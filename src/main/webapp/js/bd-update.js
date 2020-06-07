@@ -32,7 +32,18 @@ $(document).ready(function() {
             }
 
 
+
+
+        })
+
+        .on("click","#stop-update-bd", function () {
+            var resultActionUser = confirm("Do you really want to stop updating the database?");
+            if (resultActionUser) {
+                $.get("/parser-stop");
+
+            }
         });
+
 
 
     $.getJSON("/admin/status", function (checker) {
