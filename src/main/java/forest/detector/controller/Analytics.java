@@ -21,6 +21,7 @@ import static forest.detector.templates.HTMLTemplates.*;
 import static forest.detector.templates.HTMLTemplates.FOOTER;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.td;
+
 @WebServlet(name = "analytics", urlPatterns = {"/analytics"})
 public class Analytics extends HttpServlet {
 
@@ -30,7 +31,7 @@ public class Analytics extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
-        List<Stat>  statCuttingType = ar.statCuttingType(2020);
+        List<Stat> statCuttingType = ar.statCuttingType(2020);
         Stat first = statCuttingType.get(0);
         Stat two = statCuttingType.get(1);
         log.info("Visited analytics page!");
@@ -44,11 +45,12 @@ public class Analytics extends HttpServlet {
 //        List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(300*60);
+        session.setMaxInactiveInterval(300 * 60);
 //        String role = (String) session.getAttribute("role");
 
-        ContainerTag homeHtml = html(HEAD,
-                body( div(div().withId("loader")).withId("loader-wrapper"),
+        ContainerTag homeHtml;
+        homeHtml = html(HEAD,
+                body(div(div().withId("loader")).withId("loader-wrapper"),
 
 //                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
                         script(rawHtml("$('document').ready(function() {\n" +
@@ -60,39 +62,32 @@ public class Analytics extends HttpServlet {
                         div(
 //                                iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
                                 NAV(session),
-
                                 div(
                                         div(
                                                 div(
                                                         div(
                                                                 div(
                                                                         i().withClass("fas fa-chart-area mr-1"),
-                                                                        text("Area Chart Example")
+                                                                        text("Статистика відношень площі та об'єму за переліком ТИП ВИРУБКИ")
                                                                 ).withClass("card-header"),
-                                                                div(
-                                                                    label(first.getStatName()).withClass("pg-h-label"),br(),
+                                                                each(statCuttingType, st ->
                                                                         div(
-
-                                                                        progress()
-                                                                                .withValue(String.valueOf(first.getGeneralAllowedExtent()))
-                                                                                .attr("max","500000")
-                                                                                .withClass("pg-bar-0"),
-                                                                        label(String.valueOf(first.getGeneralAllowedExtent())+" Га").withClass("pg-lable"),
-                                                                        progress()
-                                                                                .withValue(String.valueOf(two.getGeneralAllowedExtent()))
-                                                                                .attr("max","500000")
-                                                                                .withClass("pg-bar-1"),label(String.valueOf(two.getGeneralAllowedExtent())+" М³").withClass("pg-lable")
-                                                                        ).withClass("raw").withStyle("display: inline-block;width: 100%")
-
-                                                                ).withClass("card-body")
-
+                                                                                label(st.getStatName()).withClass("pg-h-label"), br(),
+                                                                                div(
+                                                                                        progress()
+                                                                                                .withValue(String.valueOf(st.getGeneralAllowedExtent()))
+                                                                                                .attr("max", "200000")
+                                                                                                .withClass("pg-bar-0"),
+                                                                                        label(String.valueOf(st.getGeneralAllowedExtent()) + " М³").withClass("pg-lable"),
+                                                                                        progress()
+                                                                                                .withValue(String.valueOf(st.getArea()))
+                                                                                                .attr("max", "5000")
+                                                                                                .withClass("pg-bar-1"), label(String.valueOf(st.getArea()) + " Га").withClass("pg-lable")
+                                                                                ).withClass("raw").withStyle("display: inline-block;width: 100%")
+                                                                        ).withClass("card-body"))
                                                         ).withClass("card mb-4"),
-
-
-
-                                                       GRAPH
-                                                        ,FOOTER).withClass("content-wrapper pb-0")
-,script(rawHtml("// Set new default font family and font color to mimic Bootstrap's default styling\n" +
+                                                        FOOTER).withClass("content-wrapper pb-0")
+                                                , script(rawHtml("// Set new default font family and font color to mimic Bootstrap's default styling\n" +
                                                         "var chart = new Chart('myAreaChart', {\n" +
                                                         "  type: 'horizontalBar',\n" +
                                                         "  data: {\n" +
