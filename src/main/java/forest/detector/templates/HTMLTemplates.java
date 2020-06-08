@@ -220,9 +220,25 @@ public class HTMLTemplates {
                                                 ).withClass("nav-item"),
                                                 li(
                                                         a("Analytics")
-                                                                .withClass("nav-link")
-                                                                .withHref("/analytics-forest-user")
-                                                ).withClass("nav-item"),
+                                                                .withClass("nav-link dropdown-toggle")
+                                                                .withHref("/analytics")
+                                                        .withId("navbarDropdown")
+                                                        .withRole("button")
+                                                        .attr("data-toggle","dropdown")
+                                                        .attr("aria-haspopup","true")
+                                                                .attr("aria-expanded","false")
+
+                                                        ,div(
+                                                                a("Link").withClass("dropdown-item")
+                                                                .withHref("#"),
+                                                                a("Link").withClass("dropdown-item")
+                                                                        .withHref("#"),
+                                                                a("Link").withClass("dropdown-item")
+                                                                        .withHref("#")
+                                                        )
+                                                                .withClass("dropdown-menu")
+                                                        .attr("aria-labelledby","navbarDropdown")
+                                                ).withClass("nav-item dropdown"),
                                                 li(
                                                         a("Table")
                                                                 .withClass("nav-link")
