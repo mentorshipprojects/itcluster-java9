@@ -221,7 +221,7 @@ public class HTMLTemplates {
                                                 li(
                                                         a("Analytics")
                                                                 .withClass("nav-link")
-                                                                .withHref("/analytics")
+                                                                .withHref("/analytics-forest-user")
                                                 ).withClass("nav-item"),
                                                 li(
                                                         a("Table")

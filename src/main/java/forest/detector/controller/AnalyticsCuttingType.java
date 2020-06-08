@@ -22,8 +22,8 @@ import static forest.detector.templates.HTMLTemplates.FOOTER;
 import static j2html.TagCreator.*;
 import static j2html.TagCreator.td;
 
-@WebServlet(name = "analytics", urlPatterns = {"/analytics"})
-public class Analytics extends HttpServlet {
+@WebServlet(name = "analytics-cutting-type", urlPatterns = {"/analytics-cutting-type"})
+public class AnalyticsCuttingType extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Index.class);
     private TicketService ticketService;
@@ -31,10 +31,14 @@ public class Analytics extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
-        List<Stat> statCuttingType = ar.statCuttingType(2020);
-        Stat first = statCuttingType.get(0);
-        Stat two = statCuttingType.get(1);
-        log.info("Visited analytics page!");
+        int year;
+        if (request.getParameter("year") == null) {
+            year = 2020;
+        } else {
+            year = Integer.parseInt(request.getParameter("year"));
+        }
+        List<Stat> statCuttingType = ar.statCuttingType(year);
+        log.info("Visited analytics page! Cutting type.");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
@@ -69,7 +73,7 @@ public class Analytics extends HttpServlet {
                                                                 div(
                                                                         i().withClass("fas fa-chart-area mr-1"),
                                                                         text("Статистика відношень площі та об'єму за переліком ТИП ВИРУБКИ")
-                                                                        ,form(
+                                                                        , form(
                                                                                 select(
                                                                                         option("4561"),
                                                                                         option("4561"),
