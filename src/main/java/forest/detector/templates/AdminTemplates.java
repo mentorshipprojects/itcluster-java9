@@ -77,7 +77,11 @@ public class AdminTemplates {
                                                 .withClass("sb-nav-link-icon"), text("Database")).withClass("nav-link").withHref("/admin"),
                                 a(
                                         div(i().withClass("fas fa-user"))
-                                                .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management")
+                                                .withClass("sb-nav-link-icon"), text("User Management")).withClass("nav-link").withHref("/admin/user-management"),
+                                a(
+                                        div(i().withClass("fas fa-user"))
+                                                .withClass("sb-nav-link-icon"), text("HOME")).withClass("nav-link").withHref("/home")
+
 
 //                                ,a(
 //                                        div(i().withClass("fas fa-sync-alt"))
