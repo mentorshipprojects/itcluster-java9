@@ -69,6 +69,16 @@ public class Analytics extends HttpServlet {
                                                                 div(
                                                                         i().withClass("fas fa-chart-area mr-1"),
                                                                         text("Статистика відношень площі та об'єму за переліком ТИП ВИРУБКИ")
+                                                                        ,form(
+                                                                                select(
+                                                                                        option("4561"),
+                                                                                        option("4561"),
+                                                                                        option("4561"),
+                                                                                        option("4561")
+                                                                                ).withClass("browser-default custom-select")
+                                                                                        .withStyle("width: auto;height: 26px;").withName("year")
+
+                                                                        ).withStyle("width: auto;display: inline;float: right;margin: 0;")
                                                                 ).withClass("card-header"),
                                                                 each(statCuttingType, st ->
                                                                         div(
@@ -84,7 +94,7 @@ public class Analytics extends HttpServlet {
                                                                                                 .attr("max", "5000")
                                                                                                 .withClass("pg-bar-1"), label(String.valueOf(st.getArea()) + " Га").withClass("pg-lable")
                                                                                 ).withClass("raw").withStyle("display: inline-block;width: 100%")
-                                                                        ).withClass("card-body"))
+                                                                        ).withClass("card-body bord"))
                                                         ).withClass("card mb-4"),
                                                         FOOTER).withClass("content-wrapper pb-0")
                                                 , script(rawHtml("// Set new default font family and font color to mimic Bootstrap's default styling\n" +
