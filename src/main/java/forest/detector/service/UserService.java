@@ -37,7 +37,7 @@ public class UserService {
         return repo.getUserByEmail(email);
     }
 
-    public void updateUserRoleInDB(String email, String password, String first_name, String last_name, String avatar, String role){
+    public void updateUserInDB(String email, String password, String first_name, String last_name, String avatar, String role){
         repo.adminUpdateUserInDB(email, password, first_name, last_name, avatar, role);
     }
 

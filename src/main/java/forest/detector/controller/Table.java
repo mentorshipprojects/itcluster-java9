@@ -6,7 +6,6 @@ import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import static forest.detector.templates.HTMLTemplates.*;
 import static forest.detector.templates.HTMLTemplates.FOOTER;
@@ -37,15 +39,36 @@ public class Table extends HttpServlet {
             ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
         List<Ticket> list = ticketService.getTickets();
+        Set<String> forestUser = new TreeSet<>();
+        Set<String> forestry = new TreeSet<>();
+        Set<String> start_date = new TreeSet<>();
+        Set<String> finish_date = new TreeSet<>();
+        Set<String> cutting_type = new TreeSet<>();
+
+        for(int i= 0; i<list.size();i++){
+
+            forestUser.add(list.get(i).getForestUser());
+            forestry.add(list.get(i).getForestry());
+            start_date.add(String.valueOf(list.get(i).getStartDate()));
+            finish_date.add(String.valueOf(list.get(i).getFinishDate()));
+            cutting_type.add(list.get(i).getCuttingType());
+        }
+        Iterator forestUserIterator = forestUser.iterator();
+        Iterator forestUserIterator2 = forestUser.iterator();
+        Iterator forestryIterator = forestry.iterator();
+        Iterator forestryIterator2 = forestry.iterator();
+        Iterator start_dateIterator = start_date.iterator();
+        Iterator start_dateIterator2 = start_date.iterator();
+        Iterator finish_dateIterator = finish_date.iterator();
+        Iterator finish_dateIterator2 = finish_date.iterator();
+        Iterator cuttingTypeIterator = cutting_type.iterator();
+        Iterator cuttingTypeIterator2 = cutting_type.iterator();
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
-//        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
-
-//                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
                                 "        $(\"html\").css(\"overflow\",\"auto\")\n" +
@@ -53,9 +76,7 @@ public class Table extends HttpServlet {
                                 "\n" +
                                 "    });")),
                         div(
-//                                iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
                                 NAV(session),
-
                                 div(
                                         div(
                                                 div(
@@ -63,46 +84,87 @@ public class Table extends HttpServlet {
                                                                 div(i().withClass("fas fa-filter"),text(" Filter")).withClass("card-header"),
                                                                 div(
 
-                                                                        form().withMethod("post").with(
+                                                                        form().withAction("/table").withMethod("post").with(
                                                                                 select(
                                                                                         option("Forest user").attr("selected"),
-                                                                                        option("Калуське лісове господарство").withValue("Калуське лісове господарство"),
-                                                                                        option("2").withValue("2"),
-                                                                                        option("2").withValue("2")
-                                                                                ).withName("forest_user").withClass("browser-default custom-select"),
+                                                                                        option( each(forestUser, ticket ->
+                                                                                                div(attrs(".ticket"),
+                                                                                                        tr(
+
+                                                                                                                option((String) forestUserIterator.next())
+                                                                                                        )))).withValue(
+                                                                                                String.valueOf(each(forestUser, ticket ->
+                                                                                                        div(attrs(".ticket"),
+
+                                                                                                                option((String)forestUserIterator2.next())
+                                                                                                        ))))
+                                                                                ).withClass("browser-default custom-select").withName("forest_user").withId("forest_user"),
+
                                                                                 select(
                                                                                         option("Forestry").attr("selected"),
-                                                                                        option("1").withValue("1"),
-                                                                                        option("2").withValue("2"),
-                                                                                        option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select").withName("forestry")
-                                                                                , select(
+                                                                                        option(each(forestry, ticket ->
+                                                                                                div(attrs(".ticket"),
+                                                                                                        tr(
+                                                                                                                option((String) forestryIterator.next())
+                                                                                                        )))).withValue(
+                                                                                                String.valueOf(each(forestry, ticket ->
+                                                                                                        div(attrs(".ticket"),
+                                                                                                                option((String) forestryIterator2.next())))))
+                                                                                ).withClass("browser-default custom-select").withName("forestry"),
+
+                                                                                 select(
                                                                                         option("Start date").attr("selected"),
-                                                                                        option("1").withValue("1"),
-                                                                                        option("2").withValue("2"),
-                                                                                        option("2").withValue("2")
-                                                                                ).withClass("browser-default custom-select").withName("start_date"),
+                                                                                         option(each(start_date, ticket ->
+                                                                                                 div(attrs(".ticket"),
+                                                                                                         tr(
+                                                                                                                 option((String) start_dateIterator.next())
+                                                                                                         )))).withValue(
+                                                                                                 String.valueOf(each(start_date, ticket ->
+                                                                                                         div(attrs(".ticket"),
+                                                                                                                 tr(
+                                                                                                                         option((String) start_dateIterator2.next())
+                                                                                                                 )))))
+                                                                                 ).withClass("browser-default custom-select").withName("start_date"),
+
                                                                                 select(
                                                                                         option("Finish date").attr("selected"),
-                                                                                        option("1").withValue("1"),
-                                                                                        option("2").withValue("2"),
-                                                                                        option("2").withValue("2")
+                                                                                        option(each(finish_date, ticket ->
+                                                                                                div(attrs(".ticket"),
+                                                                                                        tr(
+                                                                                                                option((String) finish_dateIterator.next())
+                                                                                                        )))).withValue(
+                                                                                                String.valueOf(each(finish_date, ticket ->
+                                                                                                        div(attrs(".ticket"),
+                                                                                                                tr(
+                                                                                                                        option((String) finish_dateIterator2.next())
+                                                                                                                ))))
+                                                                                        )
                                                                                 ).withClass("browser-default custom-select").withName("finish_date"),
+
                                                                                 select(
                                                                                         option("Cutting type").attr("selected"),
-                                                                                        option("1").withValue("1"),
-                                                                                        option("2").withValue("2"),
-                                                                                        option("2").withValue("2")
+                                                                                        option(each(cutting_type, ticket ->
+                                                                                                div(attrs(".ticket"),
+                                                                                                        tr(
+                                                                                                                option((String) cuttingTypeIterator.next())
+                                                                                                        )))).withValue(
+                                                                                                String.valueOf(each(cutting_type, ticket ->
+                                                                                                        div(attrs(".ticket"),
+                                                                                                                tr(
+                                                                                                                        option((String) cuttingTypeIterator2.next())
+                                                                                                                ))))
+                                                                                        )
                                                                                 ).withClass("browser-default custom-select").withName("cutting_type"),
+
                                                                                 button("Search").withClass("btn btn-primary")
                                                                                         .withType("submit")
 
                                                                         ).withClass("filter-form")
+
+
                                                                 ).withClass("card-body")
                                                         ).withClass("card mb-4"),
-
                                                         div(
-
                                                         div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
                                                         ).withClass("card-header"),
                                                         div(
@@ -134,7 +196,6 @@ public class Table extends HttpServlet {
                                                                                                 div(attrs(".ticket"),
                                                                                                         tr(
                                                                                                                 td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
-
                                                                                                                 td(ticket.getForestUser()),
                                                                                                                 td(String.valueOf(ticket.getStartDate())),
                                                                                                                 td(String.valueOf(ticket.getFinishDate())),
@@ -158,21 +219,5 @@ public class Table extends HttpServlet {
                 )
         ).withStyle("overflow:hidden");
         response.getWriter().println(homeHtml.render());
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        if (ticketService == null) {
-            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-
-        String forestUser = (String) request.getAttribute("forest_user");
-        String forestry = (String) request.getAttribute("forestry");
-        String startDate = (String) request.getAttribute("start_date");
-        String finishDate = (String) request.getAttribute("finish_date");
-        String cuttingType = (String) request.getAttribute("cutting_type");
-
-
     }
 }

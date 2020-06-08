@@ -140,7 +140,7 @@ public class Login extends HttpServlet {
                     String str = userService.getUserByEmail(email).getRole();
                     session.setAttribute("role", str);
                     session.setAttribute("password", password);
-                    response.sendRedirect("/admin");
+                    response.sendRedirect("/home");
                 }
                 else if(userValidate.equals("Moderator-api"))
                 {

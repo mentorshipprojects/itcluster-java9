@@ -41,7 +41,6 @@ public class Index extends HttpServlet {
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
-        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml = html(HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),

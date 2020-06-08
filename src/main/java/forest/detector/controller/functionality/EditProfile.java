@@ -92,6 +92,7 @@ public class EditProfile extends HttpServlet {
                                                                                                                                             .withClass("col-4 col-form-label"),
                                                                                                                                     div(
                                                                                                                                             select(
+                                                                                                                                                    option(user.getRole()),
                                                                                                                                                     option("Admin").withValue("admin"),
                                                                                                                                                     option("Moderator-api").withValue("moderator-api"),
                                                                                                                                                     option("Moderator-gui").withValue("moderator-gui"),
@@ -226,9 +227,6 @@ public class EditProfile extends HttpServlet {
             response.getWriter().println(homeHtml.render());
 
         }
-
-
-
     }
 
     @Override
@@ -242,7 +240,7 @@ public class EditProfile extends HttpServlet {
         String role = request.getParameter("role");
 
         if(email != null && role != null){
-            userService.updateUserRoleInDB(email, password, firstName, lastName, avatar, role);
+            userService.updateUserInDB(email, password, firstName, lastName, avatar, role);
             response.sendRedirect("/admin/user-management");
         }
     }

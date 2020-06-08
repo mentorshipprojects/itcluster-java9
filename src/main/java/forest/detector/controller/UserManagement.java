@@ -38,7 +38,6 @@ public class UserManagement extends HttpServlet {
             userService = new UserService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
 
-
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
         String role = (String) session.getAttribute("role");
