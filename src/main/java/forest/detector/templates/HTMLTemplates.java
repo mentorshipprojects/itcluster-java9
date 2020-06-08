@@ -229,12 +229,12 @@ public class HTMLTemplates {
                                                                 .attr("aria-expanded","false")
 
                                                         ,div(
-                                                                a("Link").withClass("dropdown-item")
-                                                                .withHref("#"),
-                                                                a("Link").withClass("dropdown-item")
-                                                                        .withHref("#"),
-                                                                a("Link").withClass("dropdown-item")
-                                                                        .withHref("#")
+                                                                a("Лісове господарство").withClass("dropdown-item")
+                                                                .withHref("analytics-forest-user"),
+                                                                a("Лісництво").withClass("dropdown-item")
+                                                                        .withHref("analytics-forestry"),
+                                                                a("Тип вирубки").withClass("dropdown-item")
+                                                                        .withHref("analytics-cutting-type")
                                                         )
                                                                 .withClass("dropdown-menu")
                                                         .attr("aria-labelledby","navbarDropdown")
