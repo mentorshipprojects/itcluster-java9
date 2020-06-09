@@ -27,7 +27,7 @@ public class updateStatus extends HttpServlet {
             response.sendRedirect("/home");
         else if(role.equals("admin")) {
 
-            log.info("Update status");
+//            log.info("Update status");
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.setStatus(HttpServletResponse.SC_OK);

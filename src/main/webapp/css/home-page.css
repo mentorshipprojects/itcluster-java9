@@ -14837,4 +14837,43 @@ div.scrollup:hover {
          text-transform: capitalize;
        }.rounded-circle.z-depth-5 {
           width: 70% !important;
-        }
+        } .pg-bar-0,.pg-bar-1 {width: 90%;height: 40px;}
+
+@media (min-width: 768px) {
+  .pg-lable {
+    position: relative;
+    top: -13px;
+    left: 5px;
+    font-weight: 700;
+    color: darkslateblue;
+  }
+}
+@media (max-width: 767px) {
+  .pg-lable {
+    position:;
+    top: -13px;
+    left: 5px;
+    font-weight: 700;
+    color: darkslateblue;
+  }
+}
+.pg-bar-0::-moz-progress-bar {
+  background-color: #af90ca;
+}
+.pg-bar-1::-moz-progress-bar {
+  background-color: #c46998;
+}
+
+.pg-bar-1::-webkit-progress-bar {
+  background-color: #af90ca ;
+}
+.pg-bar-1::-webkit-progress-value {
+  background-color: #af90ca ;
+}
+.pg-h-label {
+  font-weight: 700;
+  color: #95139feb;
+  text-transform: uppercase;
+}.bord {
+   border-bottom: 1px solid rgba(0, 0, 0, 0.21);
+ }
