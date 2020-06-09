@@ -20,7 +20,7 @@ import java.util.List;
 import static forest.detector.templates.HTMLTemplates.*;
 import static forest.detector.templates.HTMLTemplates.FOOTER;
 import static j2html.TagCreator.*;
-import static j2html.TagCreator.td;
+
 
 @WebServlet(name = "analytics-cutting-type", urlPatterns = {"/analytics-cutting-type"})
 public class AnalyticsCuttingType extends HttpServlet {
@@ -46,11 +46,9 @@ public class AnalyticsCuttingType extends HttpServlet {
         if (ticketService == null) {
             ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
-//        List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300 * 60);
-//        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml;
         homeHtml = html(

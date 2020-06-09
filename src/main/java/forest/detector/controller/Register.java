@@ -137,10 +137,6 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        PrintWriter writer = response.getWriter();
-
-        String html = "<html><body>";
-
         String email = request.getParameter("email");
         String password = hashing.getHash(request.getParameter("password"));
         String firstName = request.getParameter("firstName");
@@ -155,14 +151,6 @@ public class Register extends HttpServlet {
 
             userService.setUserInDB(email,password,firstName,lastName, avatar);
             response.sendRedirect(request.getContextPath()+ "/login");
-
-        }else{
-            html += "<center>"+
-                    "<h3 style=\"color:#FF0000\";>Wrong email</h3>" +
-                    "<h3 style=\"color:#FF0000\";>please try again</h3>" +
-                    "<center>";
-            html += "</body></html>";
-            writer.println(html);
         }
     }
 }

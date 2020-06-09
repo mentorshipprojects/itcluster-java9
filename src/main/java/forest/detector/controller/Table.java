@@ -38,30 +38,6 @@ public class Table extends HttpServlet {
             ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
         }
         List<Ticket> list = ticketService.getTickets();
-        Set<String> forestUser = new TreeSet<>();
-        Set<String> forestry = new TreeSet<>();
-        Set<String> start_date = new TreeSet<>();
-        Set<String> finish_date = new TreeSet<>();
-        Set<String> cutting_type = new TreeSet<>();
-
-        for(int i= 0; i<list.size();i++){
-
-            forestUser.add(list.get(i).getForestUser());
-            forestry.add(list.get(i).getForestry());
-            start_date.add(String.valueOf(list.get(i).getStartDate()));
-            finish_date.add(String.valueOf(list.get(i).getFinishDate()));
-            cutting_type.add(list.get(i).getCuttingType());
-        }
-        Iterator forestUserIterator = forestUser.iterator();
-        Iterator forestUserIterator2 = forestUser.iterator();
-        Iterator forestryIterator = forestry.iterator();
-        Iterator forestryIterator2 = forestry.iterator();
-        Iterator start_dateIterator = start_date.iterator();
-        Iterator start_dateIterator2 = start_date.iterator();
-        Iterator finish_dateIterator = finish_date.iterator();
-        Iterator finish_dateIterator2 = finish_date.iterator();
-        Iterator cuttingTypeIterator = cutting_type.iterator();
-        Iterator cuttingTypeIterator2 = cutting_type.iterator();
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
