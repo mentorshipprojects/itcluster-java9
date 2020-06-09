@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class TractRepository {
-    private final javax.sql.DataSource dataSource;
+    private final DataSource dataSource;
     private static Logger log = LoggerFactory.getLogger(TractRepository.class);
 
     public TractRepository(DataSource dataSource) {
