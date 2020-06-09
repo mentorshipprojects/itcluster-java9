@@ -125,40 +125,50 @@ public class HTMLTemplates {
                     ).withClass("container")
             ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
     ).withClass("horizontal-menu");
-    public static final ContainerTag ADM_UL = ul(
-            li(
-                    a(
+
+    public static final ContainerTag ADM_UL(String role) {
+
+        if(role == null)
+            return GUEST_UL;
+        else if(role.equals("user")){
+            return USR_UL;
+        }else{
+            return ul(
+                    li(
+                            a(
+                                    div(
+                                            img()
+                                                    .attr("alt", "image")
+                                                    .withSrc("/img/no-ava.png")
+                                    ).withClass("nav-profile-img")
+                            ).withClass("nav-link")
+                                    .withId("profileDropdown")
+                                    .withHref("#")
+                                    .attr("data-toggle", "dropdown")
+                                    .attr("aria-expanded", "false"),
+
                             div(
-                                    img()
-                                            .attr("alt","image")
-                                            .withSrc("/img/no-ava.png")
-                            ).withClass("nav-profile-img")
-                    ).withClass("nav-link")
-                            .withId("profileDropdown")
-                            .withHref("#")
-                            .attr("data-toggle","dropdown")
-                            .attr("aria-expanded","false"),
 
-                    div(
+                                    a(
+                                            i().withClass("mdi mdi-crown mr-2 text-success"), text(" Admin panel ")
+                                    ).withClass("dropdown-item")
+                                            .withHref("/admin"),
+                                    a(
+                                            i().withClass("mdi mdi-settings mr-2 text-success"), text(" Settings ")
+                                    ).withClass("dropdown-item")
+                                            .withHref("/settings"),
 
-                            a(
-                                    i().withClass("mdi mdi-crown mr-2 text-success"), text(" Admin panel ")
-                            ).withClass("dropdown-item")
-                                    .withHref("/admin"),
-                            a(
-                                    i().withClass("mdi mdi-settings mr-2 text-success"), text(" Settings ")
-                            ).withClass("dropdown-item")
-                                    .withHref("/settings"),
+                                    a(
+                                            i().withClass("mdi mdi-logout mr-2 text-success"), text(" Logout ")
+                                    ).withClass("dropdown-item")
+                                            .withHref("/logout")
+                            ).withClass("dropdown-menu navbar-dropdown")
+                                    .attr("aria-labelledby", "profileDropdown")
 
-                            a(
-                                    i().withClass("mdi mdi-logout mr-2 text-success"), text(" Logout ")
-                            ).withClass("dropdown-item")
-                                    .withHref("/logout")
-                    ).withClass("dropdown-menu navbar-dropdown")
-                            .attr("aria-labelledby","profileDropdown")
-
-            ).withClass("nav-item nav-profile dropdown")
-    ).withClass("navbar-nav navbar-nav-right");
+                    ).withClass("nav-item nav-profile dropdown")
+            ).withClass("navbar-nav navbar-nav-right");
+        }
+    }
 
     public static final ContainerTag USR_UL = ul(
             li(
@@ -251,16 +261,9 @@ public class HTMLTemplates {
                         ).withClass("container"),
 
                         div(
-//                                TagCreator.iff(role=null,GUEST_UL,)
-
-                                iffElse(role==null, GUEST_UL, USR_UL)
-//                                iffElse(role.equals("admin"), ADM_UL, GUEST_UL)
-//                                iff(role.equals("admin"), ADM_UL)
-//                                iffElse(role==null, GUEST_UL,iffElse(role.equals("admin"), ADM_UL, GUEST_UL))
 
 
-//                                iffElse(role.equals("admin"), ADM_UL, USR_UL)
-
+                                iffElse(role==null, GUEST_UL, ADM_UL(role))
 
 
                         ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end"),
@@ -276,33 +279,6 @@ public class HTMLTemplates {
 
 
     }
-
-//            nav(
-//                    div(
-//                            div(
-//                                    a("Forest").withClass("navbar-brand")
-//                            ).withClass("text-center navbar-brand-wrapper d-flex align-items-center justify-content-center"),
-//                            div(
-//                                    ul(
-//                                            li(
-//                                                    a("Sign in").withClass("btn btn-outline-success").withHref("/login")
-//
-//                                            ).withClass("nav-item"),
-//                                            li(
-//                                                    a("Sign up").withClass("btn btn-outline-primary").withHref("/register")
-//
-//                                            ).withClass("nav-item")
-//                                    ).withClass("navbar-nav navbar-nav-right"),
-//                                    button(
-//                                            span().withClass("mdi mdi-menu")
-//                                    ).withClass("navbar-toggler navbar-toggler-right d-lg-none align-self-center")
-//                                            .attr("type","button")
-//                                            .attr("data-toggle","horizontal-menu-toggle")
-//
-//                            ).withClass("navbar-menu-wrapper d-flex align-items-center justify-content-end")
-//                    ).withClass("container")
-//            ).withClass("navbar top-navbar col-lg-12 col-12 p-0")
-//    ).withClass("horizontal-menu");
 
     public static final ContainerTag GRAPH = div(
             div(
@@ -329,10 +305,8 @@ div(div(
                 ).withClass("bg").withStyle("background-image: url(https://images2.alphacoders.com/103/1036023.jpg);height: 500px;background-repeat: no-repeat;background-size: 100% 100%;display: table;width: 100%;")
         ).withClass("card-body").withStyle("padding: 3px")
 ).withClass("card mb-4")).withClass("col-xl-6 full")
-
-
-
     ).withClass("row");
+
     public static  final ContainerTag TEAM = section(
             h2("Our amazing team").withClass("h1-responsive font-weight-bold my-4"),
             div(
@@ -385,6 +359,7 @@ div(div(
 
             ).withClass("row")
     ).withClass("text-center my-5 card mb-4");
+
     public static  ContainerTag TABLE = div(
             div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
             ).withClass("card-header"),
@@ -454,9 +429,6 @@ div(div(
             ).withClass("card-body")
 
     ).withClass("card mb-4");
-
-
-
 
     public static final ContainerTag FOOTER = footer(
             div(i().withClass("fa fa-chevron-up")).withClass("scrollup"),
