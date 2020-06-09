@@ -1,9 +1,9 @@
 package forest.detector.controller;
 
 import forest.detector.dao.entity.Stat;
-import forest.detector.dao.entity.Ticket;
 import forest.detector.dao.repository.AnalyticsRepository;
-import forest.detector.service.TicketService;
+
+import forest.detector.service.AnalyticService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,26 +26,28 @@ import static j2html.TagCreator.*;
 public class AnalyticsCuttingType extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Index.class);
-    private TicketService ticketService;
+    private AnalyticService analyticService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
+
+        if (analyticService == null) {
+            analyticService = new AnalyticService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
         int year;
         if (request.getParameter("year") == null) {
             year = 2020;
         } else {
             year = Integer.parseInt(request.getParameter("year"));
         }
-        List<Stat> statCuttingType = ar.statCuttingType(year);
+
+        List<Stat> statCuttingType = analyticService.statCuttingType(year);
+
         log.info("Visited analytics page! Cutting type.");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-
-        if (ticketService == null) {
-            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
 
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300 * 60);
