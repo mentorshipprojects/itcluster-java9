@@ -32,10 +32,22 @@ public class AnalyticsForestUser extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
         int year;
+        String[] selected = new String[3];
         if (request.getParameter("year") == null) {
             year = 2020;
         } else {
             year = Integer.parseInt(request.getParameter("year"));
+        }
+        switch (year) {
+            case 2018:
+                selected[0] = "selected";
+                break;
+            case 2019:
+                selected[1] = "selected";
+                break;
+            case 2020:
+                selected[2] = "selected";
+                break;
         }
         List<Stat> statForestUser = ar.statForestUser(year);
         log.info("Visited analytics page! Forest User.");
@@ -75,15 +87,14 @@ public class AnalyticsForestUser extends HttpServlet {
                                                                         text("Статистика відношень площі та об'єму за переліком ЛІСОВЕ ГОСПОДАРСТВО")
                                                                         , form(
                                                                                 select(
-                                                                                        option("4561"),
-                                                                                        option("4561"),
-                                                                                        option("4561"),
-                                                                                        option("4561")
+                                                                                        option("2018").withValue("2018").attr(selected[0]),
+                                                                                        option("2019").withValue("2019").attr(selected[1]),
+                                                                                        option("2020").withValue("2020").attr(selected[2])
                                                                                 ).withClass("browser-default custom-select")
-                                                                                        .withStyle("width: auto;height: 26px;").withName("year")
-
+                                                                                        .withStyle("width: auto;height: 35px;margin: 3;").withName("year"),
+                                                                                input().withType("submit").withValue("вибрати").withClass("btn btn-primary")
                                                                         ).withStyle("width: auto;display: inline;float: right;margin: 0;")
-                                                                ).withClass("card-header"),
+                                                                ).withClass("card-header").withAction("/analytics-forest-user").withMethod("get"),
                                                                 each(statForestUser, st ->
                                                                         div(
                                                                                 label(st.getStatName()).withClass("pg-h-label"), br(),
