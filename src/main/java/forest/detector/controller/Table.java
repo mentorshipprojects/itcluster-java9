@@ -66,7 +66,10 @@ public class Table extends HttpServlet {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300*60);
 
-        ContainerTag homeHtml = html(HEAD,
+        ContainerTag homeHtml = html(
+
+                title("Лісорубні квитки"),
+                HEAD,
                 body( div(div().withId("loader")).withId("loader-wrapper"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
@@ -79,92 +82,9 @@ public class Table extends HttpServlet {
                                 div(
                                         div(
                                                 div(
+
                                                         div(
-                                                                div(i().withClass("fas fa-filter"),text(" Filter")).withClass("card-header"),
-                                                                div(
-
-                                                                        form().withAction("/table").withMethod("post").with(
-                                                                                select(
-                                                                                        option("Forest user").attr("selected"),
-                                                                                        option( each(forestUser, ticket ->
-                                                                                                div(attrs(".ticket"),
-                                                                                                        tr(
-
-                                                                                                                option((String) forestUserIterator.next())
-                                                                                                        )))).withValue(
-                                                                                                String.valueOf(each(forestUser, ticket ->
-                                                                                                        div(attrs(".ticket"),
-
-                                                                                                                option((String)forestUserIterator2.next())
-                                                                                                        ))))
-                                                                                ).withClass("browser-default custom-select").withName("forest_user").withId("forest_user"),
-
-                                                                                select(
-                                                                                        option("Forestry").attr("selected"),
-                                                                                        option(each(forestry, ticket ->
-                                                                                                div(attrs(".ticket"),
-                                                                                                        tr(
-                                                                                                                option((String) forestryIterator.next())
-                                                                                                        )))).withValue(
-                                                                                                String.valueOf(each(forestry, ticket ->
-                                                                                                        div(attrs(".ticket"),
-                                                                                                                option((String) forestryIterator2.next())))))
-                                                                                ).withClass("browser-default custom-select").withName("forestry"),
-
-                                                                                 select(
-                                                                                        option("Start date").attr("selected"),
-                                                                                         option(each(start_date, ticket ->
-                                                                                                 div(attrs(".ticket"),
-                                                                                                         tr(
-                                                                                                                 option((String) start_dateIterator.next())
-                                                                                                         )))).withValue(
-                                                                                                 String.valueOf(each(start_date, ticket ->
-                                                                                                         div(attrs(".ticket"),
-                                                                                                                 tr(
-                                                                                                                         option((String) start_dateIterator2.next())
-                                                                                                                 )))))
-                                                                                 ).withClass("browser-default custom-select").withName("start_date"),
-
-                                                                                select(
-                                                                                        option("Finish date").attr("selected"),
-                                                                                        option(each(finish_date, ticket ->
-                                                                                                div(attrs(".ticket"),
-                                                                                                        tr(
-                                                                                                                option((String) finish_dateIterator.next())
-                                                                                                        )))).withValue(
-                                                                                                String.valueOf(each(finish_date, ticket ->
-                                                                                                        div(attrs(".ticket"),
-                                                                                                                tr(
-                                                                                                                        option((String) finish_dateIterator2.next())
-                                                                                                                ))))
-                                                                                        )
-                                                                                ).withClass("browser-default custom-select").withName("finish_date"),
-
-                                                                                select(
-                                                                                        option("Cutting type").attr("selected"),
-                                                                                        option(each(cutting_type, ticket ->
-                                                                                                div(attrs(".ticket"),
-                                                                                                        tr(
-                                                                                                                option((String) cuttingTypeIterator.next())
-                                                                                                        )))).withValue(
-                                                                                                String.valueOf(each(cutting_type, ticket ->
-                                                                                                        div(attrs(".ticket"),
-                                                                                                                tr(
-                                                                                                                        option((String) cuttingTypeIterator2.next())
-                                                                                                                ))))
-                                                                                        )
-                                                                                ).withClass("browser-default custom-select").withName("cutting_type"),
-
-                                                                                button("Search").withClass("btn btn-primary")
-                                                                                        .withType("submit")
-
-                                                                        ).withClass("filter-form")
-
-
-                                                                ).withClass("card-body")
-                                                        ).withClass("card mb-4"),
-                                                        div(
-                                                        div(i().withClass("fas fa-table mr-1"),text("DataTable Example")
+                                                        div(i().withClass("fas fa-table mr-1"),text("Лісорубні квитки")
                                                         ).withClass("card-header"),
                                                         div(
                                                                 div(
@@ -172,29 +92,29 @@ public class Table extends HttpServlet {
                                                                         table(
                                                                                 thead(
                                                                                         tr(
-                                                                                                th("Number"),
-                                                                                                th("Forest user"),
-                                                                                                th("Start date"),
-                                                                                                th("Finish date"),
-                                                                                                th("Forestry"),
-                                                                                                th("Cutting type")
+                                                                                                th("Номер"),
+                                                                                                th("Лісове господарство"),
+                                                                                                th("Початок дії"),
+                                                                                                th("Кінець дії"),
+                                                                                                th("Лісництво"),
+                                                                                                th("Тип рубки")
                                                                                         )
                                                                                 ),
                                                                                 tfoot(
                                                                                         tr(
-                                                                                                th("Number"),
-                                                                                                th("Forest user"),
-                                                                                                th("Start date"),
-                                                                                                th("Finish date"),
-                                                                                                th("Forestry"),
-                                                                                                th("Cutting type")
+                                                                                                th("Номер"),
+                                                                                                th("Лісове господарство"),
+                                                                                                th("Початок дії"),
+                                                                                                th("Кінець дії"),
+                                                                                                th("Лісництво"),
+                                                                                                th("Тип рубки")
                                                                                         )
                                                                                 ),
                                                                                 tbody(
                                                                                         each(list, ticket ->
                                                                                                 div(attrs(".ticket"),
                                                                                                         tr(
-                                                                                                                td(a(ticket.getNumber()).withHref("/tracts?tract="+ticket.getId())),
+                                                                                                                td(a(ticket.getNumber()).withTarget("_blank").withHref("/tracts?ticket-id="+ticket.getId())),
                                                                                                                 td(ticket.getForestUser()),
                                                                                                                 td(String.valueOf(ticket.getStartDate())),
                                                                                                                 td(String.valueOf(ticket.getFinishDate())),

@@ -62,7 +62,9 @@ public class AnalyticsForestry extends HttpServlet {
         session.setMaxInactiveInterval(300 * 60);
 
         ContainerTag homeHtml;
-        homeHtml = html(HEAD,
+        homeHtml = html(
+                title("Статистика відношень площі та об'єму за переліком ЛІСНИЦТВ"),
+                HEAD,
                 body(div(div().withId("loader")).withId("loader-wrapper"),
 
                         script(rawHtml("$('document').ready(function() {\n" +

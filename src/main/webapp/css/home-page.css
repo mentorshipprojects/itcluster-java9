@@ -3142,7 +3142,8 @@ pre {
     border-top: 1px solid #e4e9f0; }
   .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #e4e9f0; }
+    border-bottom: 2px solid #e4e9f0;
+    border-top: 1px solid #e4e9f0 !important;}
   .table tbody + tbody {
     border-top: 2px solid #e4e9f0; }
 
@@ -14880,3 +14881,4 @@ div.scrollup:hover {
     font-family: arial;
     font-size: 16px;
   }
+  .table-td-c {text-align: center;}

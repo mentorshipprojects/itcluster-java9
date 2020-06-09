@@ -64,7 +64,12 @@ public class AnalyticsForestUser extends HttpServlet {
 
 
         ContainerTag homeHtml;
-        homeHtml = html(HEAD,
+        homeHtml = html
+
+                (
+                        title("Статистика відношень площі та об'єму за переліком ЛІСОВЕ ГОСПОДАРСТВО"),
+
+                        HEAD,
                 body(div(div().withId("loader")).withId("loader-wrapper"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
