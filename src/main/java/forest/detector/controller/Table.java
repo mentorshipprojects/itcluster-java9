@@ -26,7 +26,6 @@ import static j2html.TagCreator.td;
 public class Table extends HttpServlet {
 
     private static Logger log = LoggerFactory.getLogger(Index.class);
-    //  private UserService userService;
     private TicketService ticketService;
 
     @Override

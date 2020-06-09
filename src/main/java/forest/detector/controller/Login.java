@@ -136,7 +136,6 @@ public class Login extends HttpServlet {
 
                 if(userValidate.equals("Admin_Role"))
                 {
-
                     session.setAttribute("email", email); //setting session attribute
                     String str = userService.getUserByEmail(email).getRole();
                     session.setAttribute("role", str);
@@ -145,7 +144,6 @@ public class Login extends HttpServlet {
                 }
                 else if(userValidate.equals("Moderator-api"))
                 {
-
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setAttribute("password", password);
@@ -153,7 +151,6 @@ public class Login extends HttpServlet {
                 }
                 else if(userValidate.equals("Moderator-gui"))
                 {
-
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setAttribute("password", password);
@@ -161,7 +158,6 @@ public class Login extends HttpServlet {
                 }
                 else if(userValidate.equals("User"))
                 {
-
                     session.setAttribute("email", email);
                     session.setAttribute("role",  userService.getUserByEmail(email).getRole());
                     session.setAttribute("password", password);

@@ -3,6 +3,7 @@ package forest.detector.controller;
 import forest.detector.dao.entity.Stat;
 import forest.detector.dao.entity.Ticket;
 import forest.detector.dao.repository.AnalyticsRepository;
+import forest.detector.service.AnalyticService;
 import forest.detector.service.TicketService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
@@ -25,12 +26,16 @@ import static j2html.TagCreator.td;
 @WebServlet(name = "analytics-forest-user", urlPatterns = {"/analytics-forest-user"})
 public class AnalyticsForestUser extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(Index.class);
-    private TicketService ticketService;
+    private static Logger log = LoggerFactory.getLogger(AnalyticsForestUser.class);
+    private AnalyticService analyticService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
+
+        if (analyticService == null) {
+            analyticService = new AnalyticService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+
         int year;
         String[] selected = new String[3];
         if (request.getParameter("year") == null) {
@@ -49,26 +54,18 @@ public class AnalyticsForestUser extends HttpServlet {
                 selected[2] = "selected";
                 break;
         }
-        List<Stat> statForestUser = ar.statForestUser(year);
+        List<Stat> statForestUser = analyticService.statForestUser(year);
         log.info("Visited analytics page! Forest User.");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
-
-        if (ticketService == null) {
-            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-//        List<Ticket> list = ticketService.getTickets();
-
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300 * 60);
-//        String role = (String) session.getAttribute("role");
+
 
         ContainerTag homeHtml;
         homeHtml = html(HEAD,
                 body(div(div().withId("loader")).withId("loader-wrapper"),
-
-//                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
                                 "        $(\"html\").css(\"overflow\",\"auto\")\n" +
@@ -76,7 +73,6 @@ public class AnalyticsForestUser extends HttpServlet {
                                 "\n" +
                                 "    });")),
                         div(
-//                                iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
                                 NAV(session),
                                 div(
                                         div(
