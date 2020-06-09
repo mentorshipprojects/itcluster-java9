@@ -29,7 +29,7 @@ public class TemplateController extends HttpServlet {
         response.setStatus(HttpServletResponse.SC_OK);
 
         HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(300*60);
+//        session.setMaxInactiveInterval(300*60);
         String role = (String) session.getAttribute("role");
         if(role == null)
             response.sendRedirect("/home");

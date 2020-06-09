@@ -37,7 +37,7 @@ public class Analytics extends HttpServlet {
 //        List<Ticket> list = ticketService.getTickets();
 
         HttpSession session = request.getSession();
-        session.setMaxInactiveInterval(300*60);
+//        session.setMaxInactiveInterval(300*60);
 //        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml = html(HEAD,
