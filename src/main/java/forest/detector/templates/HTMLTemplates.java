@@ -253,7 +253,7 @@ public class HTMLTemplates {
                                                         a("Лісорубні квитки")
                                                                 .withClass("nav-link")
                                                                 .withHref("/table")
-                                                ).withClass("nav-item")
+                                                ).withClass("nav-item").withStyle("width: 140px;")
 
                                         ).withClass("navbar-nav mr-auto")
                                 ).withClass("collapse navbar-collapse").withId("navbarSupportedContent")

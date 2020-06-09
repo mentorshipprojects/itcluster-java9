@@ -53,7 +53,10 @@ public class AnalyticsCuttingType extends HttpServlet {
 //        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml;
-        homeHtml = html(HEAD,
+        homeHtml = html(
+                title("Статистика відношень площі та об'єму за переліком ТИП ВИРУБКИ"),
+
+                HEAD,
                 body(div(div().withId("loader")).withId("loader-wrapper"),
 
 //                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
