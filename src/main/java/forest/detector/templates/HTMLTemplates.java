@@ -229,7 +229,7 @@ public class HTMLTemplates {
                                                                 .withHref("/home")
                                                 ).withClass("nav-item"),
                                                 li(
-                                                        a("Analytics")
+                                                        a("Статистика")
                                                                 .withClass("nav-link dropdown-toggle")
                                                                 .withHref("/analytics")
                                                         .withId("navbarDropdown")
@@ -250,7 +250,7 @@ public class HTMLTemplates {
                                                         .attr("aria-labelledby","navbarDropdown")
                                                 ).withClass("nav-item dropdown"),
                                                 li(
-                                                        a("Table")
+                                                        a("Лісорубні квитки")
                                                                 .withClass("nav-link")
                                                                 .withHref("/table")
                                                 ).withClass("nav-item")

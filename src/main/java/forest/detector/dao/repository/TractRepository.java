@@ -1,11 +1,14 @@
 package forest.detector.dao.repository;
 
+import forest.detector.dao.entity.Ticket;
 import forest.detector.dao.entity.Tract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TractRepository {
     private final javax.sql.DataSource dataSource;
@@ -13,6 +16,30 @@ public class TractRepository {
 
     public TractRepository(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    public List<Tract> getTracts(int ticketID) {
+        List<Tract> list = new ArrayList<>();
+        String query = "select * from tracts WHERE ticket_id=?";
+        try (Connection connection = dataSource.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, ticketID);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Tract tract = new Tract();
+                tract.setQuarter(rs.getString("quarter"));
+                tract.setDivision(rs.getString("division"));
+                tract.setRange(rs.getString("range"));
+                tract.setArea(rs.getFloat("area"));
+                tract.setForestType(rs.getString("forest_type"));
+                tract.setGeneralAllowedExtent(rs.getInt("general_allowed_extent"));
+                tract.setContributor(rs.getString("contributor"));
+                list.add(tract);
+            }
+        } catch (Exception e) {
+            log.error("Can't get tracts.", e);
+        }
+        return list;
     }
 
     public void save(Tract tract) {

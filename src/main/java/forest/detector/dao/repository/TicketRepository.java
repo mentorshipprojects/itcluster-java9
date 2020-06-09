@@ -24,7 +24,7 @@ public class TicketRepository {
 
         try (Connection con = dataSource.getConnection()) {
             // test connection here
-            PreparedStatement ps = con.prepareStatement("select * from tickets LIMIT 50");
+            PreparedStatement ps = con.prepareStatement("select * from tickets");
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
