@@ -12435,7 +12435,7 @@ code {
       background: initial; }
     .dropdown .dropdown-menu .dropdown-item:hover {
       background-color: #ececec;
-      color: #ffffff;
+      color: #333;
     transition: all 0.3s ease;}
 
 /* Forms */
@@ -14876,4 +14876,7 @@ div.scrollup:hover {
   text-transform: uppercase;
 }.bord {
    border-bottom: 1px solid rgba(0, 0, 0, 0.21);
- }
+ }.nav-item {
+    font-family: arial;
+    font-size: 16px;
+  }

@@ -1,11 +1,13 @@
 package forest.detector.controller;
 
 import forest.detector.dao.entity.Stat;
-
-import forest.detector.service.AnalyticService;
+import forest.detector.dao.entity.Ticket;
+import forest.detector.dao.repository.AnalyticsRepository;
+import forest.detector.service.TicketService;
 import j2html.tags.ContainerTag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,51 +20,43 @@ import java.util.List;
 import static forest.detector.templates.HTMLTemplates.*;
 import static forest.detector.templates.HTMLTemplates.FOOTER;
 import static j2html.TagCreator.*;
-
+import static j2html.TagCreator.td;
 
 @WebServlet(name = "analytics-cutting-type", urlPatterns = {"/analytics-cutting-type"})
 public class AnalyticsCuttingType extends HttpServlet {
 
-    private static Logger log = LoggerFactory.getLogger(AnalyticsCuttingType.class);
-    private AnalyticService analyticService;
+    private static Logger log = LoggerFactory.getLogger(Index.class);
+    private TicketService ticketService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        if (analyticService == null) {
-            analyticService = new AnalyticService((DataSource) request.getServletContext().getAttribute("datasource"));
-        }
-
+        AnalyticsRepository ar = new AnalyticsRepository((DataSource) request.getServletContext().getAttribute("datasource"));
         int year;
-        String[] selected = new String[3];
-        if (request.getParameter("year") == null)
+        if (request.getParameter("year") == null) {
             year = 2020;
-         else
+        } else {
             year = Integer.parseInt(request.getParameter("year"));
-
-        switch (year) {
-            case 2018:
-                selected[0] = "selected";
-                break;
-            case 2019:
-                selected[1] = "selected";
-                break;
-            case 2020:
-                selected[2] = "selected";
-                break;
         }
-
-        List<Stat> statCuttingType = analyticService.statCuttingType(year);
+        List<Stat> statCuttingType = ar.statCuttingType(year);
         log.info("Visited analytics page! Cutting type.");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
+
+        if (ticketService == null) {
+            ticketService = new TicketService((DataSource) request.getServletContext().getAttribute("datasource"));
+        }
+//        List<Ticket> list = ticketService.getTickets();
+
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(300 * 60);
+//        String role = (String) session.getAttribute("role");
 
         ContainerTag homeHtml;
         homeHtml = html(HEAD,
                 body(div(div().withId("loader")).withId("loader-wrapper"),
+
+//                        div(img().withSrc("/img/preloader.gif")).withId("pre-loader-b"),
                         script(rawHtml("$('document').ready(function() {\n" +
                                 "$(\"#loader-wrapper\").css(\"display\",\"none\")\n" +
                                 "        $(\"html\").css(\"overflow\",\"auto\")\n" +
@@ -70,6 +64,7 @@ public class AnalyticsCuttingType extends HttpServlet {
                                 "\n" +
                                 "    });")),
                         div(
+//                                iffElse(role == null, NAV,iffElse(role == "admin",  NAV_LOGOUT,ADM_NAV)),
                                 NAV(session),
                                 div(
                                         div(
@@ -80,14 +75,15 @@ public class AnalyticsCuttingType extends HttpServlet {
                                                                         text("Статистика відношень площі та об'єму за переліком ТИП ВИРУБКИ")
                                                                         , form(
                                                                                 select(
-                                                                                        option("2018").withValue("2018").attr(selected[0]),
-                                                                                        option("2019").withValue("2019").attr(selected[1]),
-                                                                                        option("2020").withValue("2020").attr(selected[2])
-                                                                                ).withClass("browser-default custom-select")
-                                                                                        .withStyle("width: auto;height: 35px;margin: 3;").withName("year"),
+                                                                                        option("2020").withValue("2020"),
+                                                                                        option("2019").withValue("2019"),
+                                                                                        option("2018").withValue("2018"),
+                                                                                        option("2017").withValue("2017")
+                                                                                ).withClass("browser-default custom-select").withType("submit")
+                                                                                        .withStyle("width: auto;height: 26px;").withName("year"),
                                                                                 input().withType("submit").withValue("вибрати").withClass("btn btn-primary")
                                                                         ).withStyle("width: auto;display: inline;float: right;margin: 0;")
-                                                                ).withClass("card-header").withAction("/analytics-cutting-type").withMethod("get"),
+                                                                ).withClass("card-header"),
                                                                 each(statCuttingType, st ->
                                                                         div(
                                                                                 label(st.getStatName()).withClass("pg-h-label"), br(),

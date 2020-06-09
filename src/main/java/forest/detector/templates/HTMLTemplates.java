@@ -231,7 +231,7 @@ public class HTMLTemplates {
                                                 li(
                                                         a("Analytics")
                                                                 .withClass("nav-link dropdown-toggle")
-                                                                .withHref("/analytics")
+                                                                .withHref("#")
                                                         .withId("navbarDropdown")
                                                         .withRole("button")
                                                         .attr("data-toggle","dropdown")
@@ -239,12 +239,12 @@ public class HTMLTemplates {
                                                                 .attr("aria-expanded","false")
 
                                                         ,div(
-                                                                a("Лісове господарство").withClass("dropdown-item")
-                                                                .withHref("analytics-forest-user"),
-                                                                a("Лісництво").withClass("dropdown-item")
-                                                                        .withHref("analytics-forestry"),
-                                                                a("Тип вирубки").withClass("dropdown-item")
-                                                                        .withHref("analytics-cutting-type")
+                                                                a("Cutting type").withClass("dropdown-item")
+                                                                        .withHref("/analytics-cutting-type"),
+                                                                a("Forestry").withClass("dropdown-item")
+                                                                        .withHref("/analytics-forestry"),
+                                                                a("Forest user").withClass("dropdown-item")
+                                                                        .withHref("/analytics-forest-user")
                                                         )
                                                                 .withClass("dropdown-menu")
                                                         .attr("aria-labelledby","navbarDropdown")
